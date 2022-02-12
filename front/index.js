@@ -3,13 +3,39 @@ async function loadBooks() {
   const books = await data.json();
   console.log(books);
 
-  document.querySelector(".books").innerHTML = "";
+  const $content = document.querySelector(".books>tbody");
+  $content.innerHTML = "";
 
-  books.books.forEach(function (element) {
-    const list = document.createElement("li");
-    list.innerHTML = element.name;
+  books.books.forEach(function (book) {
+    const $list = document.createElement("tr");
+    const $idcell = document.createElement("td");
+    const $namecell = document.createElement("td");
+    const $actioncell = document.createElement("td");
+    const $editButton = document.createElement("button");
+    const $deleteButton = document.createElement("button");
 
-    document.querySelector(".books").appendChild(list);
+    $idcell.innerHTML = book.id;
+    $namecell.innerHTML = book.name;
+
+    $editButton.innerHTML = "Edit";
+    $deleteButton.innerHTML = "Delete";
+    
+    $editButton.className = "editButton"
+    $deleteButton.className = "deleteButton"
+
+    $actioncell.appendChild($editButton);
+    $actioncell.appendChild($deleteButton);
+
+    $editButton.addEventListener("click",function(event){
+      console.log(book.id);
+      alert(book.id);
+    })
+
+    $list.appendChild($idcell);
+    $list.appendChild($namecell);
+    $list.appendChild($actioncell);
+
+    $content.appendChild($list);
   });
 }
 
@@ -19,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let name = document.querySelector(".bookinput").value;
 
     await fetch("http://localhost:3000/books", {
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name: name }),
       headers: {
         "Content-Type": "application/json",
       },
