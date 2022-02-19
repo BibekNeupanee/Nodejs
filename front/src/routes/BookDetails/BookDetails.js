@@ -1,16 +1,16 @@
 import React from "react";
-import AboutUs from "../../components/AboutUs/AboutUs";
+import BookDetail from "../../components/BookDetail/BookDetail";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 
-function About() {
+function BookDetails() {
   return (
     <div>
       <Header />
-      <AboutUs />
+      <BookDetail />
       <Footer />
     </div>
   );
 }
 
-export default About;
+export default BookDetails;

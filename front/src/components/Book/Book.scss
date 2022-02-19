@@ -6,14 +6,20 @@
   gap: 5px;
   
   .book-title {
+    text-decoration: none;
     font-weight: bold;
+    color: inherit;
   }
-
+  
+  .book-title:hover{
+    color: purple;
+  }
+  
   .book-autors {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-
+    
     span {
       padding:0.125em  0.5em;
       background: #eee;
