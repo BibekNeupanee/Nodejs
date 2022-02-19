@@ -1,7 +1,7 @@
 .menu{
     display: flex;
     gap: 1em;
-    a{
+    &__link{
         text-decoration: none;
         color: inherit;
     }

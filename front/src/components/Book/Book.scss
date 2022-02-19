@@ -1,0 +1,22 @@
+.book {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+  gap: 5px;
+  
+  .book-title {
+    font-weight: bold;
+  }
+
+  .book-autors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    span {
+      padding:0.125em  0.5em;
+      background: #eee;
+    }
+  }
+}

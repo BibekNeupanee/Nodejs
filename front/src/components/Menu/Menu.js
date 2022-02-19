@@ -1,11 +1,15 @@
 import React from "react";
-import "./Menu.scss"
+import { Link } from "react-router-dom";
+import "./Menu.scss";
 function Menu() {
   return (
     <div className="menu">
-      <a href="/">Home</a>
-      <a href="/">Contact Us</a>
-      <a href="/">About Us</a>
+      <Link className="menu__link" to={"/"}>
+        Home
+      </Link>
+      <Link className="menu__link" to={"/about"}>
+        About Us
+      </Link>
     </div>
   );
 }

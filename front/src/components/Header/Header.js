@@ -6,7 +6,8 @@ function Header() {
   return (
     <header>
       <div className="logo">LOGO</div>
-      <Menu/>
+      <Menu />
+      {/* usercontrol component */}
     </header>
   );
 }

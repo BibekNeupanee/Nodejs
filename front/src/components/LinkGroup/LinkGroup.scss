@@ -1,0 +1,27 @@
+.link-group {
+  color: black;
+  padding: 1em;
+  display: grid;
+  gap: 1em;
+
+  &__header {
+    font-weight: bold;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+    list-style: none;
+    display: list-item;
+
+    &:hover {
+      color: purple;
+    }
+  }
+}
