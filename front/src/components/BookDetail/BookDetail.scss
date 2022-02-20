@@ -1,3 +1,20 @@
-.book-detail{
-    display: flex;
+.book-detail {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+  gap: 5px;
+
+  &__image {
+  }
+
+  &__info {
+  }
+
+  &__authors {
+  }
+
+  &__title {
+    font-weight: bold;
+  }
 }

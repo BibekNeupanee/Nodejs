@@ -17,9 +17,9 @@ function BookDetail() {
       <img className="book-detail__image" src={book.image} />
       <div className="book-detail__info">
         <div className="book-detail__title">{book.title}</div>
-        <div class="book-detail__authors">
-          {book.authors.map((author) => (
-            <span className="book-detail__author">{author}</span>
+        <div className="book-detail__authors">
+          {book.authors.map((author,i) => (
+            <span className="book-detail__author" key={i}>{author}</span>
           ))}
         </div>
       </div>
