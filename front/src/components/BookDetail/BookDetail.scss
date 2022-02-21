@@ -1,20 +1,41 @@
 .book-detail {
-  padding: 1em;
   display: flex;
-  flex-direction: column;
-  border: 1px solid #eee;
-  gap: 5px;
+  flex-direction: row;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5em;
+  padding: 1em;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 
+  max-width: 25%;
   &__image {
+    border: 2px solid black;
   }
 
   &__info {
-  }
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
 
-  &__authors {
+    p {
+      margin-top: 0.5em;
+      display: inline;
+      font-weight: bold;
+      flex-wrap: wrap;
+    }
   }
 
   &__title {
     font-weight: bold;
+    font-size: 30pt;
+  }
+
+  &__authors {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.5em;
   }
 }
