@@ -13,8 +13,7 @@ function BookDetail() {
     year: "2018",
     pages: "200",
     isbn: "1234567890",
-    editionId: "123134564"
-
+    editionId: "123134564",
   };
 
   const { id } = useParams();
@@ -24,15 +23,28 @@ function BookDetail() {
       <div className="book-detail__info">
         <div className="book-detail__title">{book.title}</div>
         <div className="book-detail__authors">
-          {book.authors.map((author,i) => (
-            <span className="book-detail__author" key={i}>{author}</span>
+          {book.authors.map((author, i) => (
+            <span className="book-detail__author" key={i}>
+              {author}
+            </span>
           ))}
         </div>
-        <div className="book-detail__publisher"><p>Publisher:</p> {book.publisher}</div>
-        <div className="book-detail__year"><p>Year:</p> {book.year}</div>
-        <div className="book-detail__pages"><p>Pages:</p> {book.year}</div>
-        <div className="book-detail__isbn"><p>ISBN:</p> {book.isbn}</div>
-        <div className="book-detail__editionId"> <p>Edition Id:</p> {book.editionId}</div>
+        <div className="book-detail__publisher">
+          <p>Publisher:</p> {book.publisher}
+        </div>
+        <div className="book-detail__year">
+          <p>Year:</p> {book.year}
+        </div>
+        <div className="book-detail__pages">
+          <p>Pages:</p> {book.year}
+        </div>
+        <div className="book-detail__isbn">
+          <p>ISBN:</p> {book.isbn}
+        </div>
+        <div className="book-detail__editionId">
+          {" "}
+          <p>Edition Id:</p> {book.editionId}
+        </div>
       </div>
     </div>
   );
