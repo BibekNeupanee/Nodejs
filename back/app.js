@@ -1,17 +1,15 @@
 var Connection = require('tedious').Connection;  
     var config = {  
-        server: 'Bibek_PC\Nbibe',  //update me
+        server: 'Bibek_PC\Nbibe',
         authentication: {
             type: 'default',
             options: {
-                userName: 'Bibek_PC', //update me
-                password: 'manakamana@321'  //update me
+                userName: 'Bibek_PC', 
+                password: 'manakamana@321'
             }
         },
         options: {
-            // If you are on Microsoft Azure, you need encryption:
-            encrypt: true,
-            database: 'bookStore'  //update me
+            database: 'bookStore'
         }
     };  
     var connection = new Connection(config);  
