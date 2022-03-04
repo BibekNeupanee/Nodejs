@@ -1,12 +1,13 @@
 import "./App.scss";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
+import { Routes, Route } from "react-router-dom";
+import Dashboard from "./routes/Dashboard/Dashboard";
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <div className="body">bibek</div>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+      </Routes>
     </div>
   );
 }
