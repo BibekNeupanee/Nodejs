@@ -6,20 +6,20 @@ function BookType() {
     <div className="section">
       <header>
         <span>All Book Categories (4)</span>
-        <div class="btn" id="add_books" title="Add New Book">
+        <div className="btn" id="add_books" title="Add New Book">
           + Add new
         </div>
       </header>
-      <main class="">
-        <div class="item">
-          <div class="left">
-            <div class="name">Adventure</div>
+      <main className="">
+        <div className="item">
+          <div className="left">
+            <div className="name">Adventure</div>
           </div>
-          <div class="right flow">
-            <button class="btn" title="Edit">
+          <div className="right flow">
+            <button className="btn" title="Edit">
               Edit
             </button>
-            <button class="btn" title="Delete">
+            <button className="btn" title="Delete">
               Delete
             </button>
           </div>

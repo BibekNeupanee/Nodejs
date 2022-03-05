@@ -6,22 +6,22 @@ function BookList() {
     <div className="section">
       <header>
         <span>All Books (21)</span>
-        <div class="btn" id="add_books" title="Add New Book">
+        <div className="btn" id="add_books" title="Add New Book">
           + Add new
         </div>
       </header>
       <main>
-        <div class="item">
-          <div class="left">
-            <div class="name">Book 1</div>
-            <div class="publisher">Publisher 1</div>
-            <div class="price">$100</div>
+        <div className="item">
+          <div className="left">
+            <div className="name">Book 1</div>
+            <div className="publisher">Publisher 1</div>
+            <div className="price">$100</div>
           </div>
-          <div class="right">
-            <button class="btn" title="Edit">
+          <div className="right">
+            <button className="btn" title="Edit">
               Edit
             </button>
-            <button class="btn" title="Delete">
+            <button className="btn" title="Delete">
               Delete
             </button>
           </div>
