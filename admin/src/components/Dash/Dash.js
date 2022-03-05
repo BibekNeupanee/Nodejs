@@ -2,6 +2,7 @@ import React from "react";
 import Author from "../Author/Author";
 import BookList from "../BookList/BookList";
 import BookType from "../BookType/BookType";
+import Publisher from "../Publisher/Publisher";
 import "./Dash.scss";
 
 function Dash() {
@@ -15,6 +16,9 @@ function Dash() {
       </div>
       <div className="authors">
         <Author />
+      </div>
+      <div className="publishers">
+        <Publisher />
       </div>
     </div>
   );
