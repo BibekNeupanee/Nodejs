@@ -1,4 +1,5 @@
 import React from "react";
+import Author from "../Author/Author";
 import BookList from "../BookList/BookList";
 import BookType from "../BookType/BookType";
 import "./Dash.scss";
@@ -11,6 +12,9 @@ function Dash() {
       </div>
       <div className="types">
         <BookType />
+      </div>
+      <div className="authors">
+        <Author />
       </div>
     </div>
   );
