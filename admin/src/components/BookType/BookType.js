@@ -1,23 +1,21 @@
 import React from "react";
-import "./BookList.scss"
+import "./BookType.scss"
 
-function BookList() {
+function BookType() {
   return (
     <div className="section">
       <header>
-        <span>All Books (21)</span>
+        <span>All Book Categories (4)</span>
         <div class="btn" id="add_books" title="Add New Book">
           + Add new
         </div>
       </header>
-      <main>
+      <main class="">
         <div class="item">
           <div class="left">
-            <div class="name">Book 1</div>
-            <div class="publisher">Publisher 1</div>
-            <div class="price">$100</div>
+            <div class="name">Adventure</div>
           </div>
-          <div class="right">
+          <div class="right flow">
             <button class="btn" title="Edit">
               Edit
             </button>
@@ -31,4 +29,4 @@ function BookList() {
   );
 }
 
-export default BookList;
+export default BookType;
