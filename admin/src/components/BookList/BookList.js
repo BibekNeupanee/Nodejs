@@ -3,25 +3,25 @@ import "./BookList.scss"
 
 function BookList() {
   return (
-    <div className="section">
-      <header>
+    <div className="book-list">
+      <header className="book-list__header">
         <span>All Books (21)</span>
-        <div className="btn" id="add_books" title="Add New Book">
+        <div className="book-list__btn" id="add_books" title="Add New Book">
           + Add new
         </div>
       </header>
-      <main>
-        <div className="item">
-          <div className="left">
-            <div className="name">Book 1</div>
-            <div className="publisher">Publisher 1</div>
-            <div className="price">$100</div>
+      <main className="book-list__main">
+        <div className="book-list__item">
+          <div className="book-list__left">
+            <div className="book-list__name">Book 1</div>
+            <div className="book-list__publisher">Publisher 1</div>
+            <div className="book-list__price">$100</div>
           </div>
-          <div className="right">
-            <button className="btn" title="Edit">
+          <div className="book-list__right">
+            <button className="book-list__btn" title="Edit">
               Edit
             </button>
-            <button className="btn" title="Delete">
+            <button className="book-list__btn" title="Delete">
               Delete
             </button>
           </div>

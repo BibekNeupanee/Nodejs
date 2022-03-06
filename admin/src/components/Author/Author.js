@@ -3,23 +3,23 @@ import "./Author.scss"
 
 function Author() {
   return (
-    <div className="section">
-      <header>
+    <div className="author">
+      <header className="author__header">
         <span>All Authors (3)</span>
-        <div className="btn" id="add_books" title="Add New Author">
+        <div className="author__btn" id="add_books" title="Add New Author">
           + Add new
         </div>
       </header>
-      <main>
-        <div className="item">
-          <div className="left">
-            <div className="name">Iqbal Jeffery</div>
+      <main className="author__main">
+        <div className="author__item">
+          <div className="author__left">
+            <div className="author__name">Iqbal Jeffery</div>
           </div>
-          <div className="right flow">
-            <button className="btn" title="Edit">
+          <div className="author__right flow">
+            <button className="author__btn" title="Edit">
               Edit
             </button>
-            <button className="btn" title="Delete">
+            <button className="author__btn" title="Delete">
               Delete
             </button>
           </div>

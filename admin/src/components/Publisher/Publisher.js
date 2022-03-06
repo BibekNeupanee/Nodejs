@@ -1,24 +1,25 @@
 import React from "react";
+import "./Publisher.scss"
 
 function Publisher() {
   return (
-    <div className="section">
-      <header>
+    <div className="publisher">
+      <header className="publisher__header">
         <span>All Publishers (5)</span>
-        <div className="btn" id="add_books" title="Add New Book">
+        <div className="publisher__btn" id="add_books" title="Add New Book">
           + Add new
         </div>
       </header>
-      <main>
-        <div className="item">
-          <div className="left">
-            <div className="name">Iqbal Jeffery</div>
+      <main className="publisher__main">
+        <div className="publisher__item">
+          <div className="publisher__left">
+            <div className="publisher__name">Iqbal Jeffery</div>
           </div>
-          <div className="right flow">
-            <button className="btn" title="Edit">
+          <div className="publisher__right flow">
+            <button className="publisher__btn" title="Edit">
               Edit
             </button>
-            <button className="btn" title="Delete">
+            <button className="publisher__btn" title="Delete">
               Delete
             </button>
           </div>
