@@ -9,6 +9,7 @@ function PopUp(props) {
         <div className="close-btn" onClick={(_) => props.onHide()}>
           &times;
         </div>
+        {props.children}
       </div>
     </>
   );

@@ -27,28 +27,6 @@
   }
 }
 
-.container {
-  display: grid;
-  width: 100%;
-  height: calc(100% - 60px);
-  display: grid;
-  grid-template-rows: repeat(6, 1fr);
-  grid-template-areas:
-    "a a a b b"
-    "a a a b b"
-    "a a a c c"
-    "a a a c c"
-    "a a a d d"
-    "a a a d d";
-}
-
-@media screen and (max-width: 960px) {
-  .container {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 section {
   padding: 1em;
   border: 1px solid #eee;
@@ -59,6 +37,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.5em;
 
     & > #add_books {
       font-size: 0.8em;
@@ -70,25 +49,43 @@ section {
     // flex-wrap: wrap;
     overflow: auto;
     margin-top: 1em;
-    display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding: 0.5em;
 
     & > .item {
-      padding: 0.45em 2em;
-      background: #eee;
+      // background: inherit;
+      box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.08);
+      padding: 1em 2em;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       border-radius: 3px;
 
       & > .right {
         display: flex;
-        flex-direction: column;
+        // flex-direction: column;
         gap: 0.7em;
 
-        &.flow {
-          flex-direction: row;
+        & > .btn {
+          padding: 0.5em 1em;
+          border: none;
+          transition: all 500ms;
+          background: #efefef;
+          border-radius: 3px;
+
+          &:hover {
+            background: #ccc;
+          }
+        }
+      }
+
+      & > .left {
+        gap: 1em;
+
+        & > .name {
+          font-weight: bold;
         }
       }
     }

@@ -7,6 +7,18 @@ GET http://localhost:3000/books/2
 GET http://localhost:3000/authors
 ###
 
+GET http://localhost:3000/authors/1
+###
+
+GET http://localhost:3000/bookauthors/4
+###
+
+GET http://localhost:3000/publishers
+###
+
+GET http://localhost:3000/book-types
+###
+
 POST http://localhost:3000/books
 Content-Type: application/json
 

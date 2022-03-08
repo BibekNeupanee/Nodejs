@@ -20,10 +20,8 @@ CREATE TABLE [dbo].[Books](
 	[pages] [int] NOT NULL,
 	[isbn] [varchar](15) NOT NULL,
 	[edition] [tinyint] NOT NULL,
-	[authorId] [int] NOT NULL ,
 	[publisherId] [int] NOT NULL,
 	[bookTypeId] [int] NOT NULL,
-	FOREIGN KEY (authorId) REFERENCES [dbo].[Authors](id) ON DELETE CASCADE,
 	FOREIGN KEY (publisherId) REFERENCES [dbo].[Publishers](id) ON DELETE CASCADE,
 	FOREIGN KEY (bookTypeId) REFERENCES [dbo].[BookTypes](id) ON DELETE CASCADE
 

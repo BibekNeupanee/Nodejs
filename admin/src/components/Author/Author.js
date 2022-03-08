@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import BookList from "../BookList/BookList";
 import "./Author.scss";
 
 function Author(props) {
@@ -7,7 +6,7 @@ function Author(props) {
   useEffect((_) => {
     fetch("http://localhost:3000/authors")
       .then((response) => response.json())
-      .then((json) => setData(json.books));
+      .then((json) => setData(json.authors));
   }, []);
   return (
     <section className="authors">

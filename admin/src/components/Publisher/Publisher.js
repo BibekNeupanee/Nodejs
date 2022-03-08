@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Publisher.scss";
 
 function Publisher(props) {
-  const publishers = [{ name: "KEC" }, { name: "Ashmita" }, { name: "ABCD" }];
+  const [data, setData] = useState([]);
+  useEffect((_) => {
+    fetch("http://localhost:3000/publishers")
+      .then((response) => response.json())
+      .then((json) => setData(json.publishers));
+  }, []);
   return (
     <section className="publishers">
       <header>
@@ -17,8 +22,8 @@ function Publisher(props) {
         </div>
       </header>
       <main>
-        {publishers.map((publisher, i) => (
-          <div className="item"key={i}>
+        {data.map((publisher, i) => (
+          <div className="item" key={i}>
             <div className="left">
               <div className="name">{publisher.name}</div>
             </div>

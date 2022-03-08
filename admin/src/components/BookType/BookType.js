@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./BookType.scss";
 
 function BookType(props) {
-  const bookTypes = [{ type: "Sci-FI" }, { type: "Advanture" }];
+  const [data, setData] = useState([]);
+  useEffect((_) => {
+    fetch("http://localhost:3000/book-types")
+      .then((response) => response.json())
+      .then((json) => setData(json.types));
+  }, []);
   return (
     <section className="types">
       <header>
@@ -17,10 +22,10 @@ function BookType(props) {
         </div>
       </header>
       <main>
-        {bookTypes.map((bookType, i) => (
+        {data.map((bookType, i) => (
           <div className="item" key={i}>
             <div className="left">
-              <div className="name">{bookType.type}</div>
+              <div className="name">{bookType.name}</div>
             </div>
             <div className="right flow">
               <button className="btn" title="Edit">

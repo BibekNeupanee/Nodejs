@@ -32,10 +32,39 @@ app.get("/books", async function (request, response) {
 
 //for Authors
 app.get("/authors", async function (request, response) {
-  const books = await getData(
-    `SELECT * FROM Authors`
+  const authors = await getData(`SELECT * FROM Authors`);
+  response.status(200).json({ authors: authors.recordsets[0] });
+});
+
+//for author-id
+app.get("/authors/:id", async function (request, response) {
+  const authors = await getData(
+    `SELECT * FROM Authors WHERE id = ${request.params.id}`
   );
-  response.status(200).json({ books: books.recordsets[0] });
+  response.status(200).json({ authors: authors.recordsets[0] });
+});
+
+//for Publishers
+app.get("/publishers", async function (request, response) {
+  const publishers = await getData(`SELECT * FROM Publishers`);
+  response.status(200).json({ publishers: publishers.recordsets[0] });
+});
+
+//for Types
+app.get("/book-types", async function (request, response) {
+  const types = await getData(`SELECT * FROM BookTypes`);
+  response.status(200).json({ types: types.recordsets[0] });
+});
+
+//For Books Authors List
+app.get("/bookauthors/:id", async function (request, response) {
+  const authors = await getData(
+    `SELECT a.* FROM BookAuthors ba
+    LEFT JOIN authors a 
+    ON ba.authorId = a.id
+    WHERE bookId = ${request.params.id}`
+  );
+  response.status(200).json({ authors: authors.recordsets[0] });
 });
 
 app.post("/books", function (request, response) {

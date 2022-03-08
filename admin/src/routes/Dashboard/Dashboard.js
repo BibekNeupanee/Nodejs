@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BookList from "../../components/BookList/BookList";
 import Dash from "../../components/Dash/Dash";
 import Header from "../../components/Header/Header";
 import PopUp from "../../components/PopUp/PopUp";
@@ -17,7 +18,11 @@ function Dashboard() {
 
   return (
     <>
-      {popUpVisible ? <PopUp onHide={hidePopUp} /> : null}
+      {popUpVisible ? (
+        <PopUp onHide={hidePopUp}>
+          <BookList />
+        </PopUp>
+      ) : null}
       <Header />
       <Dash onShowPopUp={showPopUp} />
       {/* <button onClick={(_) => showPopUp()}>Show</button> */}

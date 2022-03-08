@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./BookList.scss";
 
+function BookAuthorList(props) {
+  const [data, setData] = useState([]);
+  useEffect((_) => {
+    fetch(`http://localhost:3000/bookauthors/${props.bookId}`)
+      .then((response) => response.json())
+      .then((json) => setData(json.authors));
+  }, []);
+  return data.map((author, i) => <span key={i}>{author.name}</span>);
+}
+
 function BookList(props) {
   const [data, setData] = useState([]);
   useEffect((_) => {
     fetch("http://localhost:3000/books")
       .then((response) => response.json())
-      .then((json) => setData(json.books));
+      .then((json) => {
+        setData(json.books);
+      });
   }, []);
 
   return (
@@ -27,8 +39,10 @@ function BookList(props) {
           <div className="item" key={i}>
             <div className="left">
               <div className="name">{book.name}</div>
-              <div className="publisher">{book.publisher}</div>
-              <div className="price">{book.price}</div>
+              <div className="authors">
+                <BookAuthorList bookId={book.id} />
+              </div>
+              <div className="price">RS. {book.price}</div>
             </div>
             <div className="right">
               <button className="btn" title="Edit">
