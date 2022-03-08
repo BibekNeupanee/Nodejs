@@ -1,31 +1,39 @@
 import React from "react";
-import "./Publisher.scss"
+import "./Publisher.scss";
 
-function Publisher() {
+function Publisher(props) {
+  const publishers = [{ name: "KEC" }, { name: "Ashmita" }, { name: "ABCD" }];
   return (
-    <div className="publisher">
-      <header className="publisher__header">
+    <section className="publishers">
+      <header>
         <span>All Publishers (5)</span>
-        <div className="publisher__btn" id="add_books" title="Add New Book">
+        <div
+          className="btn"
+          onClick={(_) => props.onShowPopUp()}
+          id="add_books"
+          title="Add New Book"
+        >
           + Add new
         </div>
       </header>
-      <main className="publisher__main">
-        <div className="publisher__item">
-          <div className="publisher__left">
-            <div className="publisher__name">Iqbal Jeffery</div>
+      <main>
+        {publishers.map((publisher, i) => (
+          <div className="item"key={i}>
+            <div className="left">
+              <div className="name">{publisher.name}</div>
+            </div>
+            <div className="right flow">
+              <button className="btn" title="Edit">
+                Edit
+              </button>
+              <button className="btn" title="Delete">
+                Delete
+              </button>
+            </div>
           </div>
-          <div className="publisher__right flow">
-            <button className="publisher__btn" title="Edit">
-              Edit
-            </button>
-            <button className="publisher__btn" title="Delete">
-              Delete
-            </button>
-          </div>
-        </div>
+        ))}
       </main>
-    </div>
+    </section>
   );
 }
 

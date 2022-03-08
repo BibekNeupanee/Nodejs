@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Dash from "../../components/Dash/Dash";
 import Header from "../../components/Header/Header";
+import PopUp from "../../components/PopUp/PopUp";
+import "./Dashboard.scss";
 
 function Dashboard() {
+  const [popUpVisible, setPopUpVisible] = useState(false);
+
+  const showPopUp = function () {
+    setPopUpVisible(true);
+  };
+
+  const hidePopUp = function () {
+    setPopUpVisible(false);
+  };
+
   return (
-    <div>
+    <>
+      {popUpVisible ? <PopUp onHide={hidePopUp} /> : null}
       <Header />
-      <Dash />
-    </div>
+      <Dash onShowPopUp={showPopUp} />
+      {/* <button onClick={(_) => showPopUp()}>Show</button> */}
+    </>
   );
 }
 

@@ -4,4 +4,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.25em 6em;
+
+  &__settings {
+    display: flex;
+
+    input {
+      border: 1px solid black;
+      border-radius: 50%;
+      width: 40px;
+      height: 35px;
+    }
+  }
 }

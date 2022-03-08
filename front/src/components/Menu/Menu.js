@@ -5,12 +5,18 @@ import "./Menu.scss";
 function Menu() {
   return (
     <div className="menu">
-      <SearchBox/>
+      <SearchBox />
       <Link className="menu__link" to={"/"}>
         Home
       </Link>
       <Link className="menu__link" to={"/about"}>
         About Us
+      </Link>
+      <Link to={"/login"} className="menu__link">
+        Login
+      </Link>
+      <Link to={"/register"} className="menu__link">
+        Register
       </Link>
     </div>
   );

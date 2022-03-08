@@ -5,22 +5,14 @@ import BookType from "../BookType/BookType";
 import Publisher from "../Publisher/Publisher";
 import "./Dash.scss";
 
-function Dash() {
+function Dash(props) {
   return (
-    <div className="body">
-      <div className="books">
-        <BookList />
-      </div>
-      <div className="types">
-        <BookType />
-      </div>
-      <div className="authors">
-        <Author />
-      </div>
-      <div className="publishers">
-        <Publisher />
-      </div>
-    </div>
+    <main className="container">
+      <BookList onShowPopUp={props.onShowPopUp} />
+      <BookType onShowPopUp={props.onShowPopUp} />
+      <Author onShowPopUp={props.onShowPopUp} />
+      <Publisher onShowPopUp={props.onShowPopUp} />
+    </main>
   );
 }
 

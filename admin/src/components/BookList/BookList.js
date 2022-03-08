@@ -1,33 +1,47 @@
-import React from "react";
-import "./BookList.scss"
+import React, { useEffect, useState } from "react";
+import "./BookList.scss";
 
-function BookList() {
+function BookList(props) {
+  const [data, setData] = useState([]);
+  useEffect((_) => {
+    fetch("http://localhost:3000/books")
+      .then((response) => response.json())
+      .then((json) => setData(json.books));
+  }, []);
+
   return (
-    <div className="book-list">
-      <header className="book-list__header">
+    <section className="books">
+      <header>
         <span>All Books (21)</span>
-        <div className="book-list__btn" id="add_books" title="Add New Book">
+        <div
+          className="btn"
+          onClick={(_) => props.onShowPopUp()}
+          id="add_books"
+          title="Add New Book"
+        >
           + Add new
         </div>
       </header>
-      <main className="book-list__main">
-        <div className="book-list__item">
-          <div className="book-list__left">
-            <div className="book-list__name">Book 1</div>
-            <div className="book-list__publisher">Publisher 1</div>
-            <div className="book-list__price">$100</div>
+      <main>
+        {data.map((book, i) => (
+          <div className="item" key={i}>
+            <div className="left">
+              <div className="name">{book.name}</div>
+              <div className="publisher">{book.publisher}</div>
+              <div className="price">{book.price}</div>
+            </div>
+            <div className="right">
+              <button className="btn" title="Edit">
+                Edit
+              </button>
+              <button className="btn" title="Delete">
+                Delete
+              </button>
+            </div>
           </div>
-          <div className="book-list__right">
-            <button className="book-list__btn" title="Edit">
-              Edit
-            </button>
-            <button className="book-list__btn" title="Delete">
-              Delete
-            </button>
-          </div>
-        </div>
+        ))}
       </main>
-    </div>
+    </section>
   );
 }
 

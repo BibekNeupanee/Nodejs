@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 
 var cors = require("cors");
+const { getData } = require("./db");
 
 const app = express();
 app.use(cors());
@@ -15,13 +16,26 @@ const deleteObj = (data, column, search) => {
   return result;
 };
 
-const books = [
-  { id: 1, name: "java" },
-  { id: 2, name: "C" },
-];
+const books = [];
+app.get("/books/:id", async function (request, response) {
+  const books = await getData(
+    `SELECT * FROM Books WHERE id = ${request.params.id}`
+  );
+  response.status(200).json({ books: books.recordsets[0] });
+});
 
-app.get("/books", function (request, response) {
-  response.status(200).json({ books: books });
+//for Book Lists
+app.get("/books", async function (request, response) {
+  const books = await getData("SELECT * FROM Books");
+  response.status(200).json({ books: books.recordsets[0] });
+});
+
+//for Authors
+app.get("/authors", async function (request, response) {
+  const books = await getData(
+    `SELECT * FROM Authors`
+  );
+  response.status(200).json({ books: books.recordsets[0] });
 });
 
 app.post("/books", function (request, response) {
@@ -31,7 +45,7 @@ app.post("/books", function (request, response) {
 
 app.put("/books/:id", function (request, response) {
   //Update record
-  let index = books.findIndex(function(book){
+  let index = books.findIndex(function (book) {
     return book.id == request.params.id;
   });
   books[index].name = request.body.name;
@@ -41,9 +55,8 @@ app.put("/books/:id", function (request, response) {
 
 app.delete("/books/:id", function (request, response) {
   //delete record
-  let index = books.findIndex(function(book){
+  let index = books.findIndex(function (book) {
     return book.id == request.params.id;
-    
   });
   books.splice(index, 1);
   console.log(request.params.id);
