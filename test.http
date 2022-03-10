@@ -16,7 +16,13 @@ GET http://localhost:3000/bookauthors/4
 GET http://localhost:3000/publishers
 ###
 
+GET http://localhost:3000/publishers/2
+###
+
 GET http://localhost:3000/book-types
+###
+
+GET http://localhost:3000/book-types/1
 ###
 
 POST http://localhost:3000/books

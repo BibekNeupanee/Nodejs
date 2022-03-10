@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import BookAuthorList from "../BookAuthorList/BookAuthorList";
+import BookType from "../BookType/BookType";
 import "./BookDetail.scss";
 
-function BookAuthorList(props) {
+function Publisher(props) {
   const [data, setData] = useState([]);
   useEffect((_) => {
-    fetch(`http://localhost:3000/bookauthors/${props.bookId}`)
+    fetch(`http://localhost:3000/publishers/${props.pId}`)
       .then((response) => response.json())
-      .then((json) => setData(json.authors));
+      .then((json) => setData(json.publisher));
   }, []);
-  return data.map((author, i) => <span key={i}>{author.name}</span>);
+  return data.map((publishers, i) => <span key={i}>{publishers.name}</span>);
 }
 
 function BookDetail() {
   const { id } = useParams();
-  console.log(id);
 
   const [data, setData] = useState([]);
   useEffect((_) => {
@@ -35,24 +36,34 @@ function BookDetail() {
           />
           <div className="book-detail__info">
             <div className="book-detail__title">{book.name}</div>
+            <div className="book-detail__type">
+              <p>Genre:</p> <BookType btId={book.bookTypeId} />
+            </div>
             <div className="book-detail__authors">
-              <BookAuthorList bookId={book.id} />
+              Authors: <BookAuthorList bookId={book.id} />
             </div>
             <div className="book-detail__publisher">
-              <p>Publisher:</p> {book.publisher}
+              <p>Publisher: </p>
+              <Publisher pId={book.publisherId} />
             </div>
             <div className="book-detail__year">
               <p>Year:</p> {book.year}
             </div>
             <div className="book-detail__pages">
-              <p>Pages:</p> {book.year}
+              <p>Pages:</p> {book.pages}
             </div>
             <div className="book-detail__isbn">
               <p>ISBN:</p> {book.isbn}
             </div>
             <div className="book-detail__editionId">
-              {" "}
               <p>Edition:</p> {book.edition}
+            </div>
+            <div className="book-detail__price">
+              <p>Rs.</p> {book.price}
+            </div>
+            <div className="book-detail__btn">
+              <button className="btn_buy">Buy</button>
+              <button className="btn_cart">Add To Cart</button>
             </div>
           </div>
         </>

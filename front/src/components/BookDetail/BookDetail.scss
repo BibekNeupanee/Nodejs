@@ -1,38 +1,31 @@
 .book-detail {
   display: flex;
   flex-direction: row;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0.5em;
   padding: 1em;
   margin-left: 20px;
-  margin: left;
-  max-width: 25%;
 
   &__image {
-    min-width: 75%;
     border: 2px solid black;
   }
 
   &__info {
-    position: relative;
-    padding-left: 15px;
-    padding-right: auto;
+    padding: 1em;
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    margin: auto;
-    white-space: nowrap;
     // border: 1px solid black;
+    max-width: 50%;
+    font-size: 18px;
 
     p {
       margin-top: 0.5em;
       display: inline;
       font-weight: bold;
-      flex-wrap: wrap;
     }
   }
 
-  &__editionId {
+  &__edition {
     // display: flex;
     // flex-direction: row;
   }
@@ -44,8 +37,18 @@
 
   &__authors {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    flex-direction: row;
     gap: 0.5em;
+    font-weight: bold;
+
+    span {
+      font-weight: normal;
+    }
+  }
+
+  &__btn{
+    gap: .5em;
+    display: flex;
+    flex-direction: row;
   }
 }

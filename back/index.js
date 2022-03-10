@@ -17,6 +17,8 @@ const deleteObj = (data, column, search) => {
 };
 
 const books = [];
+
+//For Book Id Details
 app.get("/books/:id", async function (request, response) {
   const books = await getData(
     `SELECT * FROM Books WHERE id = ${request.params.id}`
@@ -65,6 +67,26 @@ app.get("/bookauthors/:id", async function (request, response) {
     WHERE bookId = ${request.params.id}`
   );
   response.status(200).json({ authors: authors.recordsets[0] });
+});
+
+//Get Publisher
+app.get("/publishers/:id", async function (request, response) {
+  const publisher = await getData(
+    `SELECT * 
+    FROM Publishers
+    WHERE id =${request.params.id}`
+  );
+  response.status(200).json({ publisher: publisher.recordsets[0] });
+});
+
+//For Book Type
+app.get("/book-types/:id", async function (request, response) {
+  const bookType = await getData(
+    `SELECT * 
+    FROM BookTypes
+    WHERE id =${request.params.id}`
+  );
+  response.status(200).json({ bookType: bookType.recordsets[0] });
 });
 
 app.post("/books", function (request, response) {
