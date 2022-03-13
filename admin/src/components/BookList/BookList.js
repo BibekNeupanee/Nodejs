@@ -20,11 +20,12 @@ function BookList(props) {
         setData(json.books);
       });
   }, []);
+  
 
   return (
     <section className="books">
       <header>
-        <span>All Books (21)</span>
+        <span>All Books ({Object.keys(data).length})</span>
         <div
           className="btn"
           onClick={(_) => props.onShowPopUp()}

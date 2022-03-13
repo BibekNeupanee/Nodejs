@@ -4,9 +4,22 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1.25em 6em;
+
   .logo {
     font-weight: bold;
     font-size: 1.5em;
+    text-decoration: none;
+    color: inherit;
   }
-  
+
+  .image {
+    width: 100px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid cornflowerblue;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
 }

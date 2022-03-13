@@ -1,0 +1,50 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  gap: 1em;
+  width: 50%;
+
+  label {
+    text-decoration: none;
+  }
+
+  .name {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+  }
+
+  .email {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+  }
+
+  .dob {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+  }
+
+  .password {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+  }
+
+  .btn-signup {
+    width: 10%;
+  }
+
+  .link-login {
+    text-decoration: none;
+    color: inherit;
+    width: auto;
+    // display: inline-block;
+    &:hover {
+      transition: all 700ms;
+      background-color: lightblue;
+    }
+  }
+}

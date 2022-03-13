@@ -11,7 +11,7 @@ function Author(props) {
   return (
     <section className="authors">
       <header>
-        <span>All Authors (3)</span>
+        <span>All Authors ({Object.keys(data).length})</span>
         <div
           className="btn"
           onClick={(_) => props.onShowPopUp()}

@@ -25,6 +25,9 @@ GET http://localhost:3000/book-types
 GET http://localhost:3000/book-types/1
 ###
 
+GET http://localhost:3000/search/jav
+###
+
 POST http://localhost:3000/books
 Content-Type: application/json
 

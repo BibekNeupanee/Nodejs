@@ -8,10 +8,11 @@ function BookType(props) {
       .then((response) => response.json())
       .then((json) => setData(json.types));
   }, []);
+
   return (
     <section className="types">
       <header>
-        <span>All Book Categories (4)</span>
+        <span>All Book Type ({Object.keys(data).length})</span>
         <div
           className="btn"
           onClick={(_) => props.onShowPopUp()}

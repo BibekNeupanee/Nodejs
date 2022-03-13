@@ -11,7 +11,7 @@ function Publisher(props) {
   return (
     <section className="publishers">
       <header>
-        <span>All Publishers (5)</span>
+        <span>All Publishers ({Object.keys(data).length})</span>
         <div
           className="btn"
           onClick={(_) => props.onShowPopUp()}

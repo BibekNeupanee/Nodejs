@@ -89,6 +89,17 @@ app.get("/book-types/:id", async function (request, response) {
   response.status(200).json({ bookType: bookType.recordsets[0] });
 });
 
+//for searching books
+app.get("/search/:keyword", async function (request, response) {
+  const search = await getData(
+    `SELECT * 
+    FROM Books 
+    WHERE name 
+    LIKE '%${request.params.keyword}%'`
+  );
+  response.status(200).json({ search: search.recordsets[0] });
+});
+
 app.post("/books", function (request, response) {
   books.push({ id: new Date().valueOf(), name: request.body.name });
   response.sendStatus(201);

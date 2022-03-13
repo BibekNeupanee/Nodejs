@@ -4,7 +4,7 @@ import "./UserLogin.scss";
 
 function UserLogin() {
   return (
-    <form>
+    <form className="login">
       <label className="user_login">User Login</label>
       <label className="email" placeholder="eg.abc.com">
         Email:

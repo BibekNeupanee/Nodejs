@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
-import "./Book.scss";
 
-function Book() {
+function Search() {
+  const { keyword } = useParams();
+
   const [data, setData] = useState([]);
   useEffect((_) => {
-    fetch("http://localhost:3000/books")
+    fetch("http://localhost:3000/search/" + keyword)
       .then((response) => response.json())
       .then((json) => {
-        setData(json.books);
+        setData(json.search);
       });
   }, []);
 
   return (
     <div className="books">
+      All Books ({Object.keys(data).length})
       {data.map((book, i) => (
         <div className="books__list" key={i}>
           <Link to={"/book-detail/" + book.id} className="books__link">
@@ -40,4 +42,4 @@ function Book() {
   );
 }
 
-export default Book;
+export default Search;
