@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
 import "./Book.scss";
 
 function Book() {
-  const [data, setData] = useState([]);
-  useEffect((_) => {
-    fetch("http://localhost:3000/books")
-      .then((response) => response.json())
-      .then((json) => {
-        setData(json.books);
-      });
-  }, []);
+  const data = useFetch("http://localhost:3000/books")?.books || [];
 
   return (
     <div className="books">

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function UserRegister() {
   return (
     <form className="register">
+      <h1> Register</h1>
       <div className="name">
         <label>Enter Full Name:</label>
         <input type="text" />

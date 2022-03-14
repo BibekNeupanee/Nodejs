@@ -42,4 +42,19 @@ Content-Type: application/json
     "name": "javascript"
 }
 ###
+
+GET http://localhost:3000/users
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username": "bibek Nuepane",
+    "email" :"nbibek17@gmail.com",
+    "password": "laskdjalskdjalksjd"
+}
+###
+
+
 DELETE http://localhost:3000/books/1

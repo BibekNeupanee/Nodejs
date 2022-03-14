@@ -7,9 +7,6 @@ function SearchBox() {
 
   return (
     <div className="search-box">
-      <Link to={"/search/" + input} className="btn-search">
-        <i className="fa fa-search"></i>
-      </Link>
       <input
         type="text"
         className="input-search"
@@ -17,6 +14,9 @@ function SearchBox() {
         value={input}
         onInput={(e) => setInput(e.target.value)}
       />
+      <Link to={"/search/" + input} className="btn-search">
+        <i className="fa fa-search"></i>
+      </Link>
     </div>
   );
 }

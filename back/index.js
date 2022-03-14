@@ -62,7 +62,7 @@ app.get("/book-types", async function (request, response) {
 app.get("/bookauthors/:id", async function (request, response) {
   const authors = await getData(
     `SELECT a.* FROM BookAuthors ba
-    LEFT JOIN authors a 
+    LEFT JOIN authors a
     ON ba.authorId = a.id
     WHERE bookId = ${request.params.id}`
   );
@@ -100,8 +100,23 @@ app.get("/search/:keyword", async function (request, response) {
   response.status(200).json({ search: search.recordsets[0] });
 });
 
-app.post("/books", function (request, response) {
-  books.push({ id: new Date().valueOf(), name: request.body.name });
+//get users
+app.get("/users", async function (request, response) {
+  const users = await getData("SELECT * FROM Users");
+  response.status(200).json({ users: users.recordsets[0] });
+});
+
+//Insert user Info
+app.post("/users", async function (request, response) {
+  // books.push({ id: new Date().valueOf(), name: request.body.name });
+  const { username, email, password } = request.body;
+
+  const search = await getData(
+    `INSERT INTO Users (username,email,password) 
+    VALUES ('${username}','${email}','${password}')`
+  );
+  console.log(search);
+  // response.status(200).json({ search: search.recordsets[0] });
   response.sendStatus(201);
 });
 

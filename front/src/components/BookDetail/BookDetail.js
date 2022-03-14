@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
 import "./BookDetail.scss";
 
 function Publisher(props) {
-  const [data, setData] = useState([]);
-  useEffect((_) => {
-    fetch(`http://localhost:3000/publishers/${props.pId}`)
-      .then((response) => response.json())
-      .then((json) => setData(json.publisher));
-  }, []);
+  const data =
+    useFetch(`http://localhost:3000/publishers/${props.pId}`)?.publisher || [];
+
   return data.map((publishers, i) => <span key={i}>{publishers.name}</span>);
 }
 
 function BookDetail() {
   const { id } = useParams();
 
-  const [data, setData] = useState([]);
-  useEffect((_) => {
-    fetch(`http://localhost:3000/books/${id}`)
-      .then((response) => response.json())
-      .then((json) => {
-        setData(json.books);
-      });
-  }, []);
+  const data = useFetch(`http://localhost:3000/books/${id}`)?.books || [];
 
   return (
     <div className="book-detail">
@@ -33,6 +24,7 @@ function BookDetail() {
           <img
             className="book-detail__image"
             src="https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
+            alt=""
           />
           <div className="book-detail__info">
             <div className="book-detail__title">{book.name}</div>

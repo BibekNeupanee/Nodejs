@@ -40,8 +40,10 @@
   .link-login {
     text-decoration: none;
     color: inherit;
-    width: auto;
+    width: 17%;
+    border-radius: 3px;
     // display: inline-block;
+
     &:hover {
       transition: all 700ms;
       background-color: lightblue;
