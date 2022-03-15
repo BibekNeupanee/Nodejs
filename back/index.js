@@ -3,11 +3,11 @@ const express = require("express");
 
 var cors = require("cors");
 const { getData } = require("./db");
-
 const app = express();
+const bcrypt = require("bcrypt");
+
 app.use(cors());
 app.options("*", cors());
-
 app.use(express.json());
 
 const deleteObj = (data, column, search) => {
@@ -108,16 +108,40 @@ app.get("/users", async function (request, response) {
 
 //Insert user Info
 app.post("/users", async function (request, response) {
-  // books.push({ id: new Date().valueOf(), name: request.body.name });
   const { username, email, password } = request.body;
+  try {
+    const hassedPassword = await bcrypt.hash(password, 10);
+    const insertUserData = await getData(
+      `INSERT INTO Users (username,email,password) 
+      VALUES ('${username}','${email}','${hassedPassword}')`
+    );
+    console.log(insertUserData);
+    response.status(201);
+  } catch {
+    // request.status(500).send();
+  }
+});
 
-  const search = await getData(
-    `INSERT INTO Users (username,email,password) 
-    VALUES ('${username}','${email}','${password}')`
-  );
-  console.log(search);
-  // response.status(200).json({ search: search.recordsets[0] });
-  response.sendStatus(201);
+app.post("/users/login", async (request, response) => {
+  const { email, password } = request.body;
+  const user = await getData(`SELECT password FROM Users
+  WHERE email ='${email}'`);
+
+  const userPassword = user.recordsets[0][0].password;
+
+  if (userPassword == null) {
+    return response.status(400).send("cant find user");
+  }
+  try {
+    const bcryptPassword = await bcrypt.compare(password, userPassword);
+    if (bcryptPassword) {
+      response.status(200).send("sucess");
+    } else {
+      response.send("Denied");
+    }
+  } catch (err) {
+    request.status(500).send();
+  }
 });
 
 app.put("/books/:id", function (request, response) {

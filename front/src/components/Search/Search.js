@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
 import "./Search.scss";
@@ -7,17 +8,19 @@ import "./Search.scss";
 function Search() {
   const { keyword } = useParams();
 
-  const [data, setData] = useState([]);
-  useEffect(
-    (_) => {
-      fetch("http://localhost:3000/search/" + keyword)
-        .then((response) => response.json())
-        .then((json) => {
-          setData(json.search);
-        });
-    },
-    [keyword]
-  );
+  // const [data, setData] = useState([]);
+  // useEffect(
+  //   (_) => {
+  //     fetch("http://localhost:3000/search/" + keyword)
+  //       .then((response) => response.json())
+  //       .then((json) => {
+  //         setData(json.search);
+  //       });
+  //   },
+  //   [keyword]
+  // );
+  const data =
+    useFetch("http://localhost:3000/search/" + keyword)?.search || [];
 
   return (
     <div className="search-books">

@@ -4,6 +4,7 @@ import "./SearchBox.scss";
 
 function SearchBox() {
   const [input, setInput] = useState("");
+  console.log(input);
 
   return (
     <div className="search-box">
