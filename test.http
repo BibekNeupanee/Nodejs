@@ -43,7 +43,34 @@ Content-Type: application/json
 }
 ###
 
+POST http://localhost:4000/token
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9.bmJpYmVrMTNAZ21haWwuY29t.XQj8o1C076xZIMAm78ODamTUJqBZrMYPNrqlsPcVzxs"
+}
+###
+
+
 GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6e30sImlhdCI6MTY0NzM5NDg2OCwiZXhwIjoxNjQ3Mzk0ODk4fQ.vI3byypbXZBzabkPyBkw13VLWfxuYUMdZ4dt9jGBWcQ
+###
+
+DELETE http://localhost:4000/logout
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSmltIiwiaWF0IjoxNTY4NzU5OTIyfQ.RT6wszuCeFLwC_6ksmNMIELxiC5s-uRivfRxyZof5ag"
+}
+###
+
+GET http://localhost:4000/users/login
+Content-Type: application/json
+
+{
+    "email" :"nbibek13@gmail.com",
+    "password": "Hahaha@321"
+}
 ###
 
 POST http://localhost:3000/users
@@ -51,19 +78,11 @@ Content-Type: application/json
 
 {
     "username": "bibek Nuepane",
-    "email" :"nbibek17@gmail.com",
-    "password": "laskdjalskdjalksjd"
+    "email" :"nbibek13@gmail.com",
+    "password": "Hahaha@321"
 }
 ###
 
-POST http://localhost:3000/users/login
-Content-Type: application/json
-
-{
-    "email" :"nbibek17@gmail.com",
-    "password": "laskdjalskdjalksjd"
-}
-###
 
 
 DELETE http://localhost:3000/books/1

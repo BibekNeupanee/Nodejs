@@ -1,7 +1,10 @@
+require("dotenv").config();
+
 const path = require("path");
 const express = require("express");
-
+const jwt = require("jsonwebtoken");
 var cors = require("cors");
+
 const { getData } = require("./db");
 const app = express();
 const bcrypt = require("bcrypt");
@@ -100,12 +103,6 @@ app.get("/search/:keyword", async function (request, response) {
   response.status(200).json({ search: search.recordsets[0] });
 });
 
-//get users
-app.get("/users", async function (request, response) {
-  const users = await getData("SELECT * FROM Users");
-  response.status(200).json({ users: users.recordsets[0] });
-});
-
 //Insert user Info
 app.post("/users", async function (request, response) {
   const { username, email, password } = request.body;
@@ -122,7 +119,18 @@ app.post("/users", async function (request, response) {
   }
 });
 
-app.post("/users/login", async (request, response) => {
+//get users
+app.get("/users", authenticateToken, async (request, response) => {
+  // const users = await getData("SELECT * FROM Users");
+  // response.status(200).json({ users: users.recordsets[0] });
+
+  const books = await getData("SELECT * FROM Books");
+  response.status(200).json({ books: books.recordsets[0] });
+
+  // response.json(users.filter((email) => email.email === request.user.name));
+});
+
+app.get("/users/login", async (request, response) => {
   const { email, password } = request.body;
   const user = await getData(`SELECT password FROM Users
   WHERE email ='${email}'`);
@@ -133,9 +141,11 @@ app.post("/users/login", async (request, response) => {
     return response.status(400).send("cant find user");
   }
   try {
-    const bcryptPassword = await bcrypt.compare(password, userPassword);
-    if (bcryptPassword) {
-      response.status(200).send("sucess");
+    if (await bcrypt.compare(password, userPassword)) {
+      // response.status(200).send("sucess") ;
+
+      const accessToken = jwt.sign(email, process.env.ACESS_TOKEN_SECRET);
+      response.json({ accessToken: accessToken });
     } else {
       response.send("Denied");
     }
@@ -143,6 +153,23 @@ app.post("/users/login", async (request, response) => {
     request.status(500).send();
   }
 });
+
+function authenticateToken(request, response, next) {
+  const authHeader = request.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (token == null) {
+    return response.sendStatus(401);
+    // console.log("dasdasdasdada");
+  }
+
+  jwt.verify(token, process.env.ACESS_TOKEN_SECRET, (err, email) => {
+    if (err) return response.sendStatus(403);
+
+    request.email = email;
+    next();
+  });
+}
 
 app.put("/books/:id", function (request, response) {
   //Update record
