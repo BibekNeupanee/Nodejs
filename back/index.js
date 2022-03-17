@@ -31,8 +31,9 @@ app.get("/books/:id", async function (request, response) {
 
 //for Book Lists
 app.get("/books", async function (request, response) {
-  const books = await getData("SELECT * FROM Books");
+  const books = await getData("EXEC spa_get_books");
   response.status(200).json({ books: books.recordsets[0] });
+  
 });
 
 //for Authors
@@ -121,13 +122,9 @@ app.post("/users", async function (request, response) {
 
 //get users
 app.get("/users", authenticateToken, async (request, response) => {
-  // const users = await getData("SELECT * FROM Users");
-  // response.status(200).json({ users: users.recordsets[0] });
 
   const books = await getData("SELECT * FROM Books");
   response.status(200).json({ books: books.recordsets[0] });
-
-  // response.json(users.filter((email) => email.email === request.user.name));
 });
 
 app.get("/users/login", async (request, response) => {
@@ -142,7 +139,6 @@ app.get("/users/login", async (request, response) => {
   }
   try {
     if (await bcrypt.compare(password, userPassword)) {
-      // response.status(200).send("sucess") ;
 
       const accessToken = jwt.sign(email, process.env.ACESS_TOKEN_SECRET);
       response.json({ accessToken: accessToken });
@@ -160,7 +156,6 @@ function authenticateToken(request, response, next) {
 
   if (token == null) {
     return response.sendStatus(401);
-    // console.log("dasdasdasdada");
   }
 
   jwt.verify(token, process.env.ACESS_TOKEN_SECRET, (err, email) => {

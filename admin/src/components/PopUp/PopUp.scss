@@ -41,5 +41,11 @@
     cursor: pointer;
     z-index: 3;
     padding: 0.25em;
+    border: 0.1em solid black;
+    font-size: 25px;
+    &:hover {
+      transition: all 250ms;
+      background-color: rgb(204, 211, 224);
+    }
   }
 }
