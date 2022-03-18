@@ -11,6 +11,11 @@ function BookListForm() {
   const [selectedPublisher, setSelectedPublisher] = useState([]);
   const [selectedAuthor, setSelectedAuthor] = useState("");
   const [bookAuthors, setBookAuthors] = useState([]);
+  const [bookName, setBookName] = useState("");
+  const [year, setYear] = useState("");
+  const [pages, setPages] = useState("");
+  const [isbn, setIsbn] = useState("");
+  const [edition, setEdition] = useState("");
 
   //FOR PUBLISHER
   const publisherOnSelectChange = function (e) {
@@ -59,23 +64,44 @@ function BookListForm() {
       <h2 className="add-book__header"> Add Book</h2>
       <div className="add-book__book-name">
         <label>Book Name: </label>
-        <input type="text" className="txt" />
+        <input
+          type="text"
+          className="txt"
+          value={bookName}
+          onInput={(e) => setBookName(e.target.value)}
+        />
       </div>
       <div className="add-book__year">
         <label>Year: </label>
-        <input type="text" />
+        <input
+          type="number"
+          value={year}
+          onInput={(e) => setYear(e.target.value)}
+        />
       </div>
       <div className="add-book__pages">
         <label>Pages: </label>
-        <input type="text" />
+        <input
+          type="number"
+          value={pages}
+          onInput={(e) => setPages(e.target.value)}
+        />
       </div>
       <div className="add-book__isbn">
         <label>ISBN: </label>
-        <input type="text" />
+        <input
+          type="text"
+          value={isbn}
+          onInput={(e) => setIsbn(e.target.value)}
+        />
       </div>
       <div className="add-book__edition">
         <label>Edition: </label>
-        <input type="text" />
+        <input
+          type="number"
+          value={edition}
+          onInput={(e) => setEdition(e.target.value)}
+        />
       </div>
       <div className="add-book__author">
         <label> Authors: </label>
