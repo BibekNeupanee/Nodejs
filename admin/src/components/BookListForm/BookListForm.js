@@ -118,7 +118,7 @@ function BookListForm() {
         </button>
         <div className="add-book__selected-authors">
           {bookAuthors.map((author, i) => (
-            <option key={i}>{author.name} </option>
+            <label key={i}>{author.name} </label>
           ))}
         </div>
       </div>
