@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import "./BookListForm.scss";
+import "./AddBookList.scss";
 
-function BookListForm() {
+function AddBookList() {
   const publishers =
     useFetch(`http://localhost:3000/publishers`)?.publishers || [];
   // const addedAuthors = {};
@@ -152,4 +152,4 @@ function BookListForm() {
   );
 }
 
-export default BookListForm;
+export default AddBookList;

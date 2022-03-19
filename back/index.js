@@ -41,6 +41,46 @@ app.get("/authors", async function (request, response) {
   response.status(200).json({ authors: authors.recordsets[0] });
 });
 
+//Admin Add Author
+app.post("/add-author", async function (request, response) {
+  const { author } = request.body;
+  try {
+    const insertUserData = await getData(
+      `EXEC spa_insert_authors @name = '${author}'`
+    );
+    response.status(201);
+  } catch {
+    // request.status(500).send();
+  }
+});
+
+//Admin Add Publisher
+app.post("/add-publisher", async function (request, response) {
+  const { publisher } = request.body;
+  try {
+    const insertUserData = await getData(
+      `EXEC spa_insert_publisher @name = '${publisher}'`
+    );
+    response.status(201);
+  } catch {
+    // request.status(500).send();
+  }
+});
+
+
+//Admin Add Book-Type
+app.post("/add-type", async function (request, response) {
+  const { type } = request.body;
+  try {
+    const insertUserData = await getData(
+      `EXEC spa_insert_types @name = '${type}'`
+    );
+    response.status(201);
+  } catch {
+    // request.status(500).send();
+  }
+});
+
 //for author-id
 app.get("/authors/:id", async function (request, response) {
   const authors = await getData(
@@ -188,12 +228,12 @@ app.put("/books/:id", function (request, response) {
 
 app.delete("/books/:id", function (request, response) {
   //delete record
-  let index = books.findIndex(function (book) {
-    return book.id == request.params.id;
-  });
-  books.splice(index, 1);
-  console.log(request.params.id);
-  response.sendStatus(200);
+  // let index = books.findIndex(function (book) {
+  //   return book.id == request.params.id;
+  // });
+  // books.splice(index, 1);
+  // console.log(request.params.id);
+  // response.sendStatus(200);
 });
 
 app.listen(3000, function () {

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import BookList from "../../components/BookList/BookList";
-import BookListForm from "../../components/BookListForm/BookListForm";
+import AddAuthorList from "../../components/AddAuthorList/AddAuthorList";
+import AddBookList from "../../components/AddBookList/AddBookList";
+import AddBookType from "../../components/AddBookType/AddBookType";
+import AddPublisher from "../../components/AddPublisher/AddPublisher";
 import Dash from "../../components/Dash/Dash";
 import Header from "../../components/Header/Header";
 import PopUp from "../../components/PopUp/PopUp";
@@ -21,7 +23,10 @@ function Dashboard() {
     <>
       {popUpVisible ? (
         <PopUp onHide={hidePopUp}>
-          <BookListForm />
+          {/* <AddBookList />
+          <AddAuthorList/>
+          <AddPublisher />
+          <AddBookType /> */}
         </PopUp>
       ) : null}
       <Header />
