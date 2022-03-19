@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./UserRegister.scss";
 import { Link } from "react-router-dom";
-// import useFetch from "../../../../admin/src/hooks/useFetch";
 
 function nameValidation(name) {
   var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
@@ -12,23 +11,10 @@ function nameValidation(name) {
   }
 }
 
-function emailValidation(email) {
-  // const data = useFetch(`http://localhost:3000/users`)
-  //   ?.authors || [props];
-
-  var validRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-  if (email.match(validRegex)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function passwordValidation(password, confirmPassword) {
   var decimal =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+
   if (password === confirmPassword) {
     if (password.match(decimal)) {
       return true;
@@ -38,9 +24,21 @@ function passwordValidation(password, confirmPassword) {
   } else return false;
 }
 
+function EmailValidation(inputEmail) {
+  var validRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  if (inputEmail.match(validRegex)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function UserRegister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [dateOfbirth, setDateOfBirth] = useState("");
@@ -48,22 +46,34 @@ function UserRegister() {
   const [validName, setValidName] = useState([]);
   const [validEmail, setValidEmail] = useState([]);
   const [validPassword, setValidPassword] = useState([]);
+  const [validDob, setValidDob] = useState([]);
 
-  const InsertUserData = async function ({ name, email, password, dob }) {
+  const InsertUserData = async function ({
+    name,
+    email,
+    username,
+    password,
+    dob,
+  }) {
     if (nameValidation(name)) {
-      if (emailValidation(email)) {
+      if (EmailValidation(email)) {
         if (passwordValidation(password, confirmPassword)) {
-          await fetch("http://localhost:3000/users", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: name,
-              email: email,
-              password: password,
-            }),
-          });
+          if (dateOfbirth !== "") {
+            console.log(dateOfbirth);
+            await fetch("http://localhost:3000/users", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name,
+                email,
+                username,
+                password,
+                dob,
+              }),
+            });
+          } else setValidDob([true]);
         } else setValidPassword([true]);
       } else setValidEmail([true]);
     } else setValidName([true]);
@@ -72,7 +82,8 @@ function UserRegister() {
   const UserData = {
     name,
     email,
-    password,
+    username,
+    password: confirmPassword,
     dob: dateOfbirth,
   };
 
@@ -114,12 +125,15 @@ function UserRegister() {
           }
         })}
       </div>
+      <div className="username">
+        <label>Enter Username:</label>{" "}
+        <input
+          type="text"
+          value={username}
+          onInput={(e) => setUsername(e.target.value)}
+        />
+      </div>
       <div className="password">
-        <p>
-          Password should be 8 to 15 characters which contain at least one
-          lowercase letter, one uppercase letter, one numeric digit, and one
-          special character.
-        </p>
         <label>Enter Password:</label>
         <input
           type="password"
@@ -132,6 +146,17 @@ function UserRegister() {
           value={confirmPassword}
           onInput={(e) => setConfirmPassword(e.target.value)}
         />
+        <p>
+          <b>Psssword Criteria</b>
+          <br /> - Should be 8 to 15 characters
+          <br />
+          - Should contain at least one lowercase letter
+          <br />
+          - Should contain at least one uppercase letter
+          <br />
+          - Should contain at least one numeric digit
+          <br />- Should contain at least one special character.
+        </p>
         {validPassword.map((isValid, i) => {
           if (isValid) {
             return (
@@ -149,6 +174,15 @@ function UserRegister() {
           value={dateOfbirth}
           onInput={(e) => setDateOfBirth(e.target.value)}
         />
+        {validDob.map((isValid, i) => {
+          if (isValid) {
+            return (
+              <span className="not-validName" key={i}>
+                Please enter Birthday.
+              </span>
+            );
+          }
+        })}
       </div>
       {/* <Link to={"/login"} className="btn-signup"> */}
       <button type="button" onClick={() => InsertUserData(UserData)}>

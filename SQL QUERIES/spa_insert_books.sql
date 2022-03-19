@@ -24,37 +24,43 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	INSERT 
-	INTO dbo.Books(
-		[name]
-		, [year]
-		, [pages]
-		, [isbn]
-		, [edition]
-		, [publisherId]
-		, [bookTypeId]
-		, [price]
-	) VALUES (
-		@name
-		, @year
-		, @pages
-		, @isbn
-		, @edition
-		, @publisherId
-		, @bookTypeId
-		, @price
-	)
+	BEGIN TRAN
+	BEGIN TRY
+		INSERT 
+		INTO dbo.Books(
+			[name]
+			, [year]
+			, [pages]
+			, [isbn]
+			, [edition]
+			, [publisherId]
+			, [bookTypeId]
+			, [price]
+		) VALUES (
+			@name
+			, @year
+			, @pages
+			, @isbn
+			, @edition
+			, @publisherId
+			, @bookTypeId
+			, @price
+		)
 
-	DECLARE @bookid INT;
-	SELECT @bookid = SCOPE_IDENTITY();
+		DECLARE @bookid INT;
+		SELECT @bookid = SCOPE_IDENTITY();
 
-	INSERT INTO dbo.BookAuthors (
-		[bookId],
-		[authorId]
-	) SELECT 
-		@bookid
-		,[value]
-	FROM string_split(@author_ids, ',')
-		
+		INSERT INTO dbo.BookAuthors (
+			[bookId],
+			[authorId]
+		) SELECT 
+			@bookid
+			,[value]
+		FROM string_split(@author_ids, ',')
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		ROLLBACK;
+	END CATCH	
 END
 GO

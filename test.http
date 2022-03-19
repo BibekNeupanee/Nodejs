@@ -28,6 +28,9 @@ GET http://localhost:3000/book-types/1
 GET http://localhost:3000/search/jav
 ###
 
+GET http://localhost:3000/users/bibek@gmail.com
+###
+
 POST http://localhost:3000/books
 Content-Type: application/json
 
@@ -72,6 +75,8 @@ Content-Type: application/json
     "password": "Hahaha@321"
 }
 ###
+
+
 
 POST http://localhost:3000/users
 Content-Type: application/json

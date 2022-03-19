@@ -33,7 +33,6 @@ app.get("/books/:id", async function (request, response) {
 app.get("/books", async function (request, response) {
   const books = await getData("EXEC spa_get_books");
   response.status(200).json({ books: books.recordsets[0] });
-  
 });
 
 //for Authors
@@ -106,12 +105,15 @@ app.get("/search/:keyword", async function (request, response) {
 
 //Insert user Info
 app.post("/users", async function (request, response) {
-  const { username, email, password } = request.body;
+  const { name, email, username, password, dob } = request.body;
   try {
     const hassedPassword = await bcrypt.hash(password, 10);
     const insertUserData = await getData(
-      `INSERT INTO Users (username,email,password) 
-      VALUES ('${username}','${email}','${hassedPassword}')`
+      `EXEC spa_insert_users @userName = '${username}'
+      , @email = '${email}'
+      , @password	= '${hassedPassword}'
+      , @name = '${name}'
+      , @dob = '${dob}'`
     );
     console.log(insertUserData);
     response.status(201);
@@ -122,14 +124,23 @@ app.post("/users", async function (request, response) {
 
 //get users
 app.get("/users", authenticateToken, async (request, response) => {
-
   const books = await getData("SELECT * FROM Books");
   response.status(200).json({ books: books.recordsets[0] });
 });
 
+app.get("/users/:email", async (request, response) => {
+  const email = await getData(
+    `SELECT email 
+    FROM Users 
+    WHERE email = '${request.params.email}'`
+  );
+  response.status(200).json({ email: email.recordsets[0] });
+});
+
 app.get("/users/login", async (request, response) => {
   const { email, password } = request.body;
-  const user = await getData(`SELECT password FROM Users
+  const user = await getData(`SELECT password 
+  FROM Users
   WHERE email ='${email}'`);
 
   const userPassword = user.recordsets[0][0].password;
@@ -139,7 +150,6 @@ app.get("/users/login", async (request, response) => {
   }
   try {
     if (await bcrypt.compare(password, userPassword)) {
-
       const accessToken = jwt.sign(email, process.env.ACESS_TOKEN_SECRET);
       response.json({ accessToken: accessToken });
     } else {
