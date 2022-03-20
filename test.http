@@ -38,6 +38,20 @@ Content-Type: application/json
     "name": "C#"
 }
 ###
+
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+     "name":"Bibek Neupane",
+      "email":"bibek@gmail.com",
+      "username":"bibek_neupane",
+      "password": "abcd",
+      "dob":"2022/01/01"
+}
+###
+
 PUT http://localhost:3000/books/1
 Content-Type: application/json
 
@@ -90,4 +104,4 @@ Content-Type: application/json
 
 
 
-DELETE http://localhost:3000/books/1
+DELETE http://localhost:3000/delete-book/1005

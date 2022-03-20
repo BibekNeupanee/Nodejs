@@ -11,6 +11,13 @@ function BookAuthorList(props) {
   return data.map((author, i) => <span key={i}>{author.name}</span>);
 }
 
+async function deleteBtn(id) {
+  fetch(`http://localhost:3000/delete-book/${id}`, { method: "DELETE" });
+  alert("Delete Sucessful")
+  window.location.reload();
+  // console.log(id);
+}
+
 function BookList(props) {
   const [data, setData] = useState([]);
   useEffect((_) => {
@@ -20,7 +27,6 @@ function BookList(props) {
         setData(json.books);
       });
   }, []);
-  
 
   return (
     <section className="books">
@@ -49,7 +55,11 @@ function BookList(props) {
               <button className="btn" title="Edit">
                 Edit
               </button>
-              <button className="btn" title="Delete">
+              <button
+                className="btn"
+                title="Delete"
+                onClick={(_) => deleteBtn(book.id)}
+              >
                 Delete
               </button>
             </div>
