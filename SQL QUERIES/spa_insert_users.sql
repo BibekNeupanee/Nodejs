@@ -24,6 +24,17 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	IF EXISTS (
+		SELECT 1 FROM Users WHERE email = @email
+	)
+	BEGIN
+		--PRINT 'Duplicate Email'
+		
+		SELECT 'Error' [status],
+			'Duplicate Email' [message]
+		RETURN;
+	END
+
 	INSERT INTO Users (
 		username,
 		email,

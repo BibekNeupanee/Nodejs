@@ -20,7 +20,7 @@ CREATE TABLE [dbo].[Users](
 	[password] [varchar](255) NOT NULL,
 	[name] [varchar](255) NOT NULL,
 	[dob] [date] NOT NULL,
-	UNIQUE (email,id)
+	UNIQUE (email,username)
 	)
 GO
 

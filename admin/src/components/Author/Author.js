@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AddAuthorList from "../AddAuthorList/AddAuthorList";
 import "./Author.scss";
 
 function Author(props) {
@@ -14,7 +15,7 @@ function Author(props) {
         <span>All Authors ({Object.keys(data).length})</span>
         <div
           className="btn"
-          onClick={(_) => props.onShowPopUp()}
+          onClick={(_) => props.onShowPopUp(<AddAuthorList />)}
           id="add_books"
           title="Add New Author"
         >

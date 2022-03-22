@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AddBookType from "../AddBookType/AddBookType";
 import "./BookType.scss";
 
 function BookType(props) {
@@ -15,7 +16,7 @@ function BookType(props) {
         <span>All Book Type ({Object.keys(data).length})</span>
         <div
           className="btn"
-          onClick={(_) => props.onShowPopUp()}
+          onClick={(_) => props.onShowPopUp(<AddBookType />)}
           id="add_books"
           title="Add New Book"
         >

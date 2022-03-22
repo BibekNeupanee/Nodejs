@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AddBookList from "../AddBookList/AddBookList";
 import "./BookList.scss";
 
 function BookAuthorList(props) {
@@ -12,9 +13,17 @@ function BookAuthorList(props) {
 }
 
 async function deleteBtn(id) {
-  fetch(`http://localhost:3000/delete-book/${id}`, { method: "DELETE" });
-  alert("Delete Sucessful")
-  window.location.reload();
+  const deleteBook = fetch(`http://localhost:3000/delete-book/${id}`, {
+    method: "DELETE",
+  });
+  console.log((await deleteBook).json());
+  const response = await deleteBook.json();
+  console.log(response);
+  // if (response.successMessage) {
+  //   alert(response.successMessage);
+  //   window.location.reload();
+  // }
+  // alert("Delete Sucessful");
   // console.log(id);
 }
 
@@ -34,7 +43,7 @@ function BookList(props) {
         <span>All Books ({Object.keys(data).length})</span>
         <div
           className="btn"
-          onClick={(_) => props.onShowPopUp()}
+          onClick={(_) => props.onShowPopUp(<AddBookList />)}
           id="add_books"
           title="Add New Book"
         >

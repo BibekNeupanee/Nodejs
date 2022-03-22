@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AddPublisher from "../AddPublisher/AddPublisher";
 import "./Publisher.scss";
 
 function Publisher(props) {
@@ -14,7 +15,7 @@ function Publisher(props) {
         <span>All Publishers ({Object.keys(data).length})</span>
         <div
           className="btn"
-          onClick={(_) => props.onShowPopUp()}
+          onClick={(_) => props.onShowPopUp(<AddPublisher />)}
           id="add_books"
           title="Add New Book"
         >

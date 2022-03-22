@@ -67,7 +67,6 @@ app.post("/add-publisher", async function (request, response) {
   }
 });
 
-
 //Admin Add Book-Type
 app.post("/add-type", async function (request, response) {
   const { type } = request.body;
@@ -143,25 +142,6 @@ app.get("/search/:keyword", async function (request, response) {
   response.status(200).json({ search: search.recordsets[0] });
 });
 
-//Insert user Info
-app.post("/users", async function (request, response) {
-  const { name, email, username, password, dob } = request.body;
-  try {
-    const hassedPassword = await bcrypt.hash(password, 10);
-    const insertUserData = await getData(
-      `EXEC spa_insert_users @userName = '${username}'
-      , @email = '${email}'
-      , @password	= '${hassedPassword}'
-      , @name = '${name}'
-      , @dob = '${dob}'`
-    );
-    console.log(insertUserData);
-    response.status(201);
-  } catch {
-    // request.status(500).send();
-  }
-});
-
 //get users
 app.get("/users", authenticateToken, async (request, response) => {
   const books = await getData("SELECT * FROM Books");
@@ -226,14 +206,42 @@ app.put("/books/:id", function (request, response) {
   response.sendStatus(200);
 });
 
-app.delete("/books/:id", function (request, response) {
-  //delete record
-  // let index = books.findIndex(function (book) {
-  //   return book.id == request.params.id;
-  // });
-  // books.splice(index, 1);
-  // console.log(request.params.id);
-  // response.sendStatus(200);
+//Insert user Info
+app.post("/users", async function (request, response) {
+  const { name, email, username, password, dob } = request.body;
+  try {
+    const hassedPassword = await bcrypt.hash(password, 10);
+    const insertUserData = await getData(
+      `EXEC spa_insert_users @userName = '${username}'
+      , @email = '${email}'
+      , @password	= '${hassedPassword}'
+      , @name = '${name}'
+      , @dob = '${dob}'`
+    );
+
+    if (insertUserData.recordset[0].status === "Error") {
+      response
+        .status(400)
+        .json({ errorMessage: insertUserData.recordset[0].message });
+      return;
+    }
+    response.status(201);
+  } catch {
+    // request.status(500).send();
+  }
+});
+
+//Delete Books
+app.delete("/delete-book/:id", async function (request, response) {
+  deleteBook = await getData(`EXEC spa_delete_books @id =${request.params.id}`);
+
+  if (deleteBook.recordset[0].status === "Success") {
+    response
+      .status(200)
+      .json({ successMessage: deleteBook.recordset[0].message });
+    return;
+  }
+  response.status(200);
 });
 
 app.listen(3000, function () {

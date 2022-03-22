@@ -37,13 +37,13 @@ function EmailValidation(inputEmail) {
 
 function UserRegister() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [dateOfbirth, setDateOfBirth] = useState("");
+  const [email, setEmail] = useState("bibek@gmail.com");
+  const [username, setUsername] = useState("bibek_neupane");
+  const [password, setPassword] = useState("bibek");
+  const [confirmPassword, setConfirmPassword] = useState("bibek");
+  const [dateOfbirth, setDateOfBirth] = useState("2022-04-01");
 
-  const [validName, setValidName] = useState([]);
+  const [validName, setValidName] = useState(true);
   const [validEmail, setValidEmail] = useState([]);
   const [validPassword, setValidPassword] = useState([]);
   const [validDob, setValidDob] = useState([]);
@@ -55,28 +55,23 @@ function UserRegister() {
     password,
     dob,
   }) {
-    if (nameValidation(name)) {
-      if (EmailValidation(email)) {
-        if (passwordValidation(password, confirmPassword)) {
-          if (dateOfbirth !== "") {
-            console.log(dateOfbirth);
-            await fetch("http://localhost:3000/users", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                name,
-                email,
-                username,
-                password,
-                dob,
-              }),
-            });
-          } else setValidDob([true]);
-        } else setValidPassword([true]);
-      } else setValidEmail([true]);
-    } else setValidName([true]);
+    const data = await fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        username,
+        password,
+        dob,
+      }),
+    });
+    const response = await data.json();
+    if (response.errorMessage) {
+      alert(response.errorMessage);
+    }
   };
 
   const UserData = {
@@ -85,6 +80,12 @@ function UserRegister() {
     username,
     password: confirmPassword,
     dob: dateOfbirth,
+  };
+
+  const handleNamChange = (e) => {
+    setName(e.target.value);
+    setValidName(nameValidation(e.target.value));
+    console.log("hello");
   };
 
   return (
@@ -96,24 +97,18 @@ function UserRegister() {
           type="text"
           name="fullname"
           value={name}
-          onInput={(e) => setName(e.target.value)}
+          onChange={handleNamChange}
         />
-        {validName.map((isValid, i) => {
-          if (isValid) {
-            return (
-              <span className="not-validName" key={i}>
-                Name Not valid!
-              </span>
-            );
-          }
-        })}
+        {!validName ? (
+          <span className="not-validName">Name Not valid!</span>
+        ) : null}
       </div>
       <div className="email">
         <label>Enter Email Address:</label>
         <input
           type="text"
-          value={email}
           onInput={(e) => setEmail(e.target.value)}
+          value={email}
         />
         {validEmail.map((isValid, i) => {
           if (isValid) {
@@ -129,25 +124,25 @@ function UserRegister() {
         <label>Enter Username:</label>{" "}
         <input
           type="text"
-          value={username}
           onInput={(e) => setUsername(e.target.value)}
+          value={username}
         />
       </div>
       <div className="password">
         <label>Enter Password:</label>
         <input
           type="password"
-          value={password}
           onInput={(e) => setPassword(e.target.value)}
+          value={password}
         />
         <label>Confirm Password:</label>
         <input
           type="password"
-          value={confirmPassword}
           onInput={(e) => setConfirmPassword(e.target.value)}
+          value={confirmPassword}
         />
         <p>
-          <b>Psssword Criteria</b>
+          <b>Passsword Criteria</b>
           <br /> - Should be 8 to 15 characters
           <br />
           - Should contain at least one lowercase letter
@@ -171,8 +166,8 @@ function UserRegister() {
         <label htmlFor="birthday">Enter Birthday:</label>
         <input
           type="date"
-          value={dateOfbirth}
           onInput={(e) => setDateOfBirth(e.target.value)}
+          value={dateOfbirth}
         />
         {validDob.map((isValid, i) => {
           if (isValid) {
