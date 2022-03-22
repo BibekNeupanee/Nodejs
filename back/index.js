@@ -8,6 +8,7 @@ var cors = require("cors");
 const { getData } = require("./db");
 const app = express();
 const bcrypt = require("bcrypt");
+const { response } = require("express");
 
 app.use(cors());
 app.options("*", cors());
@@ -29,55 +30,10 @@ app.get("/books/:id", async function (request, response) {
   response.status(200).json({ books: books.recordsets[0] });
 });
 
-//for Book Lists
-app.get("/books", async function (request, response) {
-  const books = await getData("EXEC spa_get_books");
-  response.status(200).json({ books: books.recordsets[0] });
-});
-
 //for Authors
 app.get("/authors", async function (request, response) {
   const authors = await getData(`SELECT * FROM Authors`);
   response.status(200).json({ authors: authors.recordsets[0] });
-});
-
-//Admin Add Author
-app.post("/add-author", async function (request, response) {
-  const { author } = request.body;
-  try {
-    const insertUserData = await getData(
-      `EXEC spa_insert_authors @name = '${author}'`
-    );
-    response.status(201);
-  } catch {
-    // request.status(500).send();
-  }
-});
-
-//Admin Add Publisher
-app.post("/add-publisher", async function (request, response) {
-  const { publisher } = request.body;
-  try {
-    const insertUserData = await getData(
-      `EXEC spa_insert_publisher @name = '${publisher}'`
-    );
-    response.status(201);
-  } catch {
-    // request.status(500).send();
-  }
-});
-
-//Admin Add Book-Type
-app.post("/add-type", async function (request, response) {
-  const { type } = request.body;
-  try {
-    const insertUserData = await getData(
-      `EXEC spa_insert_types @name = '${type}'`
-    );
-    response.status(201);
-  } catch {
-    // request.status(500).send();
-  }
 });
 
 //for author-id
@@ -142,21 +98,7 @@ app.get("/search/:keyword", async function (request, response) {
   response.status(200).json({ search: search.recordsets[0] });
 });
 
-//get users
-app.get("/users", authenticateToken, async (request, response) => {
-  const books = await getData("SELECT * FROM Books");
-  response.status(200).json({ books: books.recordsets[0] });
-});
-
-app.get("/users/:email", async (request, response) => {
-  const email = await getData(
-    `SELECT email 
-    FROM Users 
-    WHERE email = '${request.params.email}'`
-  );
-  response.status(200).json({ email: email.recordsets[0] });
-});
-
+//User Login
 app.get("/users/login", async (request, response) => {
   const { email, password } = request.body;
   const user = await getData(`SELECT password 
@@ -180,6 +122,7 @@ app.get("/users/login", async (request, response) => {
   }
 });
 
+//authentication
 function authenticateToken(request, response, next) {
   const authHeader = request.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -196,17 +139,41 @@ function authenticateToken(request, response, next) {
   });
 }
 
-app.put("/books/:id", function (request, response) {
-  //Update record
-  let index = books.findIndex(function (book) {
-    return book.id == request.params.id;
-  });
-  books[index].name = request.body.name;
-  console.log(request.params.id);
-  response.sendStatus(200);
+//get users
+app.get("/users", authenticateToken, async (request, response) => {
+  const books = await getData("EXEC spa_get_books");
+  response.status(200).json({ books: books.recordsets[0] });
 });
 
-//Insert user Info
+//for Book Lists
+app.get("/books", async function (request, response) {
+  const books = await getData("EXEC spa_get_books");
+  response.status(200).json({ books: books.recordsets[0] });
+});
+
+//Admin Add Publisher
+app.post("/add-publisher", async function (request, response) {
+  const { publisher } = request.body;
+  try {
+    const insertUserData = await getData(
+      `EXEC spa_insert_publisher @name = '${publisher}'`
+    );
+    response.status(201);
+  } catch {
+    // request.status(500).send();
+  }
+});
+
+//Update New  BookType
+app.post("/update/book-type", async (request, response) => {
+  const { id, bookType } = request.body;
+  const data = await getData(
+    `EXEC spa_update_bookType @id = ${id1}, @name = '${bookType}'`
+  );
+  response.send(200);
+});
+
+//Insert user Info (registration)
 app.post("/users", async function (request, response) {
   const { name, email, username, password, dob } = request.body;
   try {
@@ -225,6 +192,32 @@ app.post("/users", async function (request, response) {
         .json({ errorMessage: insertUserData.recordset[0].message });
       return;
     }
+    response.status(201);
+  } catch {
+    // request.status(500).send();
+  }
+});
+
+//Admin Add Author
+app.post("/add-author", async function (request, response) {
+  const { author } = request.body;
+  try {
+    const insertUserData = await getData(
+      `EXEC spa_insert_authors @name = '${author}'`
+    );
+    response.status(201);
+  } catch {
+    // request.status(500).send();
+  }
+});
+
+//Admin Add Book-Type
+app.post("/add-type", async function (request, response) {
+  const { type } = request.body;
+  try {
+    const insertUserData = await getData(
+      `EXEC spa_insert_types @name = '${type}'`
+    );
     response.status(201);
   } catch {
     // request.status(500).send();

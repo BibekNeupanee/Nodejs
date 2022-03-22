@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AddBookType from "../AddBookType/AddBookType";
+import EditBookType from "../EditBookType/EditBookType";
 import "./BookType.scss";
 
 function BookType(props) {
@@ -30,7 +31,13 @@ function BookType(props) {
               <div className="name">{bookType.name}</div>
             </div>
             <div className="right flow">
-              <button className="btn" title="Edit">
+              <button
+                className="btn"
+                title="Edit"
+                onClick={(_) =>
+                  props.onShowPopUp(<EditBookType typeId={bookType.id} />)
+                }
+              >
                 Edit
               </button>
               <button className="btn" title="Delete">

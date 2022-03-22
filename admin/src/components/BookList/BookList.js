@@ -13,18 +13,14 @@ function BookAuthorList(props) {
 }
 
 async function deleteBtn(id) {
-  const deleteBook = fetch(`http://localhost:3000/delete-book/${id}`, {
+  const deleteBook = await fetch(`http://localhost:3000/delete-book/${id}`, {
     method: "DELETE",
   });
-  console.log((await deleteBook).json());
   const response = await deleteBook.json();
-  console.log(response);
-  // if (response.successMessage) {
-  //   alert(response.successMessage);
-  //   window.location.reload();
-  // }
-  // alert("Delete Sucessful");
-  // console.log(id);
+  if (response.successMessage) {
+    alert(response.successMessage);
+    window.location.reload();
+  }
 }
 
 function BookList(props) {

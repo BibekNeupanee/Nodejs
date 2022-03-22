@@ -21,12 +21,12 @@ BEGIN
 	DELETE FROM BookAuthors WHERE bookId= @id;
 	DELETE FROM Books where id= @id;
 
-	IF  EXISTS(
+	IF  NOT EXISTS(
 		SELECT 1 FROM Books WHERE id = @id
 	)
 	BEGIN
-		SELECT 'Failed' [status],
-			'Delete Failed. Try Again!' [message]
+		SELECT 'Success' [status],
+			'Delete Successful' [message]
 		RETURN;
 	END
 END
