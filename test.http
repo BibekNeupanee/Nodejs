@@ -106,4 +106,6 @@ Content-Type: application/json
 
 DELETE http://localhost:3000/delete-book/3029
 ###
-DELETE http://localhost:3000/delete/book-type/1
+DELETE http://localhost:3000/delete/book-type/1 
+###
+DELETE http://localhost:3000/delete/author/1

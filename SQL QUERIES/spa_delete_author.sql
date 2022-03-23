@@ -1,4 +1,4 @@
-DROP PROCEDURE IF EXISTS spa_delete_bookType
+DROP PROCEDURE IF EXISTS spa_delete_author
 GO
 
 SET ANSI_NULLS ON
@@ -10,7 +10,7 @@ GO
 -- Create date: 
 -- Description:	Just a sp to add books and its authors
 -- =============================================
-CREATE PROCEDURE spa_delete_bookType
+CREATE PROCEDURE spa_delete_author
 
 	@id int
 	
@@ -19,15 +19,15 @@ BEGIN
 	SET NOCOUNT ON;
 
 	BEGIN TRY  
-		DELETE FROM BookTypes WHERE id= @id; 
+		DELETE FROM Authors WHERE id= @id; 
 		SELECT 'Success' [status],
 			'Delete Successful' [message]
 		RETURN;
 	END TRY  
 	BEGIN CATCH  
 		SELECT 'Error' [status],
-			'Cannot delete while book type in use.' [message]
+			'Cannot delete while author in use.' [message]
 		RETURN;
-	END CATCH;
+	END CATCH; 
 END
 GO

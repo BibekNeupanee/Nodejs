@@ -13,6 +13,9 @@ async function deleteBtn(id) {
   const response = await deleteBookType.json();
   if (response.errorMessage) {
     alert(response.errorMessage);
+  } else if (response.successMessage) {
+    alert(response.successMessage);
+    window.location.reload();
   }
 }
 

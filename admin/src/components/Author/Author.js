@@ -2,6 +2,22 @@ import React, { useEffect, useState } from "react";
 import AddAuthorList from "../AddAuthorList/AddAuthorList";
 import "./Author.scss";
 
+async function deleteBtn(id) {
+  const deleteAuthor = await fetch(
+    `http://localhost:3000/delete/author/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+  const response = await deleteAuthor.json();
+  if (response.errorMessage) {
+    alert(response.errorMessage);
+  } else if (response.successMessage) {
+    alert(response.successMessage);
+    window.location.reload();
+  }
+}
+
 function Author(props) {
   const [data, setData] = useState([]);
   useEffect((_) => {
@@ -32,7 +48,11 @@ function Author(props) {
               <button className="btn" title="Edit">
                 Edit
               </button>
-              <button className="btn" title="Delete">
+              <button
+                className="btn"
+                title="Delete"
+                onClick={(_) => deleteBtn(author.id)}
+              >
                 Delete
               </button>
             </div>

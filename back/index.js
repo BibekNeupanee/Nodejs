@@ -248,9 +248,36 @@ app.delete("/delete/book-type/:id", async function (request, response) {
       .status(200)
       .json({ errorMessage: deleteBookType.recordset[0].message });
     return;
+  }else if (deleteBookType.recordset[0].status === "Success"){
+    response
+      .status(200)
+      .json({ successMessage: deleteBookType.recordset[0].message });
+    return;
   }
   response.status(200);
 });
+
+
+//Delete Author
+app.delete("/delete/author/:id", async function (request, response) {
+  deleteAuthor = await getData(
+    `EXEC spa_delete_author @id =${request.params.id}`
+  );
+
+  if (deleteAuthor.recordset[0].status === "Error") {
+    response
+      .status(200)
+      .json({ errorMessage: deleteAuthor.recordset[0].message });
+    return;
+  }else if (deleteAuthor.recordset[0].status === "Success"){
+    response
+      .status(200)
+      .json({ successMessage: deleteAuthor.recordset[0].message });
+    return;
+  }
+  response.status(200);
+});
+
 
 app.listen(3000, function () {
   console.log("Server Running at port 3000");
