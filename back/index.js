@@ -67,7 +67,7 @@ app.get("/bookauthors/:id", async function (request, response) {
   response.status(200).json({ authors: authors.recordsets[0] });
 });
 
-//Get Publisher
+//Get Publisher using id
 app.get("/publishers/:id", async function (request, response) {
   const publisher = await getData(
     `SELECT * 
@@ -173,6 +173,14 @@ app.post("/update/book-type", async (request, response) => {
   response.send(200);
 });
 
+//Update New  Publisher
+app.post("/update/publisher", async (request, response) => {
+  const { id, publisher } = request.body;
+  const data = await getData(
+    `EXEC spa_update_publisher @id = ${id}, @name = '${publisher}'`
+  );
+  response.send(200);
+});
 
 //Update New  Author
 app.post("/update/author", async (request, response) => {

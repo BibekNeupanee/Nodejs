@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AddPublisher from "../AddPublisher/AddPublisher";
+import EditPublisher from "../EditPublisher/EditPublisher";
 import "./Publisher.scss";
 
 function Publisher(props) {
@@ -29,7 +30,15 @@ function Publisher(props) {
               <div className="name">{publisher.name}</div>
             </div>
             <div className="right flow">
-              <button className="btn" title="Edit">
+              <button
+                className="btn"
+                title="Edit"
+                onClick={(_) =>
+                  props.onShowPopUp(
+                    <EditPublisher publisherId={publisher.id} />
+                  )
+                }
+              >
                 Edit
               </button>
               <button className="btn" title="Delete">
