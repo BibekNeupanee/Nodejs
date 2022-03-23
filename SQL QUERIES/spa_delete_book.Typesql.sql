@@ -18,16 +18,25 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	DELETE FROM BookTypes WHERE id= @id;
-
-	IF  NOT EXISTS(
-		SELECT 1 FROM BookTypes WHERE id = @id
-	)
-	BEGIN
-		SELECT 'Success' [status],
-			'Delete Successful' [message]
+	BEGIN TRY  
+		DELETE FROM BookTypes WHERE id= @id; 
+	END TRY  
+	BEGIN CATCH  
+		SELECT 'Error' [status],
+			'Cannot delete while book type in use.' [message]
 		RETURN;
-	END
-	
+	END CATCH; 
+
+	--DELETE FROM BookTypes WHERE id= @id;
+	--
+	--IF  NOT EXISTS(
+	--	SELECT 1 FROM BookTypes WHERE id = @id
+	--)
+	--BEGIN
+	--	SELECT 'Success' [status],
+	--		'Delete Successful' [message]
+	--	RETURN;
+	--END
+	--
 END
 GO

@@ -239,14 +239,14 @@ app.delete("/delete/book/:id", async function (request, response) {
 
 //Delete Book Type
 app.delete("/delete/book-type/:id", async function (request, response) {
-  deleteBook = await getData(
+  deleteBookType = await getData(
     `EXEC spa_delete_bookType @id =${request.params.id}`
   );
 
-  if (deleteBook.recordset[0].status === "Success") {
+  if (deleteBookType.recordset[0].status === "Error") {
     response
       .status(200)
-      .json({ successMessage: deleteBook.recordset[0].message });
+      .json({ errorMessage: deleteBookType.recordset[0].message });
     return;
   }
   response.status(200);

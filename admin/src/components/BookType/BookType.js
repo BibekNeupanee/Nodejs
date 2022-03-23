@@ -3,15 +3,16 @@ import AddBookType from "../AddBookType/AddBookType";
 import EditBookType from "../EditBookType/EditBookType";
 import "./BookType.scss";
 
-
 async function deleteBtn(id) {
-  const deleteBook = await fetch(`http://localhost:3000/delete/book-type/${id}`, {
-    method: "DELETE",
-  });
-  const response = await deleteBook.json();
-  if (response.successMessage) {
-    alert(response.successMessage);
-    window.location.reload();
+  const deleteBookType = await fetch(
+    `http://localhost:3000/delete/book-type/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+  const response = await deleteBookType.json();
+  if (response.errorMessage) {
+    alert(response.errorMessage);
   }
 }
 
@@ -52,7 +53,11 @@ function BookType(props) {
               >
                 Edit
               </button>
-              <button className="btn" title="Delete" onClick={(_) => deleteBtn(bookType.id)}>
+              <button
+                className="btn"
+                title="Delete"
+                onClick={(_) => deleteBtn(bookType.id)}
+              >
                 Delete
               </button>
             </div>
