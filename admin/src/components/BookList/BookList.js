@@ -13,7 +13,7 @@ function BookAuthorList(props) {
 }
 
 async function deleteBtn(id) {
-  const deleteBook = await fetch(`http://localhost:3000/delete-book/${id}`, {
+  const deleteBook = await fetch(`http://localhost:3000/delete/book-type/${id}`, {
     method: "DELETE",
   });
   const response = await deleteBook.json();

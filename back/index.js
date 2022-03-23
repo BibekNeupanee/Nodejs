@@ -168,7 +168,7 @@ app.post("/add-publisher", async function (request, response) {
 app.post("/update/book-type", async (request, response) => {
   const { id, bookType } = request.body;
   const data = await getData(
-    `EXEC spa_update_bookType @id = ${id1}, @name = '${bookType}'`
+    `EXEC spa_update_bookType @id = ${id}, @name = '${bookType}'`
   );
   response.send(200);
 });
@@ -225,8 +225,23 @@ app.post("/add-type", async function (request, response) {
 });
 
 //Delete Books
-app.delete("/delete-book/:id", async function (request, response) {
+app.delete("/delete/book/:id", async function (request, response) {
   deleteBook = await getData(`EXEC spa_delete_books @id =${request.params.id}`);
+
+  if (deleteBook.recordset[0].status === "Success") {
+    response
+      .status(200)
+      .json({ successMessage: deleteBook.recordset[0].message });
+    return;
+  }
+  response.status(200);
+});
+
+//Delete Book Type
+app.delete("/delete/book-type/:id", async function (request, response) {
+  deleteBook = await getData(
+    `EXEC spa_delete_bookType @id =${request.params.id}`
+  );
 
   if (deleteBook.recordset[0].status === "Success") {
     response
