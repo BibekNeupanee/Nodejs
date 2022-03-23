@@ -173,6 +173,16 @@ app.post("/update/book-type", async (request, response) => {
   response.send(200);
 });
 
+
+//Update New  Author
+app.post("/update/author", async (request, response) => {
+  const { id, author } = request.body;
+  const data = await getData(
+    `EXEC spa_update_author @id = ${id}, @name = '${author}'`
+  );
+  response.send(200);
+});
+
 //Insert user Info (registration)
 app.post("/users", async function (request, response) {
   const { name, email, username, password, dob } = request.body;

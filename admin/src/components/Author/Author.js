@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AddAuthorList from "../AddAuthorList/AddAuthorList";
+import EditAuthor from "../EditAuthor/EditAuthor";
 import "./Author.scss";
 
 async function deleteBtn(id) {
@@ -45,7 +46,13 @@ function Author(props) {
               <div className="name">{author.name}</div>
             </div>
             <div className="right flow">
-              <button className="btn" title="Edit">
+              <button
+                className="btn"
+                title="Edit"
+                onClick={(_) =>
+                  props.onShowPopUp(<EditAuthor authorId={author.id} />)
+                }
+              >
                 Edit
               </button>
               <button
