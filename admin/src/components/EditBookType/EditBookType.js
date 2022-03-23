@@ -4,11 +4,11 @@ import useFetch from "../../hooks/useFetch";
 function EditBookType(props) {
   const [newType, setNewType] = useState("");
   const types =
-    useFetch(`http://localhost:3000/book-types/${props.typeId}`)?.bookType ||
+    useFetch(`http://localhost:3000/booktypes/${props.typeId}`)?.bookType ||
     [];
   const btnSave = async function () {
-    await fetch("http://localhost:3000/update/book-type", {
-      method: "POST",
+    await fetch("http://localhost:3000/booktypes", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

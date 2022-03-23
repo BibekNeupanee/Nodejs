@@ -4,12 +4,9 @@ import EditBookType from "../EditBookType/EditBookType";
 import "./BookType.scss";
 
 async function deleteBtn(id) {
-  const deleteBookType = await fetch(
-    `http://localhost:3000/delete/book-type/${id}`,
-    {
-      method: "DELETE",
-    }
-  );
+  const deleteBookType = await fetch(`http://localhost:3000/booktype/${id}`, {
+    method: "DELETE",
+  });
   const response = await deleteBookType.json();
   if (response.errorMessage) {
     alert(response.errorMessage);
@@ -22,7 +19,7 @@ async function deleteBtn(id) {
 function BookType(props) {
   const [data, setData] = useState([]);
   useEffect((_) => {
-    fetch("http://localhost:3000/book-types")
+    fetch("http://localhost:3000/booktypes")
       .then((response) => response.json())
       .then((json) => setData(json.types));
   }, []);

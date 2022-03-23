@@ -12,6 +12,7 @@ const { response } = require("express");
 const authorRoute = require("./routes/Author");
 const publisherRoute = require("./routes/Publisher");
 const bookRoute = require("./routes/Books");
+const bookTypeRoute = require("./routes/BookTypes");
 
 app.use(cors());
 app.options("*", cors());
@@ -26,12 +27,7 @@ const deleteObj = (data, column, search) => {
 app.use("/authors", authorRoute);
 app.use("/publishers", publisherRoute);
 app.use("/books", bookRoute);
-
-//for Types
-app.get("/book-types", async function (request, response) {
-  const types = await getData(`SELECT * FROM BookTypes`);
-  response.status(200).json({ types: types.recordsets[0] });
-});
+app.use("/booktypes", bookTypeRoute);
 
 //For Books Authors List
 app.get("/bookauthors/:id", async function (request, response) {
@@ -42,16 +38,6 @@ app.get("/bookauthors/:id", async function (request, response) {
     WHERE bookId = ${request.params.id}`
   );
   response.status(200).json({ authors: authors.recordsets[0] });
-});
-
-//For Book Type
-app.get("/book-types/:id", async function (request, response) {
-  const bookType = await getData(
-    `SELECT * 
-    FROM BookTypes
-    WHERE id =${request.params.id}`
-  );
-  response.status(200).json({ bookType: bookType.recordsets[0] });
 });
 
 //for searching books
@@ -112,15 +98,6 @@ app.get("/users", authenticateToken, async (request, response) => {
   response.status(200).json({ books: books.recordsets[0] });
 });
 
-//Update New  BookType
-app.post("/update/book-type", async (request, response) => {
-  const { id, bookType } = request.body;
-  const data = await getData(
-    `EXEC spa_update_bookType @id = ${id}, @name = '${bookType}'`
-  );
-  response.send(200);
-});
-
 //Insert user Info (registration)
 app.post("/users", async function (request, response) {
   const { name, email, username, password, dob } = request.body;
@@ -144,39 +121,6 @@ app.post("/users", async function (request, response) {
   } catch {
     // request.status(500).send();
   }
-});
-
-//Admin Add Book-Type
-app.post("/add-type", async function (request, response) {
-  const { type } = request.body;
-  try {
-    const insertUserData = await getData(
-      `EXEC spa_insert_types @name = '${type}'`
-    );
-    response.status(201);
-  } catch {
-    // request.status(500).send();
-  }
-});
-
-//Delete Book Type
-app.delete("/delete/book-type/:id", async function (request, response) {
-  deleteBookType = await getData(
-    `EXEC spa_delete_bookType @id =${request.params.id}`
-  );
-
-  if (deleteBookType.recordset[0].status === "Error") {
-    response
-      .status(200)
-      .json({ errorMessage: deleteBookType.recordset[0].message });
-    return;
-  } else if (deleteBookType.recordset[0].status === "Success") {
-    response
-      .status(200)
-      .json({ successMessage: deleteBookType.recordset[0].message });
-    return;
-  }
-  response.status(200);
 });
 
 app.listen(3000, function () {

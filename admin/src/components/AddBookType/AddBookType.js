@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 async function insertType(type) {
-  await fetch("http://localhost:3000/add-type", {
+  await fetch("http://localhost:3000/booktypes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
