@@ -9,6 +9,7 @@ const { getData } = require("./db");
 const app = express();
 const bcrypt = require("bcrypt");
 const { response } = require("express");
+const authorRoute = require("./routes/Author");
 
 app.use(cors());
 app.options("*", cors());
@@ -30,19 +31,7 @@ app.get("/books/:id", async function (request, response) {
   response.status(200).json({ books: books.recordsets[0] });
 });
 
-//for Authors
-app.get("/authors", async function (request, response) {
-  const authors = await getData(`SELECT * FROM Authors`);
-  response.status(200).json({ authors: authors.recordsets[0] });
-});
-
-//for author-id
-app.get("/authors/:id", async function (request, response) {
-  const authors = await getData(
-    `SELECT * FROM Authors WHERE id = ${request.params.id}`
-  );
-  response.status(200).json({ authors: authors.recordsets[0] });
-});
+app.use("/authors",authorRoute)
 
 //for Publishers
 app.get("/publishers", async function (request, response) {
