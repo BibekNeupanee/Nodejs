@@ -3,6 +3,22 @@ import AddPublisher from "../AddPublisher/AddPublisher";
 import EditPublisher from "../EditPublisher/EditPublisher";
 import "./Publisher.scss";
 
+async function deleteBtn(id) {
+  const deleteBookType = await fetch(
+    `http://localhost:3000/delete/publisher/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+  const response = await deleteBookType.json();
+  if (response.errorMessage) {
+    alert(response.errorMessage);
+  } else if (response.successMessage) {
+    alert(response.successMessage);
+    window.location.reload();
+  }
+}
+
 function Publisher(props) {
   const [data, setData] = useState([]);
   useEffect((_) => {
@@ -41,7 +57,11 @@ function Publisher(props) {
               >
                 Edit
               </button>
-              <button className="btn" title="Delete">
+              <button
+                className="btn"
+                title="Delete"
+                onClick={(_) => deleteBtn(publisher.id)}
+              >
                 Delete
               </button>
             </div>

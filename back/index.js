@@ -275,6 +275,25 @@ app.delete("/delete/book-type/:id", async function (request, response) {
   response.status(200);
 });
 
+//Delete Publisher
+app.delete("/delete/publisher/:id", async function (request, response) {
+  deletePublisher = await getData(
+    `EXEC spa_delete_publisher @id =${request.params.id}`
+  );
+
+  if (deletePublisher.recordset[0].status === "Error") {
+    response
+      .status(200)
+      .json({ errorMessage: deletePublisher.recordset[0].message });
+    return;
+  }else if (deletePublisher.recordset[0].status === "Success"){
+    response
+      .status(200)
+      .json({ successMessage: deletePublisher.recordset[0].message });
+    return;
+  }
+  response.status(200);
+});
 
 //Delete Author
 app.delete("/delete/author/:id", async function (request, response) {
