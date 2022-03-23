@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 async function insertPublisher(publisher) {
     
-    await fetch("http://localhost:3000/add-publisher", {
+    await fetch("http://localhost:3000/publishers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

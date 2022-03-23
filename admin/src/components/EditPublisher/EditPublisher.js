@@ -9,8 +9,8 @@ function EditPublisher(props) {
       ?.publisher || [];
 
   const btnSave = async function () {
-    await fetch("http://localhost:3000/update/publisher", {
-      method: "POST",
+    await fetch("http://localhost:3000/publishers", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
