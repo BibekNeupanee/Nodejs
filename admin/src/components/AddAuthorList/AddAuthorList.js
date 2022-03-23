@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 async function insertAuthor(author) {
-  await fetch("http://localhost:3000/add-author", {
+  await fetch("http://localhost:3000/authors", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

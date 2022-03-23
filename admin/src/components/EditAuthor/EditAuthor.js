@@ -8,8 +8,8 @@ function EditAuthor(props) {
     useFetch(`http://localhost:3000/authors/${props.authorId}`)?.authors || [];
 
   const btnSave = async function () {
-    await fetch("http://localhost:3000/update/author", {
-      method: "POST",
+    await fetch("http://localhost:3000/authors", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

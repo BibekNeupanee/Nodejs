@@ -11,6 +11,7 @@ const bcrypt = require("bcrypt");
 const { response } = require("express");
 const authorRoute = require("./routes/Author");
 const publisherRoute = require("./routes/Publisher");
+const bookRoute = require("./routes/Books");
 
 app.use(cors());
 app.options("*", cors());
@@ -22,18 +23,9 @@ const deleteObj = (data, column, search) => {
   return result;
 };
 
-const books = [];
-
-//For Book Id Details
-app.get("/books/:id", async function (request, response) {
-  const books = await getData(
-    `SELECT * FROM Books WHERE id = ${request.params.id}`
-  );
-  response.status(200).json({ books: books.recordsets[0] });
-});
-
-app.use("/authors",authorRoute)
-app.use("/publishers",publisherRoute)
+app.use("/authors", authorRoute);
+app.use("/publishers", publisherRoute);
+app.use("/books", bookRoute);
 
 //for Types
 app.get("/book-types", async function (request, response) {
@@ -51,7 +43,6 @@ app.get("/bookauthors/:id", async function (request, response) {
   );
   response.status(200).json({ authors: authors.recordsets[0] });
 });
-
 
 //For Book Type
 app.get("/book-types/:id", async function (request, response) {
@@ -121,48 +112,11 @@ app.get("/users", authenticateToken, async (request, response) => {
   response.status(200).json({ books: books.recordsets[0] });
 });
 
-//for Book Lists
-app.get("/books", async function (request, response) {
-  const books = await getData("EXEC spa_get_books");
-  response.status(200).json({ books: books.recordsets[0] });
-});
-
-// //Admin Add Publisher
-// app.post("/publishers", async function (request, response) {
-//   const { publisher } = request.body;
-//   try {
-//     const insertUserData = await getData(
-//       `EXEC spa_insert_publisher @name = '${publisher}'`
-//     );
-//     response.status(201);
-//   } catch {
-//     // request.status(500).send();
-//   }
-// });
-
 //Update New  BookType
 app.post("/update/book-type", async (request, response) => {
   const { id, bookType } = request.body;
   const data = await getData(
     `EXEC spa_update_bookType @id = ${id}, @name = '${bookType}'`
-  );
-  response.send(200);
-});
-
-// //Update New  Publisher
-// app.put("/publishers", async (request, response) => {
-//   const { id, publisher } = request.body;
-//   const data = await getData(
-//     `EXEC spa_update_publisher @id = ${id}, @name = '${publisher}'`
-//   );
-//   response.send(200);
-// });
-
-//Update New  Author
-app.post("/update/author", async (request, response) => {
-  const { id, author } = request.body;
-  const data = await getData(
-    `EXEC spa_update_author @id = ${id}, @name = '${author}'`
   );
   response.send(200);
 });
@@ -192,19 +146,6 @@ app.post("/users", async function (request, response) {
   }
 });
 
-//Admin Add Author
-app.post("/add-author", async function (request, response) {
-  const { author } = request.body;
-  try {
-    const insertUserData = await getData(
-      `EXEC spa_insert_authors @name = '${author}'`
-    );
-    response.status(201);
-  } catch {
-    // request.status(500).send();
-  }
-});
-
 //Admin Add Book-Type
 app.post("/add-type", async function (request, response) {
   const { type } = request.body;
@@ -218,19 +159,6 @@ app.post("/add-type", async function (request, response) {
   }
 });
 
-//Delete Books
-app.delete("/delete/book/:id", async function (request, response) {
-  deleteBook = await getData(`EXEC spa_delete_books @id =${request.params.id}`);
-
-  if (deleteBook.recordset[0].status === "Success") {
-    response
-      .status(200)
-      .json({ successMessage: deleteBook.recordset[0].message });
-    return;
-  }
-  response.status(200);
-});
-
 //Delete Book Type
 app.delete("/delete/book-type/:id", async function (request, response) {
   deleteBookType = await getData(
@@ -242,7 +170,7 @@ app.delete("/delete/book-type/:id", async function (request, response) {
       .status(200)
       .json({ errorMessage: deleteBookType.recordset[0].message });
     return;
-  }else if (deleteBookType.recordset[0].status === "Success"){
+  } else if (deleteBookType.recordset[0].status === "Success") {
     response
       .status(200)
       .json({ successMessage: deleteBookType.recordset[0].message });
@@ -250,28 +178,6 @@ app.delete("/delete/book-type/:id", async function (request, response) {
   }
   response.status(200);
 });
-
-
-// //Delete Author
-// app.delete("/delete/author/:id", async function (request, response) {
-//   deleteAuthor = await getData(
-//     `EXEC spa_delete_author @id =${request.params.id}`
-//   );
-
-//   if (deleteAuthor.recordset[0].status === "Error") {
-//     response
-//       .status(200)
-//       .json({ errorMessage: deleteAuthor.recordset[0].message });
-//     return;
-//   }else if (deleteAuthor.recordset[0].status === "Success"){
-//     response
-//       .status(200)
-//       .json({ successMessage: deleteAuthor.recordset[0].message });
-//     return;
-//   }
-//   response.status(200);
-// });
-
 
 app.listen(3000, function () {
   console.log("Server Running at port 3000");
