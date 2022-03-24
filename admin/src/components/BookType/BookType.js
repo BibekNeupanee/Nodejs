@@ -4,7 +4,7 @@ import EditBookType from "../EditBookType/EditBookType";
 import "./BookType.scss";
 
 async function deleteBtn(id) {
-  const deleteBookType = await fetch(`http://localhost:3000/booktype/${id}`, {
+  const deleteBookType = await fetch(`http://localhost:3000/booktypes/${id}`, {
     method: "DELETE",
   });
   const response = await deleteBookType.json();

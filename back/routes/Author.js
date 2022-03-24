@@ -13,10 +13,11 @@ router.get("/:id", async function (request, response) {
   const authors = await getData(
     `SELECT * FROM Authors WHERE id = ${request.params.id}`
   );
+  console.log(authors.recordsets[0]);
   response.status(200).json({ authors: authors.recordsets[0] });
 });
 
-//Update New  Author
+//Update Author
 router.put("/", async (request, response) => {
   const { id, author } = request.body;
   const data = await getData(
@@ -25,7 +26,7 @@ router.put("/", async (request, response) => {
   response.send(200);
 });
 
-//Admin Add Author
+//Add Author
 router.post("/", async function (request, response) {
   const { author } = request.body;
   try {
@@ -36,6 +37,20 @@ router.post("/", async function (request, response) {
   } catch {
     // request.status(500).send();
   }
+});
+
+//Delete Book Type
+router.delete("/:id", async function (request, response) {
+  author = await getData(`EXEC spa_delete_author @id =${request.params.id}`);
+
+  if (author.recordset[0].status === "Error") {
+    response.status(200).json({ errorMessage: author.recordset[0].message });
+    return;
+  } else if (author.recordset[0].status === "Success") {
+    response.status(200).json({ successMessage: author.recordset[0].message });
+    return;
+  }
+  response.status(200);
 });
 
 module.exports = router;

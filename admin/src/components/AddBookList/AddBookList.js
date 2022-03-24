@@ -6,6 +6,7 @@ function AddBookList() {
   const publishers =
     useFetch(`http://localhost:3000/publishers`)?.publishers || [];
   // const addedAuthors = {};
+  
   const data = useFetch(`http://localhost:3000/authors`)?.authors || [];
 
   const [selectedPublisher, setSelectedPublisher] = useState([]);

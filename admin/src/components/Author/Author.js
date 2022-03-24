@@ -5,7 +5,7 @@ import "./Author.scss";
 
 async function deleteBtn(id) {
   const deleteAuthor = await fetch(
-    `http://localhost:3000/delete/author/${id}`,
+    `http://localhost:3000/authors/${id}`,
     {
       method: "DELETE",
     }
