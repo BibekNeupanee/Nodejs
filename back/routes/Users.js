@@ -16,7 +16,7 @@ router.post("/login", async (request, response) => {
   const userPassword = user.recordsets[0][0].password;
 
   if (userPassword == null) {
-    return response.status(400).send("cant find user");
+    return response.status(400).send("Cant find user.");
   }
   try {
     if (await bcrypt.compare(password, userPassword)) {
@@ -30,13 +30,11 @@ router.post("/login", async (request, response) => {
   }
 });
 
-
-// //get users
-// router.get("/", authenticateToken, async (request, response) => {
-//   // const books = await getData("EXEC spa_get_books");
-//   // response.status(200).json({ books: books.recordsets[0] });
-// });
-
+//get users
+router.get("/", authenticateToken, async (request, response) => {
+  const books = await getData("EXEC spa_get_books");
+  response.status(200).json({ books: books.recordsets[0] });
+});
 
 //Insert user Info (registration)
 router.post("/", async function (request, response) {

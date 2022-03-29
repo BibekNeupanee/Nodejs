@@ -20,24 +20,22 @@ let refreshTokens = [];
 app.post("/token", async (request, response) => {
   const refreshToken = request.body.token;
   const books = await getData("SELECT * FROM Books");
-  console.log(refreshToken);
 
   if (refreshToken == null) return response.sendStatus(401);
 
+  const token = await getData(`EXEC spa_get_token @token ='${refreshToken}'`);
+
   //get referesh token from database for specific user
-  if (!refreshTokens.includes(refreshToken)) return response.sendStatus(403);
+  // if (!refreshTokens.includes(refreshToken)) return response.sendStatus(403);
+
+  console.log("dsadasdasdadasd", token.recordset[0].refreshToken);
+  if (token.recordset.length < 1) return response.sendStatus(403);
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err) => {
     if (err) return response.sendStatus(403);
     const accessToken = generateAccessToken({ name: books.recordsets[0].id });
     response.json({ accessToken: accessToken });
   });
-});
-
-app.delete("/logout", (req, res) => {
-  //delete from token_table where token is given token
-  refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
-  res.sendStatus(204);
 });
 
 app.get("/users/login", async (request, response) => {
@@ -56,7 +54,13 @@ app.get("/users/login", async (request, response) => {
       const refreshToken = jwt.sign(email, process.env.REFRESH_TOKEN_SECRET);
 
       //update token of that specific user.
-      refreshTokens.push(refreshToken);
+      // refreshTokens.push(refreshToken);
+
+      //inseting token in datebase
+      const token = await getData(
+        `EXEC spa_insert_token @email = '${email}',
+          @token ='${refreshToken}'`
+      );
 
       //save access token to browser cookie or cache
       response.json({ accessToken, refreshToken });
@@ -71,9 +75,15 @@ app.get("/users/login", async (request, response) => {
 
 function generateAccessToken(email) {
   return jwt.sign({ email }, process.env.ACESS_TOKEN_SECRET, {
-    // expiresIn: "300s",
+    expiresIn: "20s",
   });
 }
+
+app.delete("/logout", (req, res) => {
+  //delete from token_table where token is given token
+  refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
+  res.sendStatus(204);
+});
 
 app.listen(4000, function () {
   console.log("Server Running at port 4000");

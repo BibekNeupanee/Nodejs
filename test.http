@@ -62,21 +62,13 @@ POST http://localhost:4000/token
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiJ9.bmJpYmVrQGdtYWlsLmNvbQ.HqczFsmtLA1TQq6W2ejMePLvX9CtuvoBfRkI1kbJCJ0"
+  "token": "eyJhbGciOiJIUzI1NiJ9.bmJpYmVrQGdtYWlsLmNvbQ.B6IlGZ0Z1FPKpy1lgT0yaMCCaNDgjw7nmi4Rnx-2e0Q"
 }
 ###
 
 
 GET http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5iaWJla0BnbWFpbC5jb20iLCJpYXQiOjE2NDgwNTI4NDQsImV4cCI6MTY0ODA1Mjg3NH0.15qllWnj9S7dBVe3cR0ejN56QLZb6HDJWfzM6cnbQys
-###
-
-DELETE http://localhost:4000/logout
-Content-Type: application/json
-
-{
-  "token": "eyJhbGciOiJIUzI1NiJ9.bmJpYmVrQGdtYWlsLmNvbQ.HqczFsmtLA1TQq6W2ejMePLvX9CtuvoBfRkI1kbJCJ0"
-}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5iaWJla0BnbWFpbC5jb20iLCJpYXQiOjE2NDgzOTcxNjIsImV4cCI6MTY0ODM5NzE4Mn0.Spxr0UfwDctRrFGc_4aUlEoTjFGkChsTodrHtjqEaUU
 ###
 
 GET http://localhost:4000/users/login
@@ -85,6 +77,14 @@ Content-Type: application/json
 {
     "email" :"nbibek@gmail.com",
     "password": "Hahaha@321"
+}
+###
+
+DELETE http://localhost:4000/logout
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9.bmJpYmVrQGdtYWlsLmNvbQ.B6IlGZ0Z1FPKpy1lgT0yaMCCaNDgjw7nmi4Rnx-2e0Q"
 }
 ###
 

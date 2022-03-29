@@ -10,6 +10,8 @@ function authenticateToken(request, response, next) {
   }
 
   jwt.verify(token, process.env.ACESS_TOKEN_SECRET, (err, email) => {
+    console.log(err);
+
     if (err) return response.sendStatus(403);
 
     request.email = email;
