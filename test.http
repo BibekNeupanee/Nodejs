@@ -1,7 +1,13 @@
-GET http://localhost:3000/books
+PUT http://localhost:3000/books
+Content-Type: application/json
+
+{
+    "a":1,
+    "b":2
+}
 ###
 
-GET http://localhost:3000/books/5
+GET http://localhost:3000/books/4056
 ###
 
 GET http://localhost:3000/authors

@@ -59,6 +59,27 @@ router.post("/", async function (request, response) {
   }
 });
 
+//Insert Books
+router.put("/", async function (request, response) {
+  const a = Object.entries(request.body)
+    .map(([key, value]) => {
+      return `@${key}='${value}'`;
+    })
+    .join(", ");
+  const insertBooks = await getData(`EXEC spa_insert_books ${a}`);
+  if (insertBooks.recordset[0].status === "Error") {
+    response
+      .status(400)
+      .json({ errorMessage: insertBooks.recordset[0].message });
+    return;
+  } else if (insertBooks.recordset[0].status === "Success") {
+    response
+      .status(201)
+      .json({ successMessage: insertBooks.recordset[0].message });
+    return;
+  }
+});
+
 //Delete Books
 router.delete("/:id", async function (request, response) {
   deleteBook = await getData(`EXEC spa_delete_books @id =${request.params.id}`);

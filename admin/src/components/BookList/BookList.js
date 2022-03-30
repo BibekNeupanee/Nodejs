@@ -62,7 +62,7 @@ function BookList(props) {
                 className="btn"
                 title="Edit"
                 onClick={(_) =>
-                  props.onShowPopUp(<AddBookList bookId={book.id} />)
+                  props.onShowPopUp(<AddBookList book={book} />)
                 }
               >
                 Edit
