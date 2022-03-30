@@ -58,7 +58,13 @@ function BookList(props) {
               <div className="price">RS. {book.price}</div>
             </div>
             <div className="right">
-              <button className="btn" title="Edit">
+              <button
+                className="btn"
+                title="Edit"
+                onClick={(_) =>
+                  props.onShowPopUp(<AddBookList bookId={book.id} />)
+                }
+              >
                 Edit
               </button>
               <button

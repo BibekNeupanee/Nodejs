@@ -26,7 +26,3 @@ CREATE TABLE [dbo].[Books](
 	FOREIGN KEY (bookTypeId) REFERENCES [dbo].[BookTypes](id) ON DELETE CASCADE
 
 )
-
-
-
-

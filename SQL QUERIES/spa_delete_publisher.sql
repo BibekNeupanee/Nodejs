@@ -22,12 +22,10 @@ BEGIN
 		DELETE FROM Publishers WHERE id= @id; 
 		SELECT 'Success' [status],
 			'Delete Successful' [message]
-		RETURN;
 	END TRY  
 	BEGIN CATCH  
 		SELECT 'Error' [status],
-			'Cannot delete while author in use.' [message]
-		RETURN;
+			'Cannot delete while author in use.'
 	END CATCH; 
 END
 GO

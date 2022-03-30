@@ -38,6 +38,23 @@ Content-Type: application/json
 ###
 
 
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+    "bookName" : "Java",
+    "year" : "2000",
+    "pages" : 200,
+    "isbn" : "adsasdasd",
+    "edition" : 3,
+    "authors" : "1,2",
+    "publisher" : 1,
+    "bookType" : 1,
+    "price" : "600"
+}
+###
+
+
 POST http://localhost:3000/users
 Content-Type: application/json
 

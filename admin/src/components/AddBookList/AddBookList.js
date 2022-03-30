@@ -5,18 +5,55 @@ import "./AddBookList.scss";
 function AddBookList() {
   const publishers =
     useFetch(`http://localhost:3000/publishers`)?.publishers || [];
+
+  const bookTypes = useFetch(`http://localhost:3000/booktypes`)?.types || [];
+
+  // const publishers =
+  //   useFetch(`http://localhost:3000/publishers`)?.publishers || [];
   // const addedAuthors = {};
-  
+
   const data = useFetch(`http://localhost:3000/authors`)?.authors || [];
 
-  const [selectedPublisher, setSelectedPublisher] = useState([]);
-  const [selectedAuthor, setSelectedAuthor] = useState("");
-  const [bookAuthors, setBookAuthors] = useState([]);
   const [bookName, setBookName] = useState("");
   const [year, setYear] = useState("");
   const [pages, setPages] = useState("");
   const [isbn, setIsbn] = useState("");
   const [edition, setEdition] = useState("");
+  const [selectedAuthor, setSelectedAuthor] = useState("");
+  const [bookAuthors, setBookAuthors] = useState([]);
+  const [selectedPublisher, setSelectedPublisher] = useState([]);
+  const [selectedBookType, setSelectedBookType] = useState([]);
+  const [price, setPrice] = useState("");
+
+  //FOR ADD BUTTON
+  const handleBookAdd = async (e) => {
+    e.preventDefault();
+    const data = await fetch("http://localhost:3000/books", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        bookName,
+        year,
+        pages,
+        isbn,
+        edition,
+        authors: bookAuthors.map((e) => e.id).join(","),
+        publisher: selectedPublisher.id,
+        bookType: selectedBookType.id,
+        price: price,
+      }),
+    });
+    
+    const response = await data.json();
+    if (response.errorMessage) {
+      alert(response.errorMessage);
+    } else if (response.successMessage) {
+      alert(response.successMessage);
+      window.location.reload();
+    }
+  };
 
   //FOR PUBLISHER
   const publisherOnSelectChange = function (e) {
@@ -27,19 +64,31 @@ function AddBookList() {
 
     setSelectedPublisher((oldValue) => {
       const id = e.target.selectedOptions[0].dataset.id;
-      const name = e.target.selectedOptions[0].dataset.name;
-      return { id, name };
+      return { id };
+    });
+  };
+
+  //For BookType
+  const bookTypeOnSelectChange = function (e) {
+    if (e.target.value === "") {
+      setSelectedBookType("");
+      return;
+    }
+
+    setSelectedBookType(() => {
+      const id = e.target.selectedOptions[0].dataset.id;
+      return { id };
     });
   };
 
   //FOR AUTHOR
-  const onSelectChange = function (e) {
+  const authorOnSelectChange = function (e) {
     if (e.target.value === "") {
       setSelectedAuthor("");
       return;
     }
 
-    setSelectedAuthor((oldValue) => {
+    setSelectedAuthor(() => {
       const id = e.target.selectedOptions[0].dataset.id;
       const name = e.target.selectedOptions[0].dataset.name;
       return { id, name };
@@ -50,14 +99,6 @@ function AddBookList() {
   const handle = () => {
     if (bookAuthors.find((e) => e.name === selectedAuthor.name)) return;
     setBookAuthors([...bookAuthors, selectedAuthor]);
-  };
-
-  //FOR ADD BUTTON
-  const handleBookAdd = (e) => {
-    console.log(selectedPublisher.id);
-
-    e.preventDefault();
-    console.log(bookAuthors.map((e) => e.id).join(","));
   };
 
   return (
@@ -106,7 +147,7 @@ function AddBookList() {
       </div>
       <div className="add-book__author">
         <label> Authors: </label>
-        <select name="author-list" onChange={onSelectChange}>
+        <select name="author-list" onChange={authorOnSelectChange}>
           <option></option>
           {data.map((author, i) => (
             <option key={i} data-name={author.name} data-id={author.id}>
@@ -133,6 +174,26 @@ function AddBookList() {
             </option>
           ))}
         </select>
+      </div>
+      <div className="add-book__book-types">
+        <label>Book Type: </label>
+        <select name="book-type-list" onChange={bookTypeOnSelectChange}>
+          <option></option>
+          {bookTypes.map((bookType, i) => (
+            <option key={i} data-name={bookType.name} data-id={bookType.id}>
+              {bookType.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="add-book__book-price">
+        <label>Book Price: </label>
+        <input
+          type="number"
+          className="txt"
+          value={price}
+          onInput={(e) => setPrice(e.target.value)}
+        />
       </div>
       <div className="add-book__choose-book">
         <label>Book PDF: </label>

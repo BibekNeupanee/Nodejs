@@ -16,6 +16,7 @@ CREATE PROCEDURE spa_insert_token
 	
 AS
 BEGIN
+SELECT 1 FROM Token t INNER JOIN Users u ON u.id = t.userId WHERE u.email = 'nbibek@gmail.com'
 	SET NOCOUNT ON;
 
 	IF EXISTS (SELECT 1 FROM Token t INNER JOIN Users u ON u.id = t.userId WHERE u.email = @email)

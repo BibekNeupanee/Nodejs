@@ -16,6 +16,49 @@ router.get("/:id", async function (request, response) {
   response.status(200).json({ books: books.recordsets[0] });
 });
 
+//Insert Books
+router.post("/", async function (request, response) {
+  const {
+    bookName,
+    year,
+    isbn,
+    edition,
+    authors,
+    publisher,
+    bookType,
+    price,
+    pages,
+  } = request.body;
+  try {
+    const insertBooks = await getData(
+      `EXEC spa_insert_books @name = '${bookName}'
+      , @year = '${year}'
+      , @pages = ${pages}
+      , @isbn = '${isbn}'
+      , @edition = ${edition}
+      , @publisherId = ${publisher}
+      , @bookTypeId = ${bookType}
+      , @price = ${price}
+      , @author_ids = '${authors}'`
+    );
+
+    if (insertBooks.recordset[0].status === "Error") {
+      response
+        .status(400)
+        .json({ errorMessage: insertBooks.recordset[0].message });
+      return;
+    } else if (insertBooks.recordset[0].status === "Success") {
+      response
+        .status(201)
+        .json({ successMessage: insertBooks.recordset[0].message });
+      return;
+    }
+  } catch (e) {
+    // request.status(500).send();
+    console.log(e);
+  }
+});
+
 //Delete Books
 router.delete("/:id", async function (request, response) {
   deleteBook = await getData(`EXEC spa_delete_books @id =${request.params.id}`);
@@ -23,6 +66,11 @@ router.delete("/:id", async function (request, response) {
   if (deleteBook.recordset[0].status === "Success") {
     response
       .status(200)
+      .json({ successMessage: deleteBook.recordset[0].message });
+    return;
+  } else if (deleteBook.recordset[0].status === "Success") {
+    response
+      .status(201)
       .json({ successMessage: deleteBook.recordset[0].message });
     return;
   }
