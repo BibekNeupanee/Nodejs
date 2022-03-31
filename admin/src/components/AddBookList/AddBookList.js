@@ -26,22 +26,21 @@ function AddBookList(props) {
   //FOR ADD BUTTON
   const handleBookAdd = async (e) => {
     e.preventDefault();
-
-    if (!props) {
+    if (!props?.book) {
       const data = await fetch("http://localhost:3000/books", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: formData.name,
+          bookName: formData.name,
           year: formData.year,
           pages: formData.pages,
           isbn: formData.isbn,
           edition: formData.edition,
           authors: formData.bookAuthors.map((e) => e.id).join(","),
-          publisher: formData.selectedPublisher.id,
-          bookType: formData.selectedBookType.id,
+          publisher: formData.selectedPublisher,
+          bookType: formData.selectedBookType,
           price: formData.price,
         }),
       });
@@ -130,7 +129,7 @@ function AddBookList(props) {
 
     setFormData({
       ...formData,
-      selectedAuthor: [...formData.bookAuthors, formData.selectedAuthor],
+      bookAuthors: [...formData.bookAuthors, formData.selectedAuthor],
     });
   };
 
