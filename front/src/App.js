@@ -7,6 +7,7 @@ import BookDetails from "./routes/BookDetails/BookDetails";
 import Login from "./routes/Login/Login";
 import Register from "./routes/Register/Register";
 import SearchBooks from "./routes/SearchBooks/SearchBooks";
+import Cart from "./routes/Cart/Cart";
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/search/:keyword" element={<SearchBooks />} />
         <Route path="/test" element={<Test />}></Route>
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
   );

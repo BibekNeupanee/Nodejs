@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
@@ -16,6 +16,10 @@ function BookDetail() {
   const { id } = useParams();
 
   const data = useFetch(`http://localhost:3000/books/${id}`)?.books || [];
+
+  const handleCartBtn  = async ()=>{
+    
+  }
 
   return (
     <div className="book-detail">
@@ -55,7 +59,9 @@ function BookDetail() {
             </div>
             <div className="book-detail__btn">
               <button className="btn_buy">Buy</button>
-              <button className="btn_cart">Add To Cart</button>
+              <Link to={"/cart"}>
+                <button className="btn_cart" onClick={()=>handleCartBtn}>Add To Cart</button>
+              </Link>
             </div>
           </div>
         </>

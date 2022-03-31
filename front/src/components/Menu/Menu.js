@@ -18,6 +18,9 @@ function Menu() {
       <Link to={"/register"} className="menu__link">
         Register
       </Link>
+      <Link to={"/cart"} className="menu__cart">
+        Cart
+      </Link>
     </div>
   );
 }
