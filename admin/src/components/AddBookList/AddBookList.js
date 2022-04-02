@@ -21,6 +21,7 @@ function AddBookList(props) {
     selectedBookType: [],
     price: props?.book?.price || "",
     pages: props?.book?.pages || "",
+    description: props?.book?.description || "",
   });
 
   //FOR ADD BUTTON
@@ -42,6 +43,7 @@ function AddBookList(props) {
           publisher: formData.selectedPublisher,
           bookType: formData.selectedBookType,
           price: formData.price,
+          description: formData.description,
         }),
       });
 
@@ -139,6 +141,7 @@ function AddBookList(props) {
       <div className="add-book__book-name">
         <label>Book Name: </label>
         <input
+          placeholder="Book Name"
           type="text"
           className="txt"
           value={formData.name}
@@ -148,6 +151,7 @@ function AddBookList(props) {
       <div className="add-book__year">
         <label>Year: </label>
         <input
+          placeholder="Published Year"
           type="number"
           value={formData.year}
           onInput={(e) => setFormData({ ...formData, year: e.target.value })}
@@ -156,6 +160,7 @@ function AddBookList(props) {
       <div className="add-book__pages">
         <label>Pages: </label>
         <input
+          placeholder="Book Pages"
           type="number"
           value={formData.pages}
           onInput={(e) => setFormData({ ...formData, pages: e.target.value })}
@@ -164,6 +169,7 @@ function AddBookList(props) {
       <div className="add-book__isbn">
         <label>ISBN: </label>
         <input
+          placeholder="ISBN Number"
           type="number"
           value={formData.isbn}
           onInput={(e) => setFormData({ ...formData, isbn: e.target.value })}
@@ -172,6 +178,7 @@ function AddBookList(props) {
       <div className="add-book__edition">
         <label>Edition: </label>
         <input
+          placeholder="Edition"
           type="number"
           value={formData.edition}
           onInput={(e) => setFormData({ ...formData, edition: e.target.value })}
@@ -224,19 +231,35 @@ function AddBookList(props) {
       <div className="add-book__book-price">
         <label>Book Price: </label>
         <input
+          placeholder="Book Price"
           type="number"
           className="txt"
           value={formData.price}
           onInput={(e) => setFormData({ ...formData, price: e.target.value })}
         />
       </div>
+      <div className="add-book__description">
+        <label htmlFor="description">Description:</label>
+        <textarea
+          className="add-book__description"
+          name="description"
+          id="description"
+          cols="30"
+          rows="10"
+          placeholder="Add Description"
+          value={formData.description}
+          onInput={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
+        />
+      </div>
       <div className="add-book__choose-book">
         <label>Book PDF: </label>
-        <input type="file" accept=".pdf" />
+        <input placeholder="Add Description" type="file" accept=".pdf" />
       </div>
       <div className="add-book__book-cover">
         <label>Book Cover: </label>
-        <input type="file" accept="image/*" />
+        <input placeholder="Add Description" type="file" accept="image/*" />
       </div>
       <button
         className="add-book__btn-add"

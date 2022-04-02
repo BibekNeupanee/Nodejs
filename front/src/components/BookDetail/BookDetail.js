@@ -55,6 +55,10 @@ function BookDetail() {
             <div className="book-detail__price">
               <p>Rs.</p> {book.price}
             </div>
+            <div className="book-detail__description">
+              <p>Description: </p>
+              {book.description}
+            </div>
             <div className="book-detail__btn">
               <button className="btn_buy">Buy</button>
               <Link to={"/cart"}>

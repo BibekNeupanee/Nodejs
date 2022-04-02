@@ -36,6 +36,7 @@ router.post("/", async function (request, response) {
     bookType,
     price,
     pages,
+    description
   } = request.body;
   try {
     const insertBooks = await getData(
@@ -47,7 +48,8 @@ router.post("/", async function (request, response) {
       , @publisherId = ${publisher}
       , @bookTypeId = ${bookType}
       , @price = ${price}
-      , @author_ids = '${authors}'`
+      , @author_ids = '${authors}'
+      , @description = '${description}'`
     );
 
     if (insertBooks.recordset[0].status === "Error") {

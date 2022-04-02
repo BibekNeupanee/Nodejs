@@ -1,12 +1,10 @@
 USE [bookStore]
 GO
 
-/****** Object:  Table [dbo].[Books]    Script Date: 02/03/2022 22:24:21 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Books]') AND type in (N'U'))
 DROP TABLE [dbo].[Books]
 GO
 
-/****** Object:  Table [dbo].[Books]    Script Date: 02/03/2022 22:24:21 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,6 +20,7 @@ CREATE TABLE [dbo].[Books](
 	[edition] [tinyint] NOT NULL,
 	[publisherId] [int] NOT NULL,
 	[bookTypeId] [int] NOT NULL,
+	[image] [varbinary] (MAX) ,
 	FOREIGN KEY (publisherId) REFERENCES [dbo].[Publishers](id) ON DELETE CASCADE,
 	FOREIGN KEY (bookTypeId) REFERENCES [dbo].[BookTypes](id) ON DELETE CASCADE
 
