@@ -1,10 +1,10 @@
 header {
   background-color: #eee;
   display: flex;
-  // justify-content: space-between;
   align-items: center;
   height: 60px;
   padding: 0 5em;
+  gap: 1em;
 
   .logo {
     font-weight: bold;
@@ -17,6 +17,5 @@ header {
     object-fit: cover;
     width: 1.5em;
     height: 1.5em;
-    // border-radius: 50%;
   }
 }

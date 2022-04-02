@@ -10,8 +10,8 @@ function Settings() {
       <Link to={"/register"} className="settings__link">
         Register
       </Link>
-      <Link to={"/cart"} className="settings__cart">
-        Cart
+      <Link to={"/cart"} className="settings__link">
+        My Cart
       </Link>
     </div>
   );

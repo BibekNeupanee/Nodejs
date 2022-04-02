@@ -11,7 +11,7 @@ function Book() {
       {bookType.map((type, i) => (
         <div className="books__types" key={i}>
           <div className="books__label">
-            {type.name} <Link to={"/" + type.id}>See More&gt;&gt;&gt;</Link>
+            {type.name} <Link to={"/" + type.id} className="books__see-more">See More&gt;&gt;&gt;</Link>
           </div>
           <div className="books__detail">
             <BooksCategory typeId={type.id} />

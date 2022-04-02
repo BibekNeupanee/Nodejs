@@ -2,3 +2,13 @@
 * {
   font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+/* 
+#root {
+  background: rgb(0, 13, 224);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 13, 224, 1) 0%,
+    rgba(109, 120, 210, 0.7343312324929971) 55%,
+    rgba(0, 212, 255, 1) 100%
+  );
+} */

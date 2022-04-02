@@ -15,7 +15,6 @@ function Header() {
       <Menu />
       <SearchBox />
       <Settings />
-      {/* usercontrol component */}
     </header>
   );
 }
