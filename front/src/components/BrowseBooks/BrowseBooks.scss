@@ -1,0 +1,31 @@
+.all-book {
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+  gap: 1em;
+
+  &__list {
+    border: 1px solid black;
+    padding: 1em;
+    gap: 1em;
+  }
+  img {
+    width: auto;
+  }
+
+  &__title {
+    text-decoration: none;
+    font-weight: bold;
+  }
+  &__authors {
+    display: flex;
+    gap: 0.5em;
+    flex-direction: column;
+  }
+
+  &__types {
+  }
+  &__price {
+    font-weight: bold;
+  }
+}

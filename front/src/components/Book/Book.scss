@@ -4,8 +4,10 @@
   padding: 2em 5em;
 
   &__label {
+    display: flex;
     text-decoration: none;
     font-weight: bold;
+    justify-content: space-between;
   }
 
   &__detail {
