@@ -164,7 +164,7 @@ function AddBookList(props) {
       <div className="add-book__isbn">
         <label>ISBN: </label>
         <input
-          type="text"
+          type="number"
           value={formData.isbn}
           onInput={(e) => setFormData({ ...formData, isbn: e.target.value })}
         />
