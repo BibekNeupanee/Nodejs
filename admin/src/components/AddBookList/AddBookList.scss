@@ -1,71 +1,79 @@
 .add-book {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25em;
+  height: 55vh;
 
   &__header {
     display: flex;
     justify-content: center;
+    height: 50px;
   }
-
-  label {
-    font-weight: bold;
-  }
-
-  &__author {
+  .form-container {
     display: flex;
-    flex-direction: row;
-    padding: 0.25em 0;
+    align-items: flex-start;
     gap: 1em;
-  }
+    flex-wrap: wrap;
+    height: calc(100% - 50px);
+    overflow: auto;
 
-  &__selected-authors {
-    display: flex;
-    flex-direction: row;
-    gap: 0.25em;
-
-    span {
-      border: 1px solid black;
+    label {
+      display: block;
+      font-weight: bold;
     }
-  }
 
-  &__publisher {
-    padding: 0.25em 0;
-  }
-
-  &__choose-book {
-    display: flex;
-    flex-direction: column;
-    padding: 0.25em 0;
-    gap: 0.5em;
-    width: fit-content;
-
-    input {
-      cursor: pointer;
+    &__author {
+      display: flex;
+      flex-direction: row;
+      padding: 0.25em 0;
+      gap: 1em;
     }
-  }
 
-  &__book-cover {
-    display: flex;
-    flex-direction: column;
-    padding: 0.25em 0;
-    gap: 0.5em;
-    width: fit-content;
+    &__selected-authors {
+      display: flex;
+      flex-direction: row;
+      gap: 0.25em;
 
-    input {
-      cursor: pointer;
+      span {
+        border: 1px solid black;
+      }
     }
-  }
 
-  &__description {
-    height: 5em;
-  }
+    &__publisher {
+      padding: 0.25em 0;
+    }
 
-  &__btn-add {
-    padding: 1em 0;
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-    // width: max-content;
+    &__choose-book {
+      display: flex;
+      flex-direction: column;
+      padding: 0.25em 0;
+      gap: 0.5em;
+      width: fit-content;
+
+      input {
+        cursor: pointer;
+      }
+    }
+
+    &__book-cover {
+      display: flex;
+      flex-direction: column;
+      padding: 0.25em 0;
+      gap: 0.5em;
+      width: fit-content;
+
+      input {
+        cursor: pointer;
+      }
+    }
+
+    &__description {
+      height: 5em;
+    }
+
+    &__btn-add {
+      padding: 1em 0;
+      display: flex;
+      flex-direction: row;
+      gap: 1em;
+      // width: max-content;
+    }
   }
 }
