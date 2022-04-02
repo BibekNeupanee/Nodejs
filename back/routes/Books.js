@@ -8,10 +8,18 @@ router.get("/", async function (request, response) {
   response.status(200).json({ books: books.recordsets[0] });
 });
 
+
 //For Book Id Details
 router.get("/:id", async function (request, response) {
   const books = await getData(
     `SELECT * FROM Books WHERE id = ${request.params.id}`
+  );
+  response.status(200).json({ books: books.recordsets[0] });
+});
+
+router.get("/types/:id", async function (request, response) {
+  const books = await getData(
+    `SElECT * FROM Books WHERE bookTypeId = ${request.params.id}`
   );
   response.status(200).json({ books: books.recordsets[0] });
 });

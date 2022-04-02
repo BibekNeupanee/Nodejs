@@ -1,3 +1,4 @@
-#root{
-    font-family: Georgia, "Times New Roman", Times, serif;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap");
+* {
+  font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }

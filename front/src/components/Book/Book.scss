@@ -1,37 +1,15 @@
 .books {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2em;
-  padding: 3em 5em;
+  display: flex;
+  flex-direction: column;
+  padding: 2em 5em;
 
-  &__list {
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #eee;
-    gap: .5em;
-  }
-
-  &__link {
-    display: flex;
-    flex-direction: column;
-    color: inherit;
+  &__label {
     text-decoration: none;
     font-weight: bold;
-    gap: 1em;
   }
 
-  &__title {
-  }
-
-  &__autors {
+  &__detail {
     display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-
-    span {
-      padding: 0.125em 0.5em;
-      background: #eee;
-    }
+    flex-direction: row;
   }
 }

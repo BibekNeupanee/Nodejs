@@ -17,9 +17,7 @@ function BookDetail() {
 
   const data = useFetch(`http://localhost:3000/books/${id}`)?.books || [];
 
-  const handleCartBtn  = async ()=>{
-    
-  }
+  const handleCartBtn = async () => {};
 
   return (
     <div className="book-detail">
@@ -60,7 +58,9 @@ function BookDetail() {
             <div className="book-detail__btn">
               <button className="btn_buy">Buy</button>
               <Link to={"/cart"}>
-                <button className="btn_cart" onClick={()=>handleCartBtn}>Add To Cart</button>
+                <button className="btn_cart" onClick={() => handleCartBtn}>
+                  Add To Cart
+                </button>
               </Link>
             </div>
           </div>

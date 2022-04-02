@@ -1,16 +1,19 @@
 .search-box {
   display: flex;
   align-items: center;
-
+  margin-left: auto;
+  
   .input-search {
+    // width: 80%;
     height: 1.5em;
     width: 300px;
     border: 1px solid cornflowerblue;
     outline: none;
-    border-radius: .3em;
+    border-radius: 0.3em;
   }
 
   .btn-search {
+    
     display: flex;
     // background-color: cornflowerblue;
     box-sizing: border-box;
