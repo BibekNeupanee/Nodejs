@@ -28,6 +28,12 @@ function BooksCategory(props) {
           <div className="category__price">
             <b>Rs. {book.price}</b>
           </div>
+          <div className="category__btn">
+            <button className="btn" id="buy">
+              Buy
+            </button>
+            <button className="btn">Add To Cart</button>
+          </div>
         </div>
       ))}
     </div>
