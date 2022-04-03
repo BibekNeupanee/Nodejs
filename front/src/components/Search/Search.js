@@ -7,18 +7,7 @@ import "./Search.scss";
 
 function Search() {
   const { keyword } = useParams();
-
-  // const [data, setData] = useState([]);
-  // useEffect(
-  //   (_) => {
-  //     fetch("http://localhost:3000/search/" + keyword)
-  //       .then((response) => response.json())
-  //       .then((json) => {
-  //         setData(json.search);
-  //       });
-  //   },
-  //   [keyword]
-  // );
+  
   const data =
     useFetch("http://localhost:3000/search/" + keyword)?.search || [];
 

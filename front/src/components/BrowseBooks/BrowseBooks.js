@@ -26,9 +26,7 @@ function BrowseBooks() {
           <div className="all-book__type">
             <BookType btId={book.bookTypeId} />
           </div>
-          <div className="all-book__price">
-            Rs. {book.price}
-          </div>
+          <div className="all-book__price">Rs. {book.price}</div>
         </div>
       ))}
     </div>

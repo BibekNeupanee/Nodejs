@@ -2,26 +2,35 @@
   display: flex;
   align-items: center;
   margin-left: auto;
-  
+  position: relative;
+
   .input-search {
     // width: 80%;
-    height: 1.5em;
-    width: 300px;
-    border: 1px solid cornflowerblue;
+    height: 2.5em;
+    width: 400px;
+    // border: 1px solid cornflowerblue;
     outline: none;
     border-radius: 0.3em;
+    padding: 0 2.5em 0 1em;
   }
 
   .btn-search {
-    
+    position: absolute;
+    right: 0;
     display: flex;
     // background-color: cornflowerblue;
     box-sizing: border-box;
-    height: 1.334em;
+    font-size: 1em;
+    // height: 3em;
+    // background: #000;
     padding: 0 0.5em;
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: cornflowerblue;
+    color: inherit;
+
+    &:hover {
+      color: #a9a9a9;
+    }
   }
 }
