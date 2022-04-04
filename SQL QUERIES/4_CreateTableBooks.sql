@@ -20,7 +20,8 @@ CREATE TABLE [dbo].[Books](
 	[edition] [tinyint] NOT NULL,
 	[publisherId] [int] NOT NULL,
 	[bookTypeId] [int] NOT NULL,
-	[image] [varbinary] (MAX) ,
+	[image] [varchar](1000),
+	[pdf] [varchar] (1000),
 	FOREIGN KEY (publisherId) REFERENCES [dbo].[Publishers](id) ON DELETE CASCADE,
 	FOREIGN KEY (bookTypeId) REFERENCES [dbo].[BookTypes](id) ON DELETE CASCADE
 

@@ -15,7 +15,10 @@ function BrowseBooks() {
         <div className="all-book__list" key={i}>
           <Link to={"/book-detail/" + book.id} className="category__link">
             <img
-              src="https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
+              src={
+                book.image ||
+                "https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
+              }
               alt={book.name}
             />
             <div className="all-book__title">{book.name}</div>

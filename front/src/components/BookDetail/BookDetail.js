@@ -25,7 +25,10 @@ function BookDetail() {
         <>
           <img
             className="book-detail__image"
-            src="https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
+            src={
+              book.image ||
+              "https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
+            }
             alt=""
           />
           <div className="book-detail__info">

@@ -22,11 +22,14 @@ function AddBookList(props) {
     price: props?.book?.price || "",
     pages: props?.book?.pages || "",
     description: props?.book?.description || "",
+    image: props?.book?.image || "",
   });
 
   //FOR ADD BUTTON
   const handleBookAdd = async (e) => {
     e.preventDefault();
+    // const formValues = e.target.serialize();
+    console.log(e.target);
     if (!props?.book) {
       const data = await fetch("http://localhost:3000/books", {
         method: "POST",
@@ -44,6 +47,7 @@ function AddBookList(props) {
           bookType: formData.selectedBookType,
           price: formData.price,
           description: formData.description,
+          image: formData.image,
         }),
       });
 
@@ -133,6 +137,10 @@ function AddBookList(props) {
       ...formData,
       bookAuthors: [...formData.bookAuthors, formData.selectedAuthor],
     });
+  };
+
+  const handleImage = (e) => {
+    setFormData({ ...formData, image: e.target.files[0] });
   };
 
   return (
@@ -257,11 +265,11 @@ function AddBookList(props) {
         </div>
         <div className="add-book__choose-book">
           <label>Book PDF: </label>
-          <input placeholder="Add Description" type="file" accept=".pdf" />
+          <input type="file" accept=".pdf" />
         </div>
         <div className="add-book__book-cover">
           <label>Book Cover: </label>
-          <input placeholder="Add Description" type="file" accept="image/*" />
+          <input onChange={handleImage} type="file" accept=".jpg,.png,.jpeg" />
         </div>
         <button
           className="add-book__btn-add"

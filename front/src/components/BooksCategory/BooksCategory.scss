@@ -13,6 +13,11 @@
     gap: 0.5em;
   }
 
+  img {
+    height: 300px;
+    object-fit: contain;
+  }
+
   &__link {
     display: flex;
     flex-direction: column;

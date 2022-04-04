@@ -1,13 +1,31 @@
+require("dotenv").config();
+
 const express = require("express");
 const { getData } = require("../db");
+const multer = require("multer");
+const mime = require("mime-types");
+
 const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: function (request, file, callback) {
+    callback(null, "./uploads/");
+  },
+  filename: function (request, file, callback) {
+    callback(
+      null,
+      file.originalname + Date.now() + "." + mime.extension(file.mimetype)
+    );
+  },
+});
+
+const upload = multer({ storage });
 
 //for Book Lists
 router.get("/", async function (request, response) {
   const books = await getData("EXEC spa_get_books");
   response.status(200).json({ books: books.recordsets[0] });
 });
-
 
 //For Book Id Details
 router.get("/:id", async function (request, response) {
@@ -25,7 +43,12 @@ router.get("/types/:id", async function (request, response) {
 });
 
 //Insert Books
-router.post("/", async function (request, response) {
+router.post("/", upload.single("image"), async function (request, response) {
+
+  const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.file.filename}`;
+
+  // return response.send(200);
+
   const {
     bookName,
     year,
@@ -36,7 +59,7 @@ router.post("/", async function (request, response) {
     bookType,
     price,
     pages,
-    description
+    description,
   } = request.body;
   try {
     const insertBooks = await getData(
@@ -49,7 +72,8 @@ router.post("/", async function (request, response) {
       , @bookTypeId = ${bookType}
       , @price = ${price}
       , @author_ids = '${authors}'
-      , @description = '${description}'`
+      , @description = '${description}'
+      , @image = '${imageURL}'`
     );
 
     if (insertBooks.recordset[0].status === "Error") {
@@ -71,12 +95,15 @@ router.post("/", async function (request, response) {
 
 //Insert Books
 router.put("/", async function (request, response) {
+  // const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.file.filename}`;
   const a = Object.entries(request.body)
     .map(([key, value]) => {
       return `@${key}='${value}'`;
     })
     .join(", ");
+  console.log(a);
   const insertBooks = await getData(`EXEC spa_insert_books ${a}`);
+
   if (insertBooks.recordset[0].status === "Error") {
     response
       .status(400)

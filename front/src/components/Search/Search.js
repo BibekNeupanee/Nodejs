@@ -7,7 +7,7 @@ import "./Search.scss";
 
 function Search() {
   const { keyword } = useParams();
-  
+
   const data =
     useFetch("http://localhost:3000/search/" + keyword)?.search || [];
 
@@ -18,7 +18,10 @@ function Search() {
         <div className="search-books__list" key={i}>
           <Link to={"/book-detail/" + book.id} className="search-books__link">
             <img
-              src="https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
+              src={
+                book.image ||
+                "https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
+              }
               alt={book.name}
             />
             <div className="search-books__title">{book.name}</div>
