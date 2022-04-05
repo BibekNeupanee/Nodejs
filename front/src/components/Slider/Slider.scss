@@ -1,3 +1,16 @@
-.slider {
-  padding: 1em 5em;
+@import "react-slideshow-image/dist/styles.css";
+.slide {
+  padding: 2em 5em;
+  .each-slide > div {
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    // background-size: cover;
+    // object-fit: contain;
+    img {
+      height: 100%;
+      // width: 100%;
+      object-fit: contain;
+    }
+  }
 }
