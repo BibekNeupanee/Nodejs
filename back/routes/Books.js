@@ -44,7 +44,6 @@ router.get("/types/:id", async function (request, response) {
 
 //Insert Books
 router.post("/", upload.single("image"), async function (request, response) {
-
   const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.file.filename}`;
 
   // return response.send(200);
@@ -94,15 +93,26 @@ router.post("/", upload.single("image"), async function (request, response) {
 });
 
 //Insert Books
-router.put("/", async function (request, response) {
-  // const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.file.filename}`;
+router.put("/", upload.single("image"), async function (request, response) {
+  console.log(request.file);
+
+  const imageParms = request.file
+    ? ", @image = '" +
+      `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.file.filename}` +
+      "'"
+    : "";
+
+  console.log(imageParms);
+
   const a = Object.entries(request.body)
     .map(([key, value]) => {
       return `@${key}='${value}'`;
     })
     .join(", ");
+
   console.log(a);
-  const insertBooks = await getData(`EXEC spa_insert_books ${a}`);
+
+  const insertBooks = await getData(`EXEC spa_insert_books ${a} ${imageParms}`);
 
   if (insertBooks.recordset[0].status === "Error") {
     response

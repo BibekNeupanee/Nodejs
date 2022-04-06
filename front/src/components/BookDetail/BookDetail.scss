@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: row;
   gap: 0.5em;
-  padding: 1em;
-  margin-left: 20px;
+  padding: 2em 5em;
 
   &__image {
     border: 2px solid black;
@@ -12,10 +11,10 @@
   }
 
   &__info {
-    padding: 1em;
+    padding: 0 1em;
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 1em;
     // border: 1px solid black;
     max-width: 50%;
     font-size: 18px;
@@ -49,8 +48,26 @@
   }
 
   &__btn {
-    gap: 0.5em;
+    gap: 1em;
+    margin-top: 1em;
     display: flex;
     flex-direction: row;
+
+    & > a {
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid #ccc;
+      padding: 0.5ch 1ch;
+      border-radius: 3px;
+      background-color: #eee;
+
+      &.btn-buy {
+        background-color: #2abbe8;
+      }
+
+      &.btn-cart {
+        background-color: #f57224;
+      }
+    }
   }
 }
