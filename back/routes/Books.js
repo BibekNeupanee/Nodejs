@@ -42,6 +42,19 @@ router.get("/types/:id", async function (request, response) {
   response.status(200).json({ books: books.recordsets[0] });
 });
 
+//for similar books
+router.get("/similar/:id", async function (request, response) {
+  const books = await getData(
+    `SELECT t.* 
+    FROM  Books b
+    INNER JOIN Books t
+    ON b.bookTypeId = t.bookTypeId
+    AND b.id = ${request.params.id}
+    WHERE t.id <> ${request.params.id}`
+  );
+  response.status(200).json({ books: books.recordsets[0] });
+});
+
 //Insert Books
 router.post("/", upload.single("image"), async function (request, response) {
   const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.file.filename}`;

@@ -15,6 +15,7 @@ const bookTypeRoute = require("./routes/BookTypes");
 const searchRoute = require("./routes/Search");
 const usersRoute = require("./routes/Users");
 const bookAuthorRoute = require("./routes/BookAuthors");
+const cartRoute = require("./routes/Cart");
 
 app.use(cors());
 app.options("*", cors());
@@ -28,6 +29,7 @@ app.use("/booktypes", bookTypeRoute);
 app.use("/search", searchRoute);
 app.use("/users", usersRoute);
 app.use("/bookauthors", bookAuthorRoute);
+app.use("/cart", cartRoute);
 
 app.listen(process.env.PORT, function () {
   console.log("Server Running at port 3000");

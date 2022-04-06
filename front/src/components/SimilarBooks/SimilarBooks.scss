@@ -1,0 +1,22 @@
+h1 {
+  padding: 0 2.6em;
+}
+
+.similar-books {
+  display: flex;
+  //   flex-direction: column;
+  padding: 2em 5em;
+  gap: 1em;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #efefef;
+    padding: 1em;
+    img {
+      width: fit-content;
+      height: 300px;
+      object-fit: contain;
+    }
+  }
+}
