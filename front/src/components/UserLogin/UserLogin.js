@@ -21,7 +21,6 @@ function UserLogin() {
     });
 
     const response = await data.json();
-    console.log();
     if (response.accessToken) {
       localStorage.setItem("token", response.accessToken);
     }
@@ -38,13 +37,7 @@ function UserLogin() {
       />
       <label className="password">Password:</label>
       <input type="password" onChange={(e) => setPassword(e.target.value)} />
-      <button
-        className="btn-login"
-        onClick={(e) => {
-          handleLoginBtn();
-          e.preventDefault();
-        }}
-      >
+      <button className="btn-login" onClick={() => handleLoginBtn()}>
         Login
       </button>
       <Link to={"/register"}>Create an account</Link>
