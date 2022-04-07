@@ -40,9 +40,9 @@ app.post("/token", async (request, response) => {
 
 app.get("/users/login", async (request, response) => {
   const { email, password } = request.body;
-  const user = await getData(`SELECT password FROM Users
-  WHERE email ='${email}'`);
-  console.log(user);
+  const user = await getData(`SELECT password 
+    FROM Users 
+    WHERE email ='${email}'`);
   const userPassword = user.recordsets[0][0].password;
 
   if (userPassword == null) {
@@ -63,6 +63,8 @@ app.get("/users/login", async (request, response) => {
       );
 
       //save access token to browser cookie or cache
+      // localStorage.setItem("token", accessToken);
+      console.log(refreshToken);
       response.json({ accessToken, refreshToken });
     } else {
       response.send("Denied");

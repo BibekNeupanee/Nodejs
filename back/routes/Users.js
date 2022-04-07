@@ -18,10 +18,11 @@ router.post("/login", async (request, response) => {
   if (userPassword == null) {
     return response.status(400).send("Cant find user.");
   }
+
   try {
     if (await bcrypt.compare(password, userPassword)) {
       const accessToken = jwt.sign(email, process.env.ACESS_TOKEN_SECRET);
-      response.json({ accessToken: accessToken });
+      response.json({ accessToken });
     } else {
       response.send("Denied");
     }
