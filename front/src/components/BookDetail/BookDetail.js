@@ -20,6 +20,18 @@ function BookDetail() {
 
   const books = useFetch(`http://localhost:3000/books/${id}`)?.books || [];
 
+  const handleCartButton = async (id) => {
+    const data = await fetch("http://localhost:3000/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    });
+  };
+
   return (
     <>
       <div className="book-detail">
@@ -68,9 +80,12 @@ function BookDetail() {
                 <Link to={"/"} className="btn-buy">
                   Buy
                 </Link>
-                <Link to={"/cart"} className="btn-cart">
+                <button
+                  className="btn-cart"
+                  onClick={() => handleCartButton(book.id)}
+                >
                   Add To Cart
-                </Link>
+                </button>
               </div>
             </div>
           </>

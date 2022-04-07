@@ -13,7 +13,7 @@ GET http://localhost:3000/books/4056
 GET http://localhost:3000/authors
 ###
 
-GET http://localhost:3000/authors/1
+GET http:/localhost:3000/authors/1
 ###
 
 GET http://localhost:3000/bookauthors/4
@@ -41,6 +41,15 @@ Content-Type: application/json
 {
     "name": "C#"
 }
+###
+
+POST http://localhost:3000/cart
+Content-Type: application/json
+
+{
+    "id": 4060
+}
+
 ###
 
 

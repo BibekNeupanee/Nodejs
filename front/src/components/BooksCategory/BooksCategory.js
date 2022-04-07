@@ -6,6 +6,17 @@ import BookType from "../BookType/BookType";
 import "./BooksCategory.scss";
 
 function BooksCategory(props) {
+  const handleCartButton = async (id) => {
+    const data = await fetch("http://localhost:3000/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    });
+  };
   const books =
     useFetch(`http://localhost:3000/books/types/${props.typeId}`)?.books || [];
   return (
@@ -35,7 +46,9 @@ function BooksCategory(props) {
             <button className="btn" id="buy">
               Buy
             </button>
-            <button className="btn">Add To Cart</button>
+            <button className="btn" onClick={() => handleCartButton(book.id)}>
+              Add To Cart
+            </button>
           </div>
         </div>
       ))}

@@ -5,9 +5,18 @@ import BookType from "../BookType/BookType";
 import "./SimilarBooks.scss";
 
 function SimilarBooks(props) {
-  const handleCartButton = (id) => {
-      
+  const handleCartButton = async (id) => {
+    const data = await fetch("http://localhost:3000/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    });
   };
+
   const similarBooks =
     useFetch(`http://localhost:3000/books/similar/${props.bId}`)?.books || [];
   return (
@@ -15,14 +24,13 @@ function SimilarBooks(props) {
       <h1>Similar Books</h1>
       <div className="similar-books">
         {[...similarBooks].slice(0, 4).map((book, i) => (
-          <div className="similar-books__info">
+          <div className="similar-books__info" key={i}>
             <img
               src={
                 book.image ||
                 "https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
               }
               alt={book.name}
-              key={i}
             />
             <div className="similar-books__autors">
               <BookAuthorList bookId={book.id} />
