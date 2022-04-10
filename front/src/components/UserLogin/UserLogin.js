@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 import "./UserLogin.scss";
 
 function UserLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useLocalStorage("user", {});
+  const [token, setToken] = useLocalStorage("token", "");
+
   const handleLoginBtn = async () => {
-    console.log("o;sdifjslfjslkdfjsdlkjfhsdlkjfhklj");
     const data = await fetch("http://localhost:3000/users/login", {
       method: "POST",
       headers: {
@@ -21,8 +23,9 @@ function UserLogin() {
     });
 
     const response = await data.json();
-    if (response.accessToken) {
-      localStorage.setItem("token", response.accessToken);
+    if (response.refreshToken) {
+      setToken(response.refreshToken);
+      setUser(response);
     }
   };
 
@@ -37,7 +40,13 @@ function UserLogin() {
       />
       <label className="password">Password:</label>
       <input type="password" onChange={(e) => setPassword(e.target.value)} />
-      <button className="btn-login" onClick={() => handleLoginBtn()}>
+      <button
+        className="btn-login"
+        onClick={(e) => {
+          handleLoginBtn();
+          e.preventDefault();
+        }}
+      >
         Login
       </button>
       <Link to={"/register"}>Create an account</Link>
