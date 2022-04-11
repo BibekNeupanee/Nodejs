@@ -44,9 +44,9 @@ function Featured() {
               alt={book.name}
             />
             <div class="info">
-              <a href="#" class="title">
+            <Link to={"/book-detail/" + book.id} class="title">
                 {book.name}
-              </a>
+              </Link>
               <a href="#" class="author">
                 <BookAuthorList bookId={book.id} />
               </a>

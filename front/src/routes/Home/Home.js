@@ -22,9 +22,9 @@ function Home() {
       <main class="main-main">
         <Hero />
         <FeaturedCategories />
-        {/* <Book /> */}
-        <Featured />
         <BestSelling />
+        <Featured />
+        {/* <Book /> */}
       </main>
 
       <Footer />

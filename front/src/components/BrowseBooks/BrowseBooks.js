@@ -30,10 +30,16 @@ function BrowseBooks() {
   const { id } = useParams();
   const books =
     useFetch(`http://localhost:3000/books/types/${id}`)?.books || [];
+  const type =
+    useFetch(`http://localhost:3000/booktypes/${id}`)?.bookType || [];
   return (
     <section class="bestselling">
       <header>
-        <div class="title">Bestselling Books</div>
+        {type.map((t, i) => (
+          <div key={i} class="title">
+            {t.name}
+          </div>
+        ))}
       </header>
       <main>
         {books.map((book, i) => (
