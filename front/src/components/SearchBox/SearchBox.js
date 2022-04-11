@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-
-import "./SearchBox.scss";
-
 function SearchBox() {
   const [input, setInput] = useState("");
 
   return (
-    <div className="search-box">
+    <div class="main-search">
       <input
         type="text"
-        className="input-search"
-        placeholder="Search..."
+        placeholder="Search for Books by Keyword"
         value={input}
         onInput={(e) => setInput(e.target.value)}
       />
-      <Link to={"/search/" + input} className="btn-search">
-        <i className="fa fa-search" />
-      </Link>
+      <button
+        to={"/search/" + input}
+        onClick={() => (window.location.href = "/search/" + input)}
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
     </div>
   );
 }

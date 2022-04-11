@@ -1,22 +1,77 @@
-header {
-  background-color: #333;
-  display: flex;
-  align-items: center;
-  height: 60px;
-  padding: 0 5em;
-  color: #eee;
-  gap: 1em;
-
-  .logo {
-    font-weight: bold;
-    font-size: 1.5em;
+.main-header {
+  & a {
     text-decoration: none;
-    color: inherit;
+    color: #000;
+  }
+  &__top {
+    padding: 0.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #dfdfdf;
+  }
+  &__user-links {
+    display: flex;
+    gap: 2em;
   }
 
-  .image {
-    object-fit: cover;
-    width: 1.5em;
-    height: 1.5em;
+  &__bottom {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: center;
+    border-bottom: 1px solid #dfdfdf;
+
+    & > .logo {
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .image {
+        object-fit: cover;
+        width: 2.5em;
+        height: 2.5em;
+      }
+
+      span {
+        font-size: 11px;
+      }
+    }
+
+    & > nav {
+      margin-right: auto;
+      ul {
+        list-style: none;
+        display: flex;
+        gap: 2em;
+      }
+    }
+
+    & > .main-search {
+      position: relative;
+      display: flex;
+      align-items: center;
+      input {
+        outline: none;
+        width: 100%;
+        padding: 0.8rem 1rem;
+        padding-left: 5em;
+        border: none;
+        background: #f6f5f3;
+        &::placeholder {
+          color: #7c6e65;
+        }
+      }
+      & > button {
+        position: absolute;
+        left: 1em;
+        background: transparent;
+        color: #7c6e65;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 5px;
+      }
+    }
   }
 }

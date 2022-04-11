@@ -20,10 +20,10 @@ function BooksCategory(props) {
   const books =
     useFetch(`http://localhost:3000/books/types/${props.typeId}`)?.books || [];
   return (
-    <div className="category">
-      {[...books].slice(0, 5).map((book, i) => (
-        <div className="category__list" key={i}>
-          <Link to={"/book-detail/" + book.id} className="category__link">
+    <>
+      <main>
+        {[...books].slice(0, 4).map((book, i) => (
+          <div class="book">
             <img
               src={
                 book.image ||
@@ -31,35 +31,41 @@ function BooksCategory(props) {
               }
               alt={book.name}
             />
-            <div className="category__title">{book.name}</div>
-          </Link>
-          <div className="category__autors">
-            <BookAuthorList bookId={book.id} />
-          </div>
-          <div className="category_type">
-            <BookType btId={book.bookTypeId} />
-          </div>
-          <div className="category__price">
-            <b>Rs. {book.price}</b>
-          </div>
-          <div className="category__btn">
-            <button className="btn" id="buy">
-              Buy
-            </button>
-            {localStorage.getItem("token") ? (
-              <button className="btn" onClick={() => handleCartButton(book.id)}>
-                Add To Cart
-              </button>
-            ) : (
-              <Link className="btn" to={"/login"}>
-                {" "}
-                Add To Cart
+            <div class="info">
+              <Link to={"/book-detail/" + book.id} class="title">
+                {book.name}
               </Link>
-            )}
+              <a href="#" class="author">
+                <BookAuthorList bookId={book.id} />
+              </a>
+              <div class="price">Rs. {book.price}</div>
+            </div>
+            {/* <div className="category_type">
+            <BookType btId={book.bookTypeId} />
+          </div> */}
+            <div class="controls">
+              {localStorage.getItem("token") ? (
+                <a
+                  onClick={() => handleCartButton(book.id)}
+                  href="#"
+                  class="add-to-cart"
+                >
+                  Add to cart
+                </a>
+              ) : (
+                <Link class="add-to-cart" to={"/login"}>
+                  Add To Cart
+                </Link>
+              )}
+
+              <a href="#">
+                <i class="fa-solid fa-heart"></i>
+              </a>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </main>
+    </>
   );
 }
 

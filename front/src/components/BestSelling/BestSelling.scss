@@ -1,0 +1,56 @@
+section > main > .book {
+  position: relative;
+
+  & > img {
+    width: 60%;
+    margin: auto;
+  }
+
+  & > .info {
+    padding: 1em 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    background: #fff;
+    transition: all 0.3s;
+    & > .title {
+      text-decoration: none;
+      color: inherit;
+      font-size: 0.8em;
+    }
+    & > .author {
+      font-size: 0.7em;
+      text-decoration: none;
+      color: #999;
+    }
+  }
+  &:hover {
+    & > .info {
+      transform: translateY(-2rem);
+    }
+  }
+  & > .controls {
+    // transform: scaleY(0);
+    position: absolute;
+    width: calc(100% - 4rem);
+    height: 2em;
+    bottom: 2em;
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.3s;
+    opacity: 0;
+    & > a {
+      text-decoration: none;
+      color: inherit;
+      font-size: 0.8em;
+      &.add-to-cart {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  &:hover > .controls {
+    // transform: scaleY(1);
+    opacity: 1;
+  }
+}

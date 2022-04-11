@@ -12,7 +12,7 @@ import BrowseBooks from "./routes/BrowseBooks/BrowseBooks";
 import Profile from "./routes/Profile/Profile";
 function App() {
   return (
-    <div className="App">
+    <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path=":id" element={<BrowseBooks />} />
@@ -25,7 +25,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile/:name" element={<Profile />}></Route>
       </Routes>
-    </div>
+    </>
   );
 }
 
