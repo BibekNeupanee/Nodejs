@@ -1,44 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import "./FeaturedCategories.scss";
 
 function FeaturedCategories() {
+  const bookTypes = useFetch("http://localhost:3000/booktypes")?.types || [];
   return (
-    <section class="categories">
+    <section className="categories">
       <header>
-        <div class="title">Featured Categories</div>
+        <div className="title">Featured Categories</div>
         <a href="">
-          All Categories <i class="fa-solid fa-chevron-right"></i>
+          All Categories <i className="fa-solid fa-chevron-right"></i>
         </a>
       </header>
       <main>
-        <a href="#" class="card">
-          <div class="icon">
-            <i class="fa-solid fa-brain-circuit"></i>
-          </div>
-          <div class="title">Fiction</div>
-          <div class="shop">Shop now</div>
-        </a>
-        <a href="#" class="card">
-          <div class="icon">
-            <i class="fa-solid fa-brain-circuit"></i>
-          </div>
-          <div class="title">Fiction</div>
-          <div class="shop">Shop now</div>
-        </a>
-        <a href="#" class="card">
-          <div class="icon">
-            <i class="fa-solid fa-brain-circuit"></i>
-          </div>
-          <div class="title">Fiction</div>
-          <div class="shop">Shop now</div>
-        </a>
-        <a href="#" class="card">
-          <div class="icon">
-            <i class="fa-solid fa-brain-circuit"></i>
-          </div>
-          <div class="title">Fiction</div>
-          <div class="shop">Shop now</div>
-        </a>
+        {[...bookTypes].slice(0, 4).map((type, i) => (
+          <Link to={"/" + type.id} className="card">
+            <div className="icon">
+              <i className="fa-solid fa-brain-circuit"></i>
+            </div>
+            <div className="title">{type.name}</div>
+            <div className="shop">Shop now</div>
+          </Link>
+        ))}
       </main>
     </section>
   );
