@@ -6,14 +6,29 @@ import BookType from "../BookType/BookType";
 import "./BrowseBooks.scss";
 
 function BrowseBooks() {
+  const handleCartButton = async (id) => {
+    const data = await fetch("http://localhost:3000/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    });
+  };
+
   const { id } = useParams();
   const books =
     useFetch(`http://localhost:3000/books/types/${id}`)?.books || [];
   return (
-    <div className="all-book">
-      {books.map((book, i) => (
-        <div className="all-book__list" key={i}>
-          <Link to={"/book-detail/" + book.id} className="category__link">
+    <section class="bestselling">
+      <header>
+        <div class="title">Bestselling Books</div>
+      </header>
+      <main>
+        {books.map((book, i) => (
+          <div class="book">
             <img
               src={
                 book.image ||
@@ -21,18 +36,41 @@ function BrowseBooks() {
               }
               alt={book.name}
             />
-            <div className="all-book__title">{book.name}</div>
-          </Link>
-          <div className="all-book__authors">
-            <BookAuthorList bookId={book.id} />
+            <div class="info">
+              <Link to={"/book-detail/" + book.id} class="title">
+                {book.name}
+              </Link>
+              <a href="#" class="author">
+                <BookAuthorList bookId={book.id} />
+              </a>
+              <div class="price">Rs. {book.price}</div>
+            </div>
+            {/* <div className="category_type">
+        <BookType btId={book.bookTypeId} />
+      </div> */}
+            <div class="controls">
+              {localStorage.getItem("token") ? (
+                <a
+                  onClick={() => handleCartButton(book.id)}
+                  href="#"
+                  class="add-to-cart"
+                >
+                  Add to cart
+                </a>
+              ) : (
+                <Link class="add-to-cart" to={"/login"}>
+                  Add To Cart
+                </Link>
+              )}
+
+              <a href="#">
+                <i class="fa-solid fa-heart"></i>
+              </a>
+            </div>
           </div>
-          <div className="all-book__type">
-            <BookType btId={book.bookTypeId} />
-          </div>
-          <div className="all-book__price">Rs. {book.price}</div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </main>
+    </section>
   );
 }
 
