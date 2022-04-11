@@ -1,8 +1,29 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 
 function Featured() {
+  const [user, setUser] = useLocalStorage("user", {});
+
+  const handleCartButton = async (id, userId) => {
+    const data = await fetch("http://localhost:3000/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        userId,
+      }),
+    });
+    const response = await data.json();
+    if (response.message) {
+      alert(response.message);
+      window.location.reload();
+    }
+  };
   const books = useFetch("http://localhost:3000/books")?.books || [];
   return (
     <section class="featured">
@@ -32,9 +53,19 @@ function Featured() {
               <div class="price">Rs. {book.price}</div>
             </div>
             <div class="controls">
-              <a href="#" class="add-to-cart">
-                Add to cart
-              </a>
+              {localStorage.getItem("token") ? (
+                <a
+                  onClick={() => handleCartButton(book.id, user.id)}
+                  href="#"
+                  class="add-to-cart"
+                >
+                  Add to cart
+                </a>
+              ) : (
+                <Link class="add-to-cart" to={"/login"}>
+                  Add To Cart
+                </Link>
+              )}
               <a href="#">
                 <i class="fa-solid fa-heart"></i>
               </a>

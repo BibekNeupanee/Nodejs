@@ -1,12 +1,15 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
 import "./BrowseBooks.scss";
 
 function BrowseBooks() {
-  const handleCartButton = async (id) => {
+  const [user, setUser] = useLocalStorage("user", {});
+
+  const handleCartButton = async (id, userId) => {
     const data = await fetch("http://localhost:3000/cart", {
       method: "POST",
       headers: {
@@ -14,8 +17,14 @@ function BrowseBooks() {
       },
       body: JSON.stringify({
         id,
+        userId,
       }),
     });
+    const response = await data.json();
+    if (response.message) {
+      alert(response.message);
+      window.location.reload();
+    }
   };
 
   const { id } = useParams();
@@ -51,7 +60,7 @@ function BrowseBooks() {
             <div class="controls">
               {localStorage.getItem("token") ? (
                 <a
-                  onClick={() => handleCartButton(book.id)}
+                  onClick={() => handleCartButton(book.id, user.id)}
                   href="#"
                   class="add-to-cart"
                 >

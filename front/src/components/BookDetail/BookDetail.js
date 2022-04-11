@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
 import SimilarBooks from "../SimilarBooks/SimilarBooks";
@@ -20,7 +21,9 @@ function BookDetail() {
 
   const books = useFetch(`http://localhost:3000/books/${id}`)?.books || [];
 
-  const handleCartButton = async (id) => {
+  const [user, setUser] = useLocalStorage("user", {});
+
+  const handleCartButton = async (id, userId) => {
     const data = await fetch("http://localhost:3000/cart", {
       method: "POST",
       headers: {
@@ -28,10 +31,15 @@ function BookDetail() {
       },
       body: JSON.stringify({
         id,
+        userId,
       }),
     });
+    const response = await data.json();
+    if (response.message) {
+      alert(response.message);
+      window.location.reload();
+    }
   };
-
   return (
     <>
       <div className="book-detail">
@@ -80,12 +88,19 @@ function BookDetail() {
                 <Link to={"/"} className="btn-buy">
                   Buy
                 </Link>
-                <button
-                  className="btn-cart"
-                  onClick={() => handleCartButton(book.id)}
-                >
-                  Add To Cart
-                </button>
+                {localStorage.getItem("token") ? (
+                  <a
+                    onClick={() => handleCartButton(book.id, user.id)}
+                    href="#"
+                    class="add-to-cart"
+                  >
+                    Add to cart
+                  </a>
+                ) : (
+                  <Link class="add-to-cart" to={"/login"}>
+                    Add To Cart
+                  </Link>
+                )}
               </div>
             </div>
           </>

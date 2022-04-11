@@ -1,8 +1,11 @@
 import React from "react";
 import useFetch from "../../hooks/useFetch";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import "./CartItem.scss";
 
 function CartItem() {
+  const [user, setUser] = useLocalStorage("user", {});
+
   const handleBtnRemove = async (id) => {
     const deleteBook = await fetch(`http://localhost:3000/cart/${id}`, {
       method: "DELETE",
@@ -14,7 +17,7 @@ function CartItem() {
       window.location.reload();
     }
   };
-  const cartItems = useFetch("http://localhost:3000/cart")?.item || [];
+  const cartItems = useFetch(`http://localhost:3000/cart/${user.id}`)?.item || [];
   return (
     <div className="cart-books">
       {cartItems.map((item, i) => (

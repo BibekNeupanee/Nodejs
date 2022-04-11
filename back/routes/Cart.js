@@ -7,10 +7,27 @@ router.get("/", async function (request, response) {
   response.status(200).json({ item: item.recordsets[0] });
 });
 
-router.post("/", async function (request, response) {
-  const { id } = request.body;
+router.get("/:id", async function (request, response) {
+  const item = await getData(
+    `EXEC spa_get_cart_userId @userId = ${request.params.id}`
+  );
 
-  const cart = await getData(`EXEC spa_insert_cart @bookId = ${id}`);
+  response.status(200).json({ item: item.recordsets[0] });
+});
+
+router.post("/", async function (request, response) {
+  const { id, userId } = request.body;
+
+  const cart = await getData(
+    `EXEC spa_insert_cart @bookId = ${id}, @userId='${userId}'`
+  );
+  if (cart.recordset[0].status === "Success") {
+    response.status(200).json({ message: cart.recordset[0].message });
+    return;
+  } else if (cart.recordset[0].status === "Error") {
+    response.status(201).json({ message: cart.recordset[0].message });
+    return;
+  }
   response.status(200).json({ cart: cart.recordsets[0] });
 });
 

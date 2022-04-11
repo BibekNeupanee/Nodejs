@@ -31,7 +31,7 @@ router.post("/login", async (request, response) => {
     }
   } catch (err) {
     // request.status(500).send();
-    console.log(err);
+    // response.json({ ...user.recordsets[0][0], refreshToken });
   }
 });
 

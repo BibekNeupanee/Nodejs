@@ -10,24 +10,27 @@ GO
 CREATE PROCEDURE spa_insert_cart
 
 	@bookId	int
-		
+	, @userId int
+ 		
 AS
 BEGIN
 	SET NOCOUNT ON;
 
 
 	BEGIN TRY  
-		IF NOT EXISTS (SELECT 1 FROM Cart WHERE bookId = @bookId)
+		IF NOT EXISTS (SELECT 1 FROM Cart WHERE bookId = @bookId AND userId = @userId)
 		BEGIN
 			INSERT INTO Cart(
 				bookId
 				, addedDate
 				, sold
+				, userId
 			) 
 			VALUES (
 				@bookId
 				, GETDATE()
 				, 'n'
+				, @userId
 				) 
 			SELECT 'Success' [status],
 				'Insert Successful' [message]

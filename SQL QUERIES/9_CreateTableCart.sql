@@ -17,15 +17,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[Cart](
-	[id] [int] IDENTITY(1,1) NOT NULL,
-	[bookId] [int] NOT NULL,
-	[addedDate] [date] NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL
+	, [userId]	[int] NOT NULL
+	, [bookId] [int] NOT NULL
+	, [addedDate] [date] NOT NULL
+	, FOREIGN KEY (userId) REFERENCES [dbo].[Users] ([id])
+	, FOREIGN KEY (bookId) REFERENCES [dbo].[Books] ([id])
 )
-
-GO
-
-ALTER TABLE [dbo].[Cart]  WITH CHECK ADD FOREIGN KEY([bookId])
-REFERENCES [dbo].[Books] ([id])
-GO
-
-
