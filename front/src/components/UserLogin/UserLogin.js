@@ -40,15 +40,17 @@ function UserLogin() {
       />
       <label className="password">Password:</label>
       <input type="password" onChange={(e) => setPassword(e.target.value)} />
-      <button
+      <Link
         className="btn-login"
         onClick={(e) => {
           handleLoginBtn();
           e.preventDefault();
+          // window.location.href = "/";
         }}
+        to={"/"}
       >
         Login
-      </button>
+      </Link>
       <Link to={"/register"}>Create an account</Link>
       <a href="/login">Forget Password?</a>
     </form>

@@ -15,8 +15,19 @@ function Settings() {
   if (localStorage.getItem("token")) {
     return (
       <div className="settings">
-        <span>Welcome, {user?.name} </span>
-        <button onClick={() => handleLogout()}>Logout</button>
+        <Link to={"/profile/" + user?.username} className="settings__link">
+          {user?.name}
+        </Link>
+        <Link
+          to={"/"}
+          onClick={() => handleLogout()}
+          className="settings__link"
+        >
+          Logout
+        </Link>
+        <Link to={"/cart"} className="settings__link">
+          My Cart
+        </Link>
       </div>
     );
   } else {
@@ -28,9 +39,15 @@ function Settings() {
         <Link to={"/register"} className="settings__link">
           Register
         </Link>
-        <Link to={"/cart"} className="settings__link">
-          My Cart
-        </Link>
+        {localStorage.getItem("token") ? (
+          <Link to={"/cart"} className="settings__link">
+            My Cart
+          </Link>
+        ) : (
+          <Link to={"/login"} className="settings__link">
+            My Cart
+          </Link>
+        )}
       </div>
     );
   }

@@ -11,12 +11,12 @@ router.post("/login", async (request, response) => {
   const user = await getData(`SELECT * 
     FROM Users 
     WHERE email ='${email}'`);
-  const userPassword = user.recordsets[0][0].password;
 
-  if (userPassword == null) {
-    return response.status(400).send("cant find user");
-  }
   try {
+    const userPassword = user.recordsets[0][0].password;
+    if (userPassword == null) {
+      return response.status(400).send("cant find user");
+    }
     if (await bcrypt.compare(password, userPassword)) {
       const refreshToken = jwt.sign(email, process.env.REFRESH_TOKEN_SECRET);
 
@@ -24,28 +24,27 @@ router.post("/login", async (request, response) => {
         `EXEC spa_insert_token @email = '${email}',
           @token ='${refreshToken}'`
       );
-      console.log({ ...user.recordsets[0][0], refreshToken });
+      console.log(email, password);
       response.json({ ...user.recordsets[0][0], refreshToken });
     } else {
       response.send("Denied");
     }
   } catch (err) {
-    request.status(500).send();
+    // request.status(500).send();
     console.log(err);
   }
 });
 
 //get users
-router.post("/token", async (request, response) => {
-  const { token } = request.body;
-  // console.log(token);
-  const user = await getData(`EXEC spa_get_userToken @token = '${token}'`);
+router.get("/users", async (request, response) => {
+  const user = await getData(`SELECT * FROM Users`);
   response.status(200).json({ user: user.recordsets[0] });
 });
 
 //Insert user Info (registration)
 router.post("/", async function (request, response) {
   const { name, email, username, password, dob } = request.body;
+  console.log(name, email, username, password, dob);
   try {
     const hassedPassword = await bcrypt.hash(password, 10);
     const insertUserData = await getData(

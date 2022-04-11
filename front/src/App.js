@@ -9,6 +9,7 @@ import Register from "./routes/Register/Register";
 import SearchBooks from "./routes/SearchBooks/SearchBooks";
 import Cart from "./routes/Cart/Cart";
 import BrowseBooks from "./routes/BrowseBooks/BrowseBooks";
+import Profile from "./routes/Profile/Profile";
 function App() {
   return (
     <div className="App">
@@ -22,6 +23,7 @@ function App() {
         <Route path="/search/:keyword" element={<SearchBooks />} />
         <Route path="/test" element={<Test />}></Route>
         <Route path="/cart" element={<Cart />} />
+        <Route path="/profile/:name" element={<Profile />}></Route>
       </Routes>
     </div>
   );

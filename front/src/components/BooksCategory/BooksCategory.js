@@ -46,9 +46,16 @@ function BooksCategory(props) {
             <button className="btn" id="buy">
               Buy
             </button>
-            <button className="btn" onClick={() => handleCartButton(book.id)}>
-              Add To Cart
-            </button>
+            {localStorage.getItem("token") ? (
+              <button className="btn" onClick={() => handleCartButton(book.id)}>
+                Add To Cart
+              </button>
+            ) : (
+              <Link className="btn" to={"/login"}>
+                {" "}
+                Add To Cart
+              </Link>
+            )}
           </div>
         </div>
       ))}
