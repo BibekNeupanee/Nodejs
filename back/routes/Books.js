@@ -27,6 +27,12 @@ router.get("/", async function (request, response) {
   response.status(200).json({ books: books.recordsets[0] });
 });
 
+router.get("/bestselling", async function (request, response) {
+  const books = await getData("EXEC spa_get_bestSelling_books");
+  console.log(books.recordsets[0]);
+  response.status(200).json({ books: books.recordsets[0] });
+});
+
 //For Book Id Details
 router.get("/:id", async function (request, response) {
   const books = await getData(

@@ -1,22 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
 import "./Search.scss";
 
 function Search() {
+  const [user, setUser] = useLocalStorage("user", {});
+
+  const handleCartButton = async (id, userId) => {
+    const data = await fetch("http://localhost:3000/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        userId,
+      }),
+    });
+    const response = await data.json();
+    if (response.message) {
+      alert(response.message);
+      window.location.reload();
+    }
+  };
   const { keyword } = useParams();
 
   const data =
     useFetch("http://localhost:3000/search/" + keyword)?.search || [];
 
   return (
-    <div className="search-books">
-      <h1>All Books ({Object.keys(data).length})</h1>
-      {data.map((book, i) => (
-        <div className="search-books__list" key={i}>
-          <Link to={"/book-detail/" + book.id} className="search-books__link">
+    <section class="bestselling">
+      <header>
+        <div class="title">
+          Search ({Object.keys(data).length}) "{keyword}"
+        </div>
+      </header>
+      <main>
+        {data.map((book, i) => (
+          <div class="book">
             <img
               src={
                 book.image ||
@@ -24,20 +48,41 @@ function Search() {
               }
               alt={book.name}
             />
-            <div className="search-books__title">{book.name}</div>
-          </Link>
-          <div className="search-books__autors">
-            <BookAuthorList bookId={book.id} />
+            <div class="info">
+              <Link to={"/book-detail/" + book.id} class="title">
+                {book.name}
+              </Link>
+              <a href="#" class="author">
+                <BookAuthorList bookId={book.id} />
+              </a>
+              <div class="price">Rs. {book.price}</div>
+            </div>
+            {/* <div className="category_type">
+        <BookType btId={book.bookTypeId} />
+      </div> */}
+            <div class="controls">
+              {localStorage.getItem("token") ? (
+                <a
+                  onClick={() => handleCartButton(book.id, user.id)}
+                  href="#"
+                  class="add-to-cart"
+                >
+                  Add to cart
+                </a>
+              ) : (
+                <Link class="add-to-cart" to={"/login"}>
+                  Add To Cart
+                </Link>
+              )}
+
+              <a href="#">
+                <i class="fa-solid fa-heart"></i>
+              </a>
+            </div>
           </div>
-          <div className="book_type">
-            <BookType btId={book.bookTypeId} />
-          </div>
-          <div className="search-books__price">
-            <b>Rs. {book.price}</b>
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </main>
+    </section>
   );
 }
 

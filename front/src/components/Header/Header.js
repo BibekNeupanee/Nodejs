@@ -26,7 +26,7 @@ function Header() {
           <div class="main-header__user-links">
             <Link to={"/profile/" + user?.username} href="#">
               <i class="fa-solid fa-user" />
-              <span>{user?.name}</span>
+              <span> &nbsp; {user?.name}</span>
             </Link>
             <Link to={"/cart"} href="#">
               <i class="fa-solid fa-cart-shopping"></i>
