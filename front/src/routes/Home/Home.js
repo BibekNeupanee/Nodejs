@@ -7,7 +7,7 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import Hero from "../../components/Hero/Hero";
 import Slider from "../../components/Slider/Slider";
-import "./Home.scss";
+// import "./Home.scss";
 
 function Home() {
   return (
@@ -26,7 +26,6 @@ function Home() {
         <Featured />
         {/* <Book /> */}
       </main>
-
       <Footer />
     </>
   );

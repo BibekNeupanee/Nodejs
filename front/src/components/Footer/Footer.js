@@ -1,6 +1,6 @@
 import React from "react";
 import LinkGroup from "../LinkGroup/LinkGroup";
-import "./Footer.scss";
+// import "./Footer.scss";
 function Footer() {
   const customerCareLinkGroup = {
     header: "Customer Care",

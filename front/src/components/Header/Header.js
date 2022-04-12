@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Header.scss";
+// import "./Header.scss";
 import BottomHeader from "../BottomHeader/BottomHeader";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
@@ -8,7 +8,6 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.reload();
   };
 
   const [user, setUser] = useLocalStorage("user", {});

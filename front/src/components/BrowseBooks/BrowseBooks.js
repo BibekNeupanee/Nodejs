@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
-import "./BrowseBooks.scss";
+// import "./BrowseBooks.scss";
 
 function BrowseBooks() {
   const [user, setUser] = useLocalStorage("user", {});

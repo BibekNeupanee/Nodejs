@@ -5,11 +5,14 @@ import Header from "../../components/Header/Header";
 
 function BookDetails() {
   return (
-    <div>
+    <>
       <Header />
-      <BookDetail />
+
+      <main className="main-main">
+        <BookDetail />
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -5,7 +5,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
 import SimilarBooks from "../SimilarBooks/SimilarBooks";
-import "./BookDetail.scss";
+// import "./BookDetail.scss";
 
 function Publisher(props) {
   const publisher =

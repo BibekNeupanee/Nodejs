@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./UserRegister.scss";
-import { Link } from "react-router-dom";
+// import "./UserRegister.scss";
+import { Link, useNavigate } from "react-router-dom";
 
 function UserRegister() {
   const [name, setName] = useState("");
@@ -14,6 +14,7 @@ function UserRegister() {
   const [validEmail, setValidEmail] = useState([]);
   const [validPassword, setValidPassword] = useState([]);
   const [validDob, setValidDob] = useState([]);
+  const navigate = useNavigate();
 
   const InsertUserData = async function ({
     name,
@@ -36,8 +37,9 @@ function UserRegister() {
       }),
     });
     const response = await data.json();
-    if (response.errorMessage) {
-      alert(response.errorMessage);
+    if (response.message) {
+      alert(response.message);
+      navigate("/login");
     }
   };
 
@@ -118,11 +120,16 @@ function UserRegister() {
             </div>
             <div class="group">
               <label for="dob">Date of birth:</label>
-              <input type="date" name="date" id="date" />
+              <input
+                type="date"
+                name="date"
+                id="date"
+                onInput={(e) => setDateOfBirth(e.target.value)}
+                value={dateOfbirth}
+              />
             </div>
             <div class="group">
-              <Link
-                className="login"
+              <button
                 onClick={(e) => {
                   InsertUserData(UserData);
                   e.preventDefault();
@@ -132,7 +139,7 @@ function UserRegister() {
                 type="submit"
               >
                 Sign Up
-              </Link>
+              </button>
             </div>
             <div class="group">
               <span>

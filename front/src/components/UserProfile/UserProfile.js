@@ -1,5 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import BookAuthorList from "../BookAuthorList/BookAuthorList";
 
 function UserProfile() {
   const [user, setUser] = useLocalStorage("user", {});
@@ -8,6 +11,23 @@ function UserProfile() {
   )
     .toString()
     .split(" ");
+
+  const handleBtnRemove = async (id) => {
+    const deleteBook = await fetch(`http://localhost:3000/cart/${id}`, {
+      method: "DELETE",
+    });
+
+    const response = await deleteBook.json();
+    if (response.successMessage) {
+      alert(response.successMessage);
+      window.location.reload();
+    }
+  };
+  const cartItems =
+    useFetch(`http://localhost:3000/cart/${user.id}`)?.item || [];
+
+  const userBooks =
+    useFetch(`http://localhost:3000/users/books/${user.id}`)?.books || [];
 
   return (
     <main class="main-main">
@@ -18,9 +38,9 @@ function UserProfile() {
           </div>
         </header>
         <main>
+          <div class="name">Full Name: {user.name}</div>
+          <div class="email">Email: {user.email}</div>
           <div class="dob">Date of Birth: {`${month}-${date}, ${year}`}</div>
-          <div class="dob">Email: {user.email}</div>
-          <div class="dob">Full Name: {user.name}</div>
         </main>
       </section>
 
@@ -52,93 +72,33 @@ function UserProfile() {
       <section class="user-books">
         <header>
           <div class="title">Your Books</div>
-          {/* <!-- <a href="">All Categories <i class="fa-solid fa-chevron-right"></i></a> --> */}
         </header>
         <main>
-          <div class="book">
-            <img
-              src="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/150x226/img1.jpg"
-              alt=""
-            />
-            <div class="info">
-              <a href="#" class="title">
-                Think Like a Monk: Train Your Mind for Peace and Purpose
-                Everyday
-              </a>
-              <a href="#" class="author">
-                Jay Shetty
-              </a>
-              <div class="price">$29</div>
+          {userBooks.map((book, i) => (
+            <div class="book">
+              <img
+                src={
+                  book.image ||
+                  "https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
+                }
+                alt={book.name}
+              />
+              <div class="info">
+                <Link to={"/book-detail/" + book.id} class="title">
+                  {book.name}
+                </Link>
+                <a href="#" class="author">
+                  <BookAuthorList bookId={book.id} />
+                </a>
+                <div class="price">Rs. {book.price}</div>
+              </div>
+              <div class="controls">
+                <span>
+                  added <span>2 days ago</span>
+                </span>
+              </div>
             </div>
-            <div class="controls">
-              <span>
-                added <span>2 days ago</span>
-              </span>
-            </div>
-          </div>
-          <div class="book">
-            <img
-              src="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/150x226/img1.jpg"
-              alt=""
-            />
-            <div class="info">
-              <a href="#" class="title">
-                Think Like a Monk: Train Your Mind for Peace and Purpose
-                Everyday
-              </a>
-              <a href="#" class="author">
-                Jay Shetty
-              </a>
-              <div class="price">$29</div>
-            </div>
-            <div class="controls">
-              <span>
-                added <span>2 days ago</span>
-              </span>
-            </div>
-          </div>
-          <div class="book">
-            <img
-              src="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/150x226/img1.jpg"
-              alt=""
-            />
-            <div class="info">
-              <a href="#" class="title">
-                Think Like a Monk: Train Your Mind for Peace and Purpose
-                Everyday
-              </a>
-              <a href="#" class="author">
-                Jay Shetty
-              </a>
-              <div class="price">$29</div>
-            </div>
-            <div class="controls">
-              <span>
-                added <span>2 days ago</span>
-              </span>
-            </div>
-          </div>
-          <div class="book">
-            <img
-              src="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/150x226/img1.jpg"
-              alt=""
-            />
-            <div class="info">
-              <a href="#" class="title">
-                Think Like a Monk: Train Your Mind for Peace and Purpose
-                Everyday
-              </a>
-              <a href="#" class="author">
-                Jay Shetty
-              </a>
-              <div class="price">$29</div>
-            </div>
-            <div class="controls">
-              <span>
-                added <span>2 days ago</span>
-              </span>
-            </div>
-          </div>
+          ))}
         </main>
       </section>
 
@@ -151,90 +111,37 @@ function UserProfile() {
           </a>
         </header>
         <main>
-          <div class="book">
-            <img
-              src="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/150x226/img1.jpg"
-              alt=""
-            />
-            <div class="info">
-              <a href="#" class="title">
-                Think Like a Monk: Train Your Mind for Peace and Purpose
-                Everyday
-              </a>
-              <a href="#" class="author">
-                Jay Shetty
-              </a>
-              <div class="price">$29</div>
+          {[...cartItems].slice(0, 4).map((book, i) => (
+            <div class="book">
+              <img
+                src={
+                  book.image ||
+                  "https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
+                }
+                alt={book.name}
+              />
+              <div class="info">
+                <Link to={"/book-detail/" + book.id} class="title">
+                  {book.name}
+                </Link>
+                <a href="#" class="author">
+                  <BookAuthorList bookId={book.id} />
+                </a>
+                <div class="price">Rs. {book.price}</div>
+              </div>
+              {/* <div className="category_type">
+        <BookType btId={book.bookTypeId} />
+      </div> */}
+              <div class="controls">
+                <Link
+                  to={"/profile/" + user.username}
+                  onClick={() => handleBtnRemove(book.id)}
+                >
+                  Remove
+                </Link>
+              </div>
             </div>
-            <div class="controls">
-              <a href="#" class="add-to-cart">
-                Remove
-              </a>
-            </div>
-          </div>
-          <div class="book">
-            <img
-              src="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/150x226/img1.jpg"
-              alt=""
-            />
-            <div class="info">
-              <a href="#" class="title">
-                Think Like a Monk: Train Your Mind for Peace and Purpose
-                Everyday
-              </a>
-              <a href="#" class="author">
-                Jay Shetty
-              </a>
-              <div class="price">$29</div>
-            </div>
-            <div class="controls">
-              <a href="#" class="add-to-cart">
-                Remove
-              </a>
-            </div>
-          </div>
-          <div class="book">
-            <img
-              src="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/150x226/img1.jpg"
-              alt=""
-            />
-            <div class="info">
-              <a href="#" class="title">
-                Think Like a Monk: Train Your Mind for Peace and Purpose
-                Everyday
-              </a>
-              <a href="#" class="author">
-                Jay Shetty
-              </a>
-              <div class="price">$29</div>
-            </div>
-            <div class="controls">
-              <a href="#" class="add-to-cart">
-                Remove
-              </a>
-            </div>
-          </div>
-          <div class="book">
-            <img
-              src="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/150x226/img1.jpg"
-              alt=""
-            />
-            <div class="info">
-              <a href="#" class="title">
-                Think Like a Monk: Train Your Mind for Peace and Purpose
-                Everyday
-              </a>
-              <a href="#" class="author">
-                Jay Shetty
-              </a>
-              <div class="price">$29</div>
-            </div>
-            <div class="controls">
-              <a href="#" class="add-to-cart">
-                Remove
-              </a>
-            </div>
-          </div>
+          ))}
         </main>
       </section>
     </main>

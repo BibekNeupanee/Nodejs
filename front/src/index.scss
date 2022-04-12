@@ -1,3 +1,7 @@
+img {
+  max-width: 100%;
+}
+
 .main-header {
   & a {
     text-decoration: none;
@@ -38,6 +42,19 @@
 
     & > .logo {
       font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .image {
+        object-fit: cover;
+        width: 2.5em;
+        height: 2.5em;
+      }
+
+      span {
+        font-size: 11px;
+      }
     }
 
     & > nav {
@@ -164,7 +181,7 @@
     }
 
     & > main {
-      // display: grid;
+      display: grid;
       grid-template-columns: repeat(4, 1fr);
       & > * {
         background: #faf1ff;
@@ -244,6 +261,7 @@
       align-items: stretch;
       & > img {
         border: 1px solid #eee;
+        max-width: 400px;
         &:hover {
           border: 1px solid #eee;
           box-shadow: none;
@@ -367,9 +385,18 @@
     }
 
     &.about {
-      display: flex !important;
+      padding: 5em 0;
       & > main {
-        background: red;
+        display: flex;
+        & > * {
+          padding: 0;
+          border: none;
+
+          &:hover {
+            border: none;
+            box-shadow: none;
+          }
+        }
       }
     }
   }

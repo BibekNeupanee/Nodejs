@@ -1,5 +1,5 @@
 import React from "react";
-import "./LinkGroup.scss";
+// import "./LinkGroup.scss";
 
 function LinkGroup(linkGroupObject) {
   return (

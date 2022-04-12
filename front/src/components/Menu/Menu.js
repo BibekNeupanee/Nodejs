@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Menu.scss";
+// import "./Menu.scss";
 function Menu() {
   return (
     <div className="menu">

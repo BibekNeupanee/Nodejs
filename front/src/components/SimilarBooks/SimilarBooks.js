@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
-import "./SimilarBooks.scss";
+// import "./SimilarBooks.scss";
 
 function SimilarBooks(props) {
   const [user, setUser] = useLocalStorage("user", {});

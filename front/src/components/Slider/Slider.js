@@ -1,7 +1,7 @@
 import React from "react";
 import useFetch from "../../hooks/useFetch";
 import { Slide } from "react-slideshow-image";
-import "./Slider.scss";
+// import "./Slider.scss";
 
 function Slider() {
   const books = useFetch(`http://localhost:3000/books`)?.books || [];

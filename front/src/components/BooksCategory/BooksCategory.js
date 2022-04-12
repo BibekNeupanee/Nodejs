@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
-import "./BooksCategory.scss";
+// import "./BooksCategory.scss";
 
 function BooksCategory(props) {
   const [user, setUser] = useLocalStorage("user", {});

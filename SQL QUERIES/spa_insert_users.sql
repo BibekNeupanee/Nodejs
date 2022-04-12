@@ -30,24 +30,33 @@ BEGIN
 	BEGIN
 		--PRINT 'Duplicate Email'
 		
-		SELECT 'Error' [status],
+		SELECT 'Error Email' [status],
 			'Duplicate Email' [message]
 		RETURN;
 	END
 
-	INSERT INTO Users (
-		username,
-		email,
-		password,
-		name,
-		dob
-	) 
-      VALUES (
-		 @userName,
-		 @email,
-		 @password,
-		 @name,
-		 @dob
-	 )
+	BEGIN TRY
+		INSERT INTO Users (
+			username,
+			email,
+			password,
+			name,
+			dob
+		) 
+		  VALUES (
+			 @userName,
+			 @email,
+			 @password,
+			 @name,
+			 @dob
+		 )
+		SELECT 'Success' [status],
+			'Register Successful' [message]
+		RETURN;
+	END TRY
+	BEGIN CATCH  
+		SELECT 'Error' [status],
+			'Cannot Register.' [message]
+	END CATCH
 END
 GO

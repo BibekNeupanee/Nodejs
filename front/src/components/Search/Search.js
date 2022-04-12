@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
 import BookType from "../BookType/BookType";
-import "./Search.scss";
+// import "./Search.scss";
 
 function Search() {
   const [user, setUser] = useLocalStorage("user", {});
@@ -32,7 +32,7 @@ function Search() {
     useFetch("http://localhost:3000/search/" + keyword)?.search || [];
 
   return (
-    <section class="bestselling">
+    <section class="search">
       <header>
         <div class="title">
           Search ({Object.keys(data).length}) "{keyword}"
