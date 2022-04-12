@@ -42,70 +42,50 @@ function BookDetail() {
   };
   return (
     <>
-      <div className="book-detail">
+      <section class="book-detail">
+        <header>
+          <div class="title">Shop Single</div>
+        </header>
         {books.map((book, i) => (
-          <>
+          <main>
             <img
-              className="book-detail__image"
               src={
                 book.image ||
                 "https://www.mswordcoverpages.com/wp-content/uploads/2018/10/Book-cover-page-3-CRC.png"
               }
               alt=""
             />
-            <div className="book-detail__info">
-              <div className="book-detail__title">{book.name}</div>
-              <div className="book-detail__type">
-                <p>Genre:</p> <BookType btId={book.bookTypeId} />
+            <div class="info">
+              <div class="top">
+                <div class="title">{book.name}</div>
+                <div class="authors">
+                  <span>By</span>
+                  <div class="list">
+                    <div class="author">
+                      <BookAuthorList bookId={book.id} />
+                    </div>
+                  </div>
+                </div>
+                <div class="price">Rs. {book.price}</div>
+                <div class="description">{book.description}</div>
               </div>
-              <div className="book-detail__authors">
-                Authors: <BookAuthorList bookId={book.id} />
-              </div>
-              <div className="book-detail__publisher">
-                <p>Publisher: </p>
-                <Publisher pId={book.publisherId} />
-              </div>
-              <div className="book-detail__year">
-                <p>Year:</p> {book.year}
-              </div>
-              <div className="book-detail__pages">
-                <p>Pages:</p> {book.pages}
-              </div>
-              <div className="book-detail__isbn">
-                <p>ISBN:</p> {book.isbn}
-              </div>
-              <div className="book-detail__editionId">
-                <p>Edition:</p> {book.edition}
-              </div>
-              <div className="book-detail__price">
-                <p>Rs.</p> {book.price}
-              </div>
-              <div className="book-detail__description">
-                <p>Description: </p>
-                {book.description}
-              </div>
-              <div className="book-detail__btn">
-                <Link to={"/"} className="btn-buy">
-                  Buy
+              {localStorage.getItem("token") ? (
+                <a
+                  onClick={() => handleCartButton(book.id, user.id)}
+                  href="#"
+                  class="add-to-cart"
+                >
+                  Add to cart
+                </a>
+              ) : (
+                <Link class="add-to-cart" to={"/login"}>
+                  Add To Cart
                 </Link>
-                {localStorage.getItem("token") ? (
-                  <a
-                    onClick={() => handleCartButton(book.id, user.id)}
-                    href="#"
-                    class="add-to-cart"
-                  >
-                    Add to cart
-                  </a>
-                ) : (
-                  <Link class="add-to-cart" to={"/login"}>
-                    Add To Cart
-                  </Link>
-                )}
-              </div>
+              )}
             </div>
-          </>
+          </main>
         ))}
-      </div>
+      </section>
       <SimilarBooks bId={id} />
     </>
   );
