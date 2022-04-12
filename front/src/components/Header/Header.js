@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Menu from "../Menu/Menu";
 import "./Header.scss";
-import SearchBox from "../SearchBox/SearchBox";
-import Settings from "../Settings/Settings";
 import BottomHeader from "../BottomHeader/BottomHeader";
 import useLocalStorage from "../../hooks/useLocalStorage";
 

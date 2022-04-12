@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 import "./UserLogin.scss";
@@ -10,7 +10,10 @@ function UserLogin() {
   const [user, setUser] = useLocalStorage("user", {});
   const [token, setToken] = useLocalStorage("token", "");
 
-  const handleLoginBtn = async () => {
+  const navigate = useNavigate();
+
+  const handleLoginBtn = async (e) => {
+    e.preventDefault();
     const data = await fetch("http://localhost:3000/users/login", {
       method: "POST",
       headers: {
@@ -26,6 +29,7 @@ function UserLogin() {
     if (response.refreshToken) {
       setToken(response.refreshToken);
       setUser(response);
+      navigate("/");
     }
   };
 
@@ -79,18 +83,16 @@ function UserLogin() {
               />
             </div>
             <div class="group">
-              <Link
-                className="login"
+              <button
                 onClick={(e) => {
-                  handleLoginBtn();
-                  e.preventDefault();
+                  handleLoginBtn(e);
+                  // e.preventDefault();
                   // window.location.href = "/";
                 }}
-                to={"/"}
                 type="submit"
               >
                 Login
-              </Link>
+              </button>
             </div>
 
             <div class="group">
