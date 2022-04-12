@@ -47,6 +47,7 @@ function AddBookList(props) {
         "image",
         document.querySelector('input[name="image"]').files[0]
       );
+      fd.append("pdf", document.querySelector('input[name="pdf"]').files[0]);
 
       const data = await fetch("http://localhost:3000/books", {
         method: "POST",

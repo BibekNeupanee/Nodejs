@@ -61,29 +61,42 @@ router.get("/similar/:id", async function (request, response) {
 });
 
 //Insert Books
-router.post("/", upload.single("image"), async function (request, response) {
-  console.log(request.file.filename);
-  // return response.sendStatus(200);
-  const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.file.filename}`;
+router.post(
+  "/",
+  upload.fields([
+    {
+      name: "image",
+      maxCount: 1,
+    },
+    {
+      name: "pdf",
+      maxCount: 1,
+    },
+  ]),
+  async function (request, response) {
+    console.log(request.files);
+    return response.sendStatus(200);
+    const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/images/${request.files.image.filename}`;
+    const pdfURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/pdf/${request.files.pdf.filename}`;
 
-  // return response.send(200);
+    // return response.send(200);
 
-  const {
-    bookName,
-    year,
-    isbn,
-    edition,
-    authors,
-    publisher,
-    bookType,
-    price,
-    pages,
-    description,
-  } = request.body;
+    const {
+      bookName,
+      year,
+      isbn,
+      edition,
+      authors,
+      publisher,
+      bookType,
+      price,
+      pages,
+      description,
+    } = request.body;
 
-  try {
-    const insertBooks = await getData(
-      `EXEC spa_insert_books @name = '${bookName}'
+    try {
+      const insertBooks = await getData(
+        `EXEC spa_insert_books @name = '${bookName}'
       , @year = '${year}'
       , @pages = ${pages}
       , @isbn = '${isbn}'
@@ -94,24 +107,25 @@ router.post("/", upload.single("image"), async function (request, response) {
       , @author_ids = '${authors}'
       , @description = '${description}'
       , @image = '${imageURL}'`
-    );
+      );
 
-    if (insertBooks.recordset[0].status === "Error") {
-      response
-        .status(400)
-        .json({ errorMessage: insertBooks.recordset[0].message });
-      return;
-    } else if (insertBooks.recordset[0].status === "Success") {
-      response
-        .status(201)
-        .json({ successMessage: insertBooks.recordset[0].message });
-      return;
+      if (insertBooks.recordset[0].status === "Error") {
+        response
+          .status(400)
+          .json({ errorMessage: insertBooks.recordset[0].message });
+        return;
+      } else if (insertBooks.recordset[0].status === "Success") {
+        response
+          .status(201)
+          .json({ successMessage: insertBooks.recordset[0].message });
+        return;
+      }
+    } catch (e) {
+      // request.status(500).send();
+      console.log(e);
     }
-  } catch (e) {
-    // request.status(500).send();
-    console.log(e);
   }
-});
+);
 
 //Insert Books
 router.put("/", upload.single("image"), async function (request, response) {
