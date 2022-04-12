@@ -5,11 +5,13 @@ import Search from "../../components/Search/Search";
 
 function SearchBooks() {
   return (
-    <div>
+    <>
       <Header />
-      <Search />
+      <main className="main-main">
+        <Search />
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
 

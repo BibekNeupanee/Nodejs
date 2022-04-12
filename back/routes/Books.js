@@ -29,7 +29,6 @@ router.get("/", async function (request, response) {
 
 router.get("/bestselling", async function (request, response) {
   const books = await getData("EXEC spa_get_bestSelling_books");
-  console.log(books.recordsets[0]);
   response.status(200).json({ books: books.recordsets[0] });
 });
 
@@ -63,6 +62,8 @@ router.get("/similar/:id", async function (request, response) {
 
 //Insert Books
 router.post("/", upload.single("image"), async function (request, response) {
+  console.log(request.file.filename);
+  // return response.sendStatus(200);
   const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.file.filename}`;
 
   // return response.send(200);
@@ -79,6 +80,7 @@ router.post("/", upload.single("image"), async function (request, response) {
     pages,
     description,
   } = request.body;
+
   try {
     const insertBooks = await getData(
       `EXEC spa_insert_books @name = '${bookName}'

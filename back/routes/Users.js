@@ -41,6 +41,12 @@ router.get("/users", async (request, response) => {
   response.status(200).json({ user: user.recordsets[0] });
 });
 
+//get user books
+router.get("/books/:id", async (request, response) => {
+  const books = await getData(`EXEC spa_get_user_books @user = ${request.params.id} `);
+  response.status(200).json({ books: books.recordsets[0] });
+});
+
 //Insert user Info (registration)
 router.post("/", async function (request, response) {
   const { name, email, username, password, dob } = request.body;
@@ -55,12 +61,21 @@ router.post("/", async function (request, response) {
       , @dob = '${dob}'`
     );
 
-    if (insertUserData.recordset[0].status === "Error") {
+    if (insertUserData.recordset[0].status === "Error Email") {
       response
         .status(400)
-        .json({ errorMessage: insertUserData.recordset[0].message });
+        .json({ message: insertUserData.recordset[0].message });
       return;
+    } else if (insertUserData.recordset[0].status === "Success") {
+      response
+        .status(400)
+        .json({ message: insertUserData.recordset[0].message });
+    } else if (insertUserData.recordset[0].status === "Error") {
+      response
+        .status(400)
+        .json({ message: insertUserData.recordset[0].message });
     }
+
     response.status(201);
   } catch {
     // request.status(500).send();

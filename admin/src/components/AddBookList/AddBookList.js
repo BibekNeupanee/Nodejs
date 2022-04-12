@@ -29,26 +29,42 @@ function AddBookList(props) {
   const handleBookAdd = async (e) => {
     e.preventDefault();
     // const formValues = e.target.serialize();
-    console.log(e.target);
+    // console.log(document.querySelector('input[name="image"]').files[0].name);
+    // return;
     if (!props?.book) {
+      const fd = new FormData();
+      fd.append("bookName", formData.name);
+      fd.append("year", formData.year);
+      fd.append("pages", formData.pages);
+      fd.append("isbn", formData.isbn);
+      fd.append("edition", formData.edition);
+      fd.append("authors", formData.bookAuthors.map((e) => e.id).join(","));
+      fd.append("publisher", formData.selectedPublisher);
+      fd.append("bookType", formData.selectedBookType);
+      fd.append("price", formData.price);
+      fd.append("description", formData.description);
+      fd.append(
+        "image",
+        document.querySelector('input[name="image"]').files[0]
+      );
+
       const data = await fetch("http://localhost:3000/books", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          bookName: formData.name,
-          year: formData.year,
-          pages: formData.pages,
-          isbn: formData.isbn,
-          edition: formData.edition,
-          authors: formData.bookAuthors.map((e) => e.id).join(","),
-          publisher: formData.selectedPublisher,
-          bookType: formData.selectedBookType,
-          price: formData.price,
-          description: formData.description,
-          image: formData.image,
-        }),
+        headers: {},
+        body: fd,
+        // JSON.stringify({
+        //   bookName: formData.name,
+        //   year: formData.year,
+        //   pages: formData.pages,
+        //   isbn: formData.isbn,
+        //   edition: formData.edition,
+        //   authors: formData.bookAuthors.map((e) => e.id).join(","),
+        //   publisher: formData.selectedPublisher,
+        //   bookType: formData.selectedBookType,
+        //   price: formData.price,
+        //   description: formData.description,
+        //   image: document.querySelector('input[name="image"]').files?.item(0),
+        // }),
       });
 
       const response = await data.json();
@@ -144,7 +160,11 @@ function AddBookList(props) {
   };
 
   return (
-    <form className="add-book">
+    <form
+      className="add-book"
+      encType="multipart/form-data"
+      onSubmit={handleBookAdd}
+    >
       <h2 className="add-book__header"> Add Book</h2>
       <div className="form-container">
         <div className="add-book__book-name">
@@ -265,17 +285,18 @@ function AddBookList(props) {
         </div>
         <div className="add-book__choose-book">
           <label>Book PDF: </label>
-          <input type="file" accept=".pdf" />
+          <input name="pdf" type="file" accept=".pdf" />
         </div>
         <div className="add-book__book-cover">
           <label>Book Cover: </label>
-          <input onChange={handleImage} type="file" accept=".jpg,.png,.jpeg" />
+          <input
+            name="image"
+            onChange={handleImage}
+            type="file"
+            accept=".jpg,.png,.jpeg"
+          />
         </div>
-        <button
-          className="add-book__btn-add"
-          onClick={handleBookAdd}
-          type="submit"
-        >
+        <button className="add-book__btn-add" type="submit">
           Add
         </button>
       </div>
