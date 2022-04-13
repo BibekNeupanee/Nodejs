@@ -14,6 +14,7 @@ CREATE PROCEDURE spa_insert_authors
 
 
 	@name	varchar(255)
+	, @image varchar(MAX)
 
 	
 AS
@@ -22,9 +23,11 @@ BEGIN
 
 	INSERT INTO Authors (
 		name
+		, image
 	) 
       VALUES (
 		 @name
+		 , @image
 	 )
 END
 GO

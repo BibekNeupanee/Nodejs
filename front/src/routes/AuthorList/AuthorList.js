@@ -21,7 +21,10 @@ function AuthorList() {
               <>
                 <Link to={"/author/" + author.id} class="author">
                   <img
-                    src="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/140x140/img1.jpg"
+                    src={
+                      author.image ||
+                      "https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/assets/img/140x140/img1.jpg"
+                    }
                     alt=""
                   />
                   <div class="name">{author.name}</div>

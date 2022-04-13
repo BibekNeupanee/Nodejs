@@ -23,9 +23,9 @@ function BottomHeader() {
             </a>
           </li>
           <li>
-            <a href="#" className="menu__link">
+            <Link to={"/authors"} className="menu__link">
               Authors
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#" className="menu__link">

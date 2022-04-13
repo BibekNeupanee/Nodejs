@@ -1,6 +1,23 @@
 const express = require("express");
 const { getData } = require("../db");
+const multer = require("multer");
+const mime = require("mime-types");
+
 const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: function (request, file, callback) {
+    callback(null, "./uploads/author-picture");
+  },
+  filename: function (request, file, callback) {
+    callback(
+      null,
+      file.originalname + Date.now() + "." + mime.extension(file.mimetype)
+    );
+  },
+});
+
+const upload = multer({ storage });
 
 //for Authors
 router.get("/", async function (request, response) {
@@ -34,11 +51,17 @@ router.put("/", async (request, response) => {
 });
 
 //Add Author
-router.post("/", async function (request, response) {
-  const { author } = request.body;
+router.post("/", upload.single("image"), async function (request, response) {
+  const { name } = request.body;
+  console.log(name);
+  console.log(request.file.filename);
+  // return response.sendStatus(200);
+  const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/author-picture/${request.file.filename}`;
+  console.log(imageURL);
+
   try {
     const insertUserData = await getData(
-      `EXEC spa_insert_authors @name = '${author}'`
+      `EXEC spa_insert_authors @name = '${name}' ,@image = '${imageURL}'`
     );
     response.status(201);
   } catch {
