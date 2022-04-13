@@ -31,6 +31,23 @@ router.post("/", async function (request, response) {
   response.status(200).json({ cart: cart.recordsets[0] });
 });
 
+router.post("/checkout", async function (request, response) {
+  const { id, userId } = request.body;
+  console.log("id: " + id + "" + "userid: " + userId);
+
+  const cart = await getData(
+    `EXEC spa_book_checkout @userId= ${userId} , @bookIds = '${id}'`
+  );
+  // if (cart.recordset[0].status === "Success") {
+  //   response.status(200).json({ message: cart.recordset[0].message });
+  //   return;
+  // } else if (cart.recordset[0].status === "Error") {
+  //   response.status(201).json({ message: cart.recordset[0].message });
+  //   return;
+  // }
+  response.status(200).json({ cart: cart.recordsets[0] });
+});
+
 router.delete("/:id", async function (request, response) {
   deleteBook = await getData(`EXEC spa_delete_cart @id =${request.params.id}`);
 

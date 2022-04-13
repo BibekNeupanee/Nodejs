@@ -12,6 +12,24 @@ function CartItem() {
   const cartItems =
     useFetch(`http://localhost:3000/cart/${user.id}`)?.item || [];
 
+  const handleBtnCheckout = async () => {
+    state.map((s) => {
+      // console.log(s.id);
+    });
+    console.log(state[0].id);
+    // return;
+    const data = await fetch("http://localhost:3000/cart/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: state.map((e) => e.id).join(","),
+        userId: user.id,
+      }),
+    });
+  };
+
   const handleBtnRemove = async (id) => {
     const deleteBook = await fetch(`http://localhost:3000/cart/${id}`, {
       method: "DELETE",
@@ -33,15 +51,16 @@ function CartItem() {
   };
 
   return (
-    <section class="search">
-      {/* {state.map((e, i) => (
-        <li key={i}>
-          <span>Price = {e.price}</span>
-          <span>id={e.id}</span>
-        </li>
-      ))} */}
+    <section class="cart">
       <header>
         <div class="title">Cart</div>
+      </header>
+      <header className="total">
+        <div>
+          <span>Total </span>
+          <div className="amount">{state.reduce((a, c) => a + c.price, 0)}</div>
+        </div>
+        <button onClick={() => handleBtnCheckout()}>Checkout</button>
       </header>
       <main>
         {cartItems.map((book, i) => (
@@ -67,11 +86,9 @@ function CartItem() {
               <a href="#" class="author">
                 <BookAuthorList bookId={book.id} />
               </a>
+
               <div class="price">Rs. {book.price}</div>
             </div>
-            {/* <div className="category_type">
-        <BookType btId={book.bookTypeId} />
-      </div> */}
             <div class="controls">
               <Link to={"/cart"} onClick={() => handleBtnRemove(book.id)}>
                 Remove
@@ -80,12 +97,6 @@ function CartItem() {
           </div>
         ))}
       </main>
-      <footer>
-        <div className="total">
-          <span>Total </span>
-          <span>{state.reduce((a, c) => a + c.price, 0)}</span>
-        </div>
-      </footer>
     </section>
   );
 }

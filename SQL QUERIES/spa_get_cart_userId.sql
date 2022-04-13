@@ -18,7 +18,8 @@ BEGIN
 	FROM Books b
 	INNER JOIN Cart c
 	ON b.id = c.bookId
-	WHERE c.userId = @userId;
+	WHERE c.userId = @userId
+	AND c.sold = 'n';
 
 END
 GO

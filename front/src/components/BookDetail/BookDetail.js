@@ -66,6 +66,10 @@ function BookDetail() {
                     </div>
                   </div>
                 </div>
+                <div className="publisher">
+                  <Publisher pId={book.publisherId} />
+                </div>
+                
                 <div class="price">Rs. {book.price}</div>
                 <div class="description">{book.description}</div>
               </div>
