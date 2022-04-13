@@ -5,11 +5,13 @@ import Header from "../../components/Header/Header";
 
 function Cart() {
   return (
-    <div>
+    <>
       <Header />
-      <CartItem />
+      <main className="main-main">
+        <CartItem />
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
 
