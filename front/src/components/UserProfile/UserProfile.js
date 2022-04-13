@@ -93,9 +93,14 @@ function UserProfile() {
                 <div class="price">Rs. {book.price}</div>
               </div>
               <div class="controls">
-                <span>
-                  added <span>2 days ago</span>
-                </span>
+                <a
+                  // onClick={() => handlePdf(book.id, user.id)}
+                  href={book.pdf}
+                  class="add-to-cart"
+                  target="_blank"
+                >
+                  Downlad Pdf
+                </a>
               </div>
             </div>
           ))}
