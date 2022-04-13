@@ -13,6 +13,13 @@ router.get("/:id", async function (request, response) {
   const authors = await getData(
     `SELECT * FROM Authors WHERE id = ${request.params.id}`
   );
+  response.status(200).json({ authors: authors.recordsets[0] });
+});
+
+router.get("/author/:id", async function (request, response) {
+  const authors = await getData(
+    `EXEC spa_get_author_books @authorId = ${request.params.id}`
+  );
   console.log(authors.recordsets[0]);
   response.status(200).json({ authors: authors.recordsets[0] });
 });
