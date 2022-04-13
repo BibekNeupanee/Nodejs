@@ -398,6 +398,29 @@ img {
       }
     }
 
+    &.author-detail {
+      padding: 5em 0;
+      & > header {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5em;
+
+        & > img {
+          width: 3em;
+          border-radius: 50%;
+        }
+      }
+
+      & > main > * {
+        border: 1px solid #eee;
+        &:hover {
+          border: 1px solid #eee;
+          box-shadow: none;
+        }
+      }
+    }
+
     &.about {
       padding: 5em 0;
       & > main {
@@ -518,11 +541,22 @@ section > main > .book {
     & > .info {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
 
       & > .logo {
         font-weight: bold;
         font-size: 1.2em;
         margin-bottom: 1em;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > img {
+          max-width: 50px;
+        }
       }
 
       & > .address {

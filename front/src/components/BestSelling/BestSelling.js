@@ -33,7 +33,7 @@ function BestSelling() {
       <header>
         <div class="title">Bestselling Books</div>
         <a href="">
-          All Categories <i class="fa-solid fa-chevron-right"></i>
+          View More <i class="fa-solid fa-chevron-right"></i>
         </a>
       </header>
       <main>

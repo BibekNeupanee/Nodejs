@@ -30,7 +30,7 @@ function Featured() {
       <header>
         <div class="title">Featured Books</div>
         <a href="">
-          All Categories <i class="fa-solid fa-chevron-right"></i>
+          View More <i class="fa-solid fa-chevron-right"></i>
         </a>
       </header>
       <main>
@@ -44,7 +44,7 @@ function Featured() {
               alt={book.name}
             />
             <div class="info">
-            <Link to={"/book-detail/" + book.id} class="title">
+              <Link to={"/book-detail/" + book.id} class="title">
                 {book.name}
               </Link>
               <a href="#" class="author">

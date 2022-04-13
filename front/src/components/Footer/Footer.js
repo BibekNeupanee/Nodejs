@@ -1,6 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import LinkGroup from "../LinkGroup/LinkGroup";
 // import "./Footer.scss";
+import logo from "./../../resources/logo1.png";
+
 function Footer() {
   const customerCareLinkGroup = {
     header: "Customer Care",
@@ -41,7 +44,10 @@ function Footer() {
     <footer class="main-footer">
       <div class="top">
         <div class="info">
-          <div class="logo">Book</div>
+          <Link to={"/"} className="logo">
+            <img src={logo} alt="abc" className="image" />
+            <span>Hamro Kitab</span>
+          </Link>
           <div class="address">Dhapasi, Tokha-10, Kathmandu, Nepal</div>
           <div class="contact">
             <a href="mailto:info@hamrokitab.com" class="email">

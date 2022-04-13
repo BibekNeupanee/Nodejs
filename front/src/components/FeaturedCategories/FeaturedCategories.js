@@ -10,7 +10,7 @@ function FeaturedCategories() {
       <header>
         <div className="title">Featured Categories</div>
         <a href="">
-          All Categories <i className="fa-solid fa-chevron-right"></i>
+          View More <i className="fa-solid fa-chevron-right"></i>
         </a>
       </header>
       <main>

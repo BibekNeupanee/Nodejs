@@ -15,7 +15,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	
-		SELECT b.* , a.name authorName
+		SELECT b.* , a.name authorName, a.image authorImage
 		FROM Books b
 		INNER JOIN BookAuthors ba
 		ON ba.bookId = b.id
