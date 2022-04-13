@@ -8,6 +8,8 @@ GO
 
 
 CREATE PROCEDURE spa_get_user_books
+
+	@user int
 	
 AS
 BEGIN
@@ -17,7 +19,7 @@ BEGIN
 		FROM Books b
 		INNER JOIN Cart c
 		ON c.bookId = b.id
-		WHERE c.userId = 3009 AND c.sold = 'y'
+		WHERE c.userId = @user AND c.sold = 'y'
 
 END
 GO

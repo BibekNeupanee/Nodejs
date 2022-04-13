@@ -22,7 +22,6 @@ function AddBookList(props) {
     price: props?.book?.price || "",
     pages: props?.book?.pages || "",
     description: props?.book?.description || "",
-    image: props?.book?.image || "",
   });
 
   //FOR ADD BUTTON
@@ -53,19 +52,6 @@ function AddBookList(props) {
         method: "POST",
         headers: {},
         body: fd,
-        // JSON.stringify({
-        //   bookName: formData.name,
-        //   year: formData.year,
-        //   pages: formData.pages,
-        //   isbn: formData.isbn,
-        //   edition: formData.edition,
-        //   authors: formData.bookAuthors.map((e) => e.id).join(","),
-        //   publisher: formData.selectedPublisher,
-        //   bookType: formData.selectedBookType,
-        //   price: formData.price,
-        //   description: formData.description,
-        //   image: document.querySelector('input[name="image"]').files?.item(0),
-        // }),
       });
 
       const response = await data.json();
@@ -76,19 +62,30 @@ function AddBookList(props) {
         window.location.reload();
       }
     } else {
+      const fd = new FormData();
+
       const postBody = { ...formData };
       Object.entries(postBody).forEach(([key, value]) => {
         if (props.book[key] === value || value.length === 0) {
           delete postBody[key];
+        } else {
+          fd.append(key, value);
         }
       });
-      console.log(postBody, props.book.id);
+      console.log(postBody);
+      fd.append(
+        "image",
+        document.querySelector('input[name="image"]').files[0]
+      );
+      fd.append("pdf", document.querySelector('input[name="pdf"]').files[0]);
+      fd.append("id", props.book.id);
+
+      console.log(fd);
+
       const data = await fetch("http://localhost:3000/books", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...postBody, id: props.book.id }),
+        headers: {},
+        body: fd,
       });
 
       const response = await data.json();
@@ -154,10 +151,6 @@ function AddBookList(props) {
       ...formData,
       bookAuthors: [...formData.bookAuthors, formData.selectedAuthor],
     });
-  };
-
-  const handleImage = (e) => {
-    setFormData({ ...formData, image: e.target.files[0] });
   };
 
   return (
@@ -290,12 +283,7 @@ function AddBookList(props) {
         </div>
         <div className="add-book__book-cover">
           <label>Book Cover: </label>
-          <input
-            name="image"
-            onChange={handleImage}
-            type="file"
-            accept=".jpg,.png,.jpeg"
-          />
+          <input name="image" type="file" accept=".jpg,.png,.jpeg" />
         </div>
         <button className="add-book__btn-add" type="submit">
           Add

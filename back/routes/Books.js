@@ -75,11 +75,9 @@ router.post(
   ]),
   async function (request, response) {
     console.log(request.files);
-    return response.sendStatus(200);
-    const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/images/${request.files.image.filename}`;
-    const pdfURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/pdf/${request.files.pdf.filename}`;
-
-    // return response.send(200);
+    // return response.sendStatus(200);
+    const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.files.image[0].filename}`;
+    const pdfURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.files.pdf[0].filename}`;
 
     const {
       bookName,
@@ -106,7 +104,8 @@ router.post(
       , @price = ${price}
       , @author_ids = '${authors}'
       , @description = '${description}'
-      , @image = '${imageURL}'`
+      , @image = '${imageURL}'
+      , @pdf = '${pdfURL}'`
       );
 
       if (insertBooks.recordset[0].status === "Error") {
@@ -128,39 +127,60 @@ router.post(
 );
 
 //Insert Books
-router.put("/", upload.single("image"), async function (request, response) {
-  console.log(request.file);
+router.put(
+  "/",
+  upload.fields([
+    {
+      name: "image",
+      maxCount: 1,
+    },
+    {
+      name: "pdf",
+      maxCount: 1,
+    },
+  ]),
+  async function (request, response) {
+    console.log(request.body);
+    console.log(request.files);
+    // return response.json({ success: "success" });
+    const imageParms = request?.files?.image
+      ? ", @image = '" +
+        `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.files.image[0].filename}` +
+        "'"
+      : "";
+    const pdfParms = request?.files?.pdf
+      ? ", @pdf = '" +
+        `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.files.pdf[0].filename}` +
+        "'"
+      : "";
 
-  const imageParms = request.file
-    ? ", @image = '" +
-      `${process.env.BASE_URL}:${process.env.PORT}/uploads/${request.file.filename}` +
-      "'"
-    : "";
+    console.log(imageParms);
 
-  console.log(imageParms);
+    const a = Object.entries(request.body)
+      .map(([key, value]) => {
+        return `@${key}='${value}'`;
+      })
+      .join(", ");
 
-  const a = Object.entries(request.body)
-    .map(([key, value]) => {
-      return `@${key}='${value}'`;
-    })
-    .join(", ");
+    console.log(a);
 
-  console.log(a);
+    const insertBooks = await getData(
+      `EXEC spa_insert_books ${a} ${imageParms} ${pdfParms}`
+    );
 
-  const insertBooks = await getData(`EXEC spa_insert_books ${a} ${imageParms}`);
-
-  if (insertBooks.recordset[0].status === "Error") {
-    response
-      .status(400)
-      .json({ errorMessage: insertBooks.recordset[0].message });
-    return;
-  } else if (insertBooks.recordset[0].status === "Success") {
-    response
-      .status(201)
-      .json({ successMessage: insertBooks.recordset[0].message });
-    return;
+    if (insertBooks.recordset[0].status === "Error") {
+      response
+        .status(400)
+        .json({ errorMessage: insertBooks.recordset[0].message });
+      return;
+    } else if (insertBooks.recordset[0].status === "Success") {
+      response
+        .status(201)
+        .json({ successMessage: insertBooks.recordset[0].message });
+      return;
+    }
   }
-});
+);
 
 //Delete Books
 router.delete("/:id", async function (request, response) {
