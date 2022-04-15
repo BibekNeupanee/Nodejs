@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import BookAuthorList from "../BookAuthorList/BookAuthorList";
@@ -8,6 +8,8 @@ import BookAuthorList from "../BookAuthorList/BookAuthorList";
 function CartItem() {
   const [user, setUser] = useLocalStorage("user", {});
   const [state, setState] = useState([]);
+
+  const navigate = useNavigate();
 
   const cartItems =
     useFetch(`http://localhost:3000/cart/${user.id}`)?.item || [];
@@ -28,6 +30,17 @@ function CartItem() {
         userId: user.id,
       }),
     });
+
+    const response = await data.json();
+    console.log(response.message.status);
+    if (response.message.status === "Success") {
+      alert(response.message.message);
+      navigate("/profile/" + user.username);
+    } else {
+      alert(response.message.message);
+      window.location.reload();
+    }
+    // window.location.href = "/profile/" + user.username;
   };
 
   const handleBtnRemove = async (id) => {

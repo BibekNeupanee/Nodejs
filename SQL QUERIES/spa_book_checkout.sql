@@ -14,13 +14,21 @@ CREATE PROCEDURE spa_book_checkout
 AS
 BEGIN
 	SET NOCOUNT ON;
-	
-		update c set c.sold = 'y'
+	BEGIN TRY 
+		UPDATE c set c.sold = 'y'
 		--SELECT * 
 		FROM string_split(@bookIds , ',') s
 		INNER JOIN Cart c
 		ON c.bookId = s.value
 		WHERE userId = @userId;
+		
+		SELECT 'Success' [status],
+			'Bought Successful' [message]
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error' [status],
+			'Cannot buy books'
+	END CATCH
 
 END
 GO

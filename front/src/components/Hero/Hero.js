@@ -7,7 +7,7 @@ function Hero() {
       <div class="wrapper">
         <div class="intro">
           <p>
-            <span>Hamro kitab's</span> Featured Books of the<b>April</b>
+            <span>Hamro kitab's</span> Featured Books
           </p>
           <a href="#" class="cta">
             See More

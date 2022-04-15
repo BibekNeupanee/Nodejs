@@ -38,13 +38,11 @@ router.post("/checkout", async function (request, response) {
   const cart = await getData(
     `EXEC spa_book_checkout @userId= ${userId} , @bookIds = '${id}'`
   );
-  // if (cart.recordset[0].status === "Success") {
-  //   response.status(200).json({ message: cart.recordset[0].message });
-  //   return;
-  // } else if (cart.recordset[0].status === "Error") {
-  //   response.status(201).json({ message: cart.recordset[0].message });
-  //   return;
-  // }
+  console.log(cart.recordset[0]);
+  if (cart.recordset[0].status) {
+    response.status(200).json({ message: cart.recordset[0] });
+    return;
+  }
   response.status(200).json({ cart: cart.recordsets[0] });
 });
 
