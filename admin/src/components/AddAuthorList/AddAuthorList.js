@@ -24,7 +24,7 @@ function AddAuthorList() {
       encType="multipart/form-data"
       onSubmit={(e) => {
         insertAuthor();
-        e.preventDefault();
+        // e.preventDefault();
       }}
     >
       <h1>Add Author</h1>

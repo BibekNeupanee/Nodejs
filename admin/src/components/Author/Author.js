@@ -50,7 +50,7 @@ function Author(props) {
                 className="btn"
                 title="Edit"
                 onClick={(_) =>
-                  props.onShowPopUp(<EditAuthor authorId={author.id} />)
+                  props.onShowPopUp(<EditAuthor author={author} />)
                 }
               >
                 Edit

@@ -10,10 +10,17 @@ GO
 
 CREATE PROCEDURE spa_update_author
 	@id int
-	,@name varchar(255)
+	, @name varchar(255) = NULL
+	, @image varchar(MAX) =NULL
 AS
 BEGIN
+
 	SET NOCOUNT ON;
-	UPDATE Authors SET name = @name WHERE id = @id
+
+	UPDATE a
+		SET a.name = ISNULL(@name, a.name) 
+		 , a.image  = ISNULL(@image,a.image)
+		FROM Authors a
+		WHERE id = @id
 END
 GO

@@ -42,7 +42,7 @@ function Header() {
   } else {
     return (
       <header class="main-header">
-        <div class="main-header__top">
+        <div class="main-header__top">                                                          
           <div class="main-header__contact">
             <i class="fa-solid fa-mobile-button" />
             +977-9861282149
@@ -52,7 +52,7 @@ function Header() {
               <i class="fa-solid fa-user" />
               <span>{user?.name}</span>
             </Link>
-            <Link to={"/cart"}>
+            <Link to={"/login"}>
               <i class="fa-solid fa-cart-shopping"></i>
             </Link>
           </div>

@@ -42,10 +42,16 @@ router.get("/author/:id", async function (request, response) {
 });
 
 //Update Author
-router.put("/", async (request, response) => {
-  const { id, author } = request.body;
+router.put("/", upload.single("image"), async function (request, response) {
+  const imageURL = `${process.env.BASE_URL}:${process.env.PORT}/uploads/author-picture/${request.file.filename}`;
+  console.log(request.body);
+  const { id, name } = request.body;
+
+  console.log(
+    `EXEC spa_update_author @id = ${id}, @name = '${name}', @image ='${imageURL}'`
+  );
   const data = await getData(
-    `EXEC spa_update_author @id = ${id}, @name = '${author}'`
+    `EXEC spa_update_author @id = ${id}, @name = '${name}', @image ='${imageURL}'`
   );
   response.send(200);
 });

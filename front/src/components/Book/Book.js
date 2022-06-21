@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";x
 import BooksCategory from "../BooksCategory/BooksCategory";
 import "./Book.scss";
 

@@ -2,43 +2,50 @@ import React, { useState } from "react";
 import useFetch from "../../hooks/useFetch";
 
 function EditAuthor(props) {
-  const [author, setAuthor] = useState("");
-
   const authors =
-    useFetch(`http://localhost:3000/authors/${props.authorId}`)?.authors || [];
+    useFetch(`http://localhost:3000/authors/${props.author.id}`)?.authors || [];
+
+  const [formData, setFormData] = useState({
+    name: props.author.name,
+  });
 
   const btnSave = async function () {
+    const fd = new FormData();
+    fd.append("id", props.author.id);
+    fd.append("name", formData.name);
+    fd.append("image", document.querySelector('input[name="image"]').files[0]);
+    console.log(formData.name);
+    console.log(document.querySelector('input[name="image"]').files[0]);
     await fetch("http://localhost:3000/authors", {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: props.authorId,
-        author: author,
-      }),
+      headers: {},
+      body: fd,
     });
   };
 
   return (
-    <form className="edit-author">
+    <form
+      className="add-author"
+      encType="multipart/form-data"
+      onSubmit={(e) => {
+        btnSave();
+        // e.preventDefault();
+      }}
+    >
       <h3>Edit Author</h3>
-      {authors.map((author, i) => (
-        <label className="old-type" key={i}>
-          <b>Previous Author:</b> {author.name}
-        </label>
-      ))}
       <div className="new-author">
         <label>Enter New Author</label>
-        <input type="text" onInput={(e) => setAuthor(e.target.value)} />
+        <input
+          type="text"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        />
       </div>
-      <button
-        onClick={(e) => {
-          btnSave();
-        }}
-      >
-        Save
-      </button>
+      <div className="image">
+        <span>Insert Image: </span>
+        <input name="image" type="file" accept=".jpg,.png,.jpeg" />
+      </div>
+      <button type="submit">Save</button>
     </form>
   );
 }
